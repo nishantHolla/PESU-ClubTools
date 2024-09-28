@@ -1,0 +1,13 @@
+{
+  "name": "pesu_club_tools_backend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7"
+  }
+}
