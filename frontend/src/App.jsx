@@ -1,12 +1,15 @@
 import { useState } from "react"
 
 function App() {
-  const [serverResponse, setServerResponse] = useState('');
+  const [serverResponse, setServerResponse] = useState('Once button is clicked this line should change');
 
   const pingServer = async () => {
     const response = await fetch("http://localhost:3000/ping");
     const data = await response.json();
-    setServerResponse(`Server says: ${data.message}`);
+
+    if (response.status === 200) {
+      setServerResponse(`Server says: ${data.message}`);
+    }
   }
 
   return (
