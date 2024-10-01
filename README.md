@@ -4,10 +4,10 @@ PESU Sem 3: Mini project for Web Tech.
 
 # Team Members
 
-Nishant Holla - PES1UG23CS401
-Pranav Hemanth - PES1UG23CS433
-Aneesh Dutt - PES1UG23CS371
-Nagarjun A H - PES1UG23CS375
+Nishant Holla - PES1UG23CS401 </br>
+Pranav Hemanth - PES1UG23CS433 </br>
+Aneesh Dutt - PES1UG23CS371 </br>
+Nagarjun A H - PES1UG23CS375 </br>
 
 ## Setup
 
