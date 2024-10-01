@@ -1,5 +1,13 @@
 # PESU_ClubTools
+
 PESU Sem 3: Mini project for Web Tech.
+
+# Team Members
+
+Nishant Holla - PES1UG23CS401
+Pranav Hemanth - PES1UG23CS433
+Aneesh Dutt - PES1UG23CS371
+Nagarjun A H - PES1UG23CS375
 
 ## Setup
 
@@ -23,12 +31,14 @@ npm install --prefix ./frontend
 ```
 
 4. Start backend server
+
 ```bash
 cd ./backend
 npm run dev
 ```
 
 5. Start frontend server - Open new terminal and cd into the frontend folder
+
 ```bash
 cd ./frontend
 npm run dev
