@@ -11,10 +11,13 @@ Nagarjun A H - PES1UG23CS375 </br>
 
 ## Setup
 
-1. Clone the repo
+1. Generate a new ssh key and add it to github
+[Follow this video](https://www.youtube.com/watch?v=2kuG9ElVMhM)
+
+2. Clone the repo
 
 ```bash
-git clone https://github.com/nishantHolla/PESU_ClubTools.git
+git clone git@github.com:nishantHolla/PESU_ClubTools.git
 cd PESU_ClubTools
 ```
 
@@ -45,3 +48,14 @@ npm run dev
 ```
 
 6. Check setup - open [http://localhost:5173](http://localhost:5173) in browser and click ping server button
+
+7. To check if you are able to push changes to github, edit this README.md file with some new text (it can be anything).
+And then push the changes to github
+
+```bash
+git config --global user.email "change this with your github email id"
+git config --global user.name "change this with your github username"
+git add README.md
+git commit -m "Updated the readme file"
+git push origin main
+```
