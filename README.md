@@ -12,7 +12,7 @@ Nagarjun A H - PES1UG23CS375 </br>
 ## Setup
 
 1. Generate a new ssh key and add it to github
-[Follow this video](https://www.youtube.com/watch?v=2kuG9ElVMhM)
+[Follow this video](https://www.youtube.com/watch?v=O5H_KFzla6M)
 
 2. Clone the repo
 
