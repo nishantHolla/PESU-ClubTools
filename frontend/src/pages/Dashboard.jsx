@@ -8,11 +8,11 @@ function Dashboard() {
   const { uid } = useParams();
   const { user, logout } = useSession();
 
-  if (!user) {
-    return navigate("/");
-  }
-
   useEffect(() => {
+    if (!user) {
+      return navigate("/");
+    }
+
     if (user.uid !== uid) {
       return navigate(`/u/${user.uid}`);
     }
@@ -26,7 +26,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Hi {user.displayName}</h1>
+      <h1>Hi {user && user.displayName}</h1>
       <button onClick={handleLogout}>
         <h3>logout</h3>
       </button>
