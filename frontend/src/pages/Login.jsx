@@ -1,8 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSession } from "../lib/session";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
   const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { login_google, user } = useSession();
+
+  useEffect(() => {
+    if (user) {
+      return navigate(`/u/${user.uid}`);
+    }
+  }, []);
+
+  const handleLoginGoogle = () => {
+    setLoading(true);
+    login_google().then(() => {
+      return navigate(`/u/`);
+    });
+  };
 
   const toggleMode = () => {
     setDarkMode(!darkMode);
@@ -25,17 +44,16 @@ function Login() {
             <input type="password" placeholder="Password" required />
             <span className="icon">&#128274;</span>
           </div>
-          <div className="remember-forgot">
-            <label>
-              <input type="checkbox" /> Remember me
-            </label>
-            <a href="#">Forgot Password?</a>
-          </div>
-          <button type="submit" className="btn">
-            Login
+          <button type="submit" className="btn" disabled={loading}>
+            {loading ? "Loading" : "Login"}
           </button>
-          <button type="button" className="btn google-btn">
-            Sign in with Google
+          <button
+            type="button"
+            className="btn google-btn"
+            disabled={loading}
+            onClick={handleLoginGoogle}
+          >
+            {loading ? "Loading" : "Sign in with Google"}
           </button>
         </form>
         <div className="register">

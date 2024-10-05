@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap");
+button[disabled] {
+  background: #6b7280;
+}
 .background1 {
   height: 98vh;
   width: 83vh;
