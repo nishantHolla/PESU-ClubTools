@@ -10,11 +10,9 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const { login_google, user } = useSession();
 
-  useEffect(() => {
-    if (user) {
-      return navigate(`/u/${user.uid}`);
-    }
-  }, []);
+  if (user) {
+    return navigate(`/u/${user.uid}`);
+  }
 
   const handleLoginGoogle = () => {
     setLoading(true);

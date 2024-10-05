@@ -8,21 +8,21 @@ function Dashboard() {
   const { uid } = useParams();
   const { user, logout } = useSession();
 
+  if (!user) {
+    return navigate("/");
+  }
+
+  useEffect(() => {
+    if (user.uid !== uid) {
+      return navigate(`/u/${user.uid}`);
+    }
+  }, []);
+
   const handleLogout = () => {
     logout().then(() => {
       return navigate("/");
     });
   };
-
-  useEffect(() => {
-    if (!user) {
-      return navigate("/");
-    }
-
-    if (user.uid !== uid) {
-      return navigate(`/u/${user.uid}`);
-    }
-  }, []);
 
   return (
     <div>
