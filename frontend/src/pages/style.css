@@ -1,0 +1,171 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  
+  .background {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #fdf5f5, #a75dfc);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .background::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 80%);
+    animation: animate 10s linear infinite;
+    z-index: 0;
+  }
+  
+  @keyframes animate {
+    0% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(-100px) translateX(-100px);
+    }
+    100% {
+      transform: translateY(0) translateX(0);
+    }
+  }
+  
+  
+  .login-box {
+    background-color: #d9a8ff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #4b0082;
+    font-size: 24px;
+  }
+  
+  
+  .textbox {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .textbox input {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding-left: 35px;
+    font-size: 14px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .textbox .icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+  }
+  
+  
+  .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .remember-forgot a {
+    text-decoration: none;
+    color: #4b0082;
+  }
+  
+  
+  .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .google-btn {
+    background-color: #555;
+  }
+  
+  
+  .register {
+    margin-top: 10px;
+  }
+  
+  .register a {
+    text-decoration: none;
+    color: #4b0082;
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    .login-box {
+      width: 90%;
+    }
+  }
+  
+  
+  body.dark-mode {
+    background-color: #121212;
+  }
+  
+  body.dark-mode .login-box {
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  
+  body.dark-mode h2,
+  body.dark-mode .remember-forgot a,
+  body.dark-mode .register a {
+    color: #ffffff;
+  }
+  
+  body.dark-mode .textbox input {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+  }
+  
+  .mode-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s;
+  }
+  
+  .mode-toggle:hover {
+    background-color: #ddd;
+  }
+  

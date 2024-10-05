@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap");
+.background1 {
+  height: 98vh;
+  width: 83vh;
+  background-color: rgb(115, 24, 181);
+  z-index: 1;
+}
+.signup_page {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+}
+.hero11 {
+  background-color:whitesmoke;
+  width: 1000px;
+  height: 98vh;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 2;
+  position: absolute;
+  margin-left: 80vh;
+  border-left: solid 2px black;
+  padding: 30px;
+}
+body {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
+.Name {
+  display: flex;
+}
+.heading1 {
+  color: black;
+  font-size: 40px;
+  font-weight: bolder;
+  font-family: "Outfit", sans-serif;
+  left: 50px;
+  top: 30px;
+}
+.label1 {
+  font-size: 20px;
+  color: #7b7575;
+  font-family: "Outfit", sans-serif;
+  z-index: 3;
+  background-color: whitesmoke;
+  position: relative;
+  top: 13px;
+  width: fit-content;
+  left: 18px;
+  padding: 3px;
+}
+.namefield {
+  width: 350px;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 12px;
+  background-color: whitesmoke;
+  font-family: "Outfit", sans-serif;
+  font-size: 20px;
+  padding: 5px;
+}
+.ele2 {
+  margin-left: 30px;
+}
+.emailfield {
+  width: 750px;
+  height: 50px;
+  border: 2px solid black;
+  border-radius: 12px;
+  background-color: whitesmoke;
+  font-family: "Outfit", sans-serif;
+  font-size: 20px;
+  padding: 5px;
+}
+.btn1 {
+  width: 750px;
+  height: 50px;
+  margin-top: 40px;
+  border-radius: 10px;
+  border: solid 2px black;
+  font-size: 30px;
+  background-color: blue;
+  font-weight: 550;
+}
+.text2 {
+  font-family: "Outfit", sans-serif;
+  color: blue;
+  padding: 5px;
+  position: relative;
+  top: 8px;
+  font-size: 18px;
+}
+.line {
+  border: 1px solid black;
+  width: 350px;
+  position: absolute;
+  margin-top: 20px;
+}
+.text3 {
+  font-family: "Outfit", sans-serif;
+  color: blue;
+  padding: 5px;
+  position: relative;
+  font-size: 18px;
+  margin-left: 360px;
+}
+.line1 {
+  border: 1px solid black;
+  width: 350px;
+  position: absolute;
+  margin-top: 20px;
+  left: 425px;
+}
+.or {
+  display: flex;
+}
+.btn2{
+    width: 750px;
+    height: 50px;
+    margin-top: 40px;
+    border-radius: 10px;
+    border: solid 2px black;
+    font-size: 30px;
+    background-color: rgb(115, 24, 181);
+    font-weight: 550;
+  }
+.text4{
+  font-family: "Outfit", sans-serif;
+  color: blue;
+  padding: 5px;
+  position: relative;
+  top: 8px;
+  font-size: 18px;
+  text-decoration: none;
+
+}
