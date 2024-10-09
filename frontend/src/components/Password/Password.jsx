@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function Password({ children, ...props }) {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="password-component">
       <Icon type="password" />
