@@ -1,8 +1,7 @@
-
 :root {
   --theme-0: #ffffff;
   --theme-100: #dee8fb;
-  --theme-200: #C4D7F9;
+  --theme-200: #c4d7f9;
   --theme-300: #9bbdf5;
   --theme-400: #6c9bee;
   --theme-500: #4977e8;
@@ -10,5 +9,10 @@
   --theme-700: #2a45c3;
   --theme-800: #293ba4;
   --theme-900: #263682;
+  --theme-950: #1c244f;
   --theme-1000: #000000;
+}
+
+body {
+  background: var(--theme-950);
 }
