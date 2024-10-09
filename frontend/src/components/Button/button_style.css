@@ -1,0 +1,15 @@
+.button-component {
+  background-color: var(--theme-400);
+  border-radius: var(--border-radius);
+  padding: var(--button-padding);
+  margin: var(--button-margin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+
+  button {
+    background: transparent;
+    border: none;
+  }
+}
