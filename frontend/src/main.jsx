@@ -2,8 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import "./styles/colors.css"
-import "./styles/fonts.css"
+import "./styles/colors.css";
+import "./styles/fonts.css";
+import "./styles/layout.css";
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -41,6 +42,6 @@ const router = rout();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-      <RouterProvider router={router} />
-  </StrictMode>,
+    <RouterProvider router={router} />
+  </StrictMode>
 );
