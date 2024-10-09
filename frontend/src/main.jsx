@@ -10,28 +10,35 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import MainLayout from "./layouts/MainLayout";
 
 function rout() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: "/u/:uid",
-      element: <Dashboard />,
-    },
-    {
-      path: "/u",
-      element: <Dashboard />,
+      element: <MainLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "signup",
+          element: <Signup />,
+        },
+        {
+          path: "u/:uid",
+          element: <Dashboard />,
+        },
+        {
+          path: "u",
+          element: <Dashboard />,
+        },
+      ],
     },
   ]);
 
