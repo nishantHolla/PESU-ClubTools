@@ -33,6 +33,19 @@ function NavBar() {
     return [];
   };
 
+  const getActions = (pathname) => {
+    if (pathname === "/") {
+      return (
+        <>
+          <Button>Signup</Button>
+          <Button>Login</Button>
+        </>
+      );
+    }
+
+    return <></>;
+  };
+
   return (
     <nav className="navbar-component">
       <div className="navbar-top">
@@ -47,10 +60,7 @@ function NavBar() {
             <NavLink text={l.name} href={l.href} key={i} />
           ))}
         </div>
-        <div className="navbar-top-right">
-          <Button>Signup</Button>
-          <Button>Login</Button>
-        </div>
+        <div className="navbar-top-right">{getActions(pathname)}</div>
       </div>
     </nav>
   );
