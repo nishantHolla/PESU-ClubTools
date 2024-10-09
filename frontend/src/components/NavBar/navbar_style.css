@@ -1,10 +1,41 @@
 .navbar-component {
-  background-color: var(--theme-100);
+  background: var(--theme-100);
   width: 100%;
-  height: 7dvh;
-  padding: 10px 20px;
 
   display: flex;
-  justify-content: space-between;
+  flex-flow: column;
+
+  button {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 10px 20px;
+    min-width: 70px;
+  }
+}
+
+.navbar-top {
+  min-height: 70px;
+
+  display: flex;
   align-items: center;
+  padding: 0px 20px;
+  justify-content: space-between;
+
+}
+
+.navbar-top-middle {
+  display: flex;
+  gap: 10dvw;
+  font-size: 1.3rem;
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-top-right {
+  display: flex;
+  gap: 1rem;
 }

@@ -1,23 +1,58 @@
-import { useEffect } from "react";
 import "./navbar_style.css";
 import { useLocation } from "react-router-dom";
+import Button from "../Button/Button";
+
+function NavLink({ text, href }) {
+  return (
+    <p className="navbar-link" href={href}>
+      {text}
+    </p>
+  );
+}
 
 function NavBar() {
   const location = useLocation();
+  const pathname = location.pathname;
 
-  useEffect(() => {
-    console.log(location.pathname);
-  }, []);
+  const links = {
+    "/": [
+      { name: "About", href: "/about" },
+      { name: "Getting Started", href: "/gettingStarted" },
+      { name: "Contact Us", href: "/contact" },
+    ],
+    "/u": [
+      { name: "My Projects", href: "/about" },
+      { name: "Templates", href: "/gettingStarted" },
+      { name: "Documentation", href: "/contact" },
+    ],
+  };
+
+  const getLinks = (pathname) => {
+    if (pathname.startsWith("/u")) return links["/u"];
+    else if (links[pathname]) return links[pathname];
+    return [];
+  };
 
   return (
-    <div className="navbar-component">
-      <img
-        src="/images/logo_transparent.png"
-        width="150px"
-        height="80%"
-        alt="logo"
-      />
-    </div>
+    <nav className="navbar-component">
+      <div className="navbar-top">
+        <img
+          src="/images/logo_transparent.png"
+          width="153px"
+          height="40px"
+          alt="logo"
+        />
+        <div className="navbar-top-middle">
+          {getLinks(pathname).map((l, i) => (
+            <NavLink text={l.name} href={l.href} key={i} />
+          ))}
+        </div>
+        <div className="navbar-top-right">
+          <Button>Signup</Button>
+          <Button>Login</Button>
+        </div>
+      </div>
+    </nav>
   );
 }
 
