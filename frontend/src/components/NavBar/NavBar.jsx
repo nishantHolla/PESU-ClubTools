@@ -1,16 +1,19 @@
 import "./navbar_style.css";
 import { useLocation } from "react-router-dom";
 import Button from "../Button/Button";
+import Icon from "../Icon/Icon";
+import { useState } from "react";
 
 function NavLink({ text, href }) {
   return (
-    <p className="navbar-link" href={href}>
+    <span className="navbar-link" href={href}>
       {text}
-    </p>
+    </span>
   );
 }
 
 function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -47,7 +50,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar-component">
+    <nav className="navbar-component" data-state={isOpen ? 'open' : 'close'}>
       <div className="navbar-top">
         <img
           src="/images/logo_transparent.png"
@@ -61,6 +64,19 @@ function NavBar() {
           ))}
         </div>
         <div className="navbar-top-right">{getActions(pathname)}</div>
+        <Icon
+          type={isOpen ? "mdi:close" : "mdi:menu"}
+          className="navbar-icon"
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        />
+      </div>
+      <div className="navbar-bottom">
+        {getLinks(pathname).map((l, i) => (
+          <NavLink text={l.name} href={l.href} key={i} />
+        ))}
+        <div className="navbar-bottom-actions">{getActions(pathname)}</div>
       </div>
     </nav>
   );

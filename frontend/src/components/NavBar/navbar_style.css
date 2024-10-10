@@ -1,9 +1,47 @@
 .navbar-component {
+  position: relative;
   background: var(--theme-100);
   width: 100%;
 
   display: flex;
   flex-flow: column;
+}
+
+.navbar-bottom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--theme-100);
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  align-items: center;
+  overflow: hidden;
+  font-size: 1.5rem;
+  padding: 0 10px;
+  transition: height 250ms linear;
+
+  .navbar-link {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+nav[data-state="close"] .navbar-bottom {
+  height: 0px;
+}
+
+nav[data-state="open"] .navbar-bottom {
+  height: 200px;
+}
+
+.navbar-bottom-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 20px;
 }
 
 .navbar-top {
@@ -17,17 +55,28 @@
 
 .navbar-top-middle {
   display: flex;
-  gap: 10dvw;
-  font-size: 1.3rem;
-}
-
-.navbar-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 5dvw;
+  font-size: clamp(1rem, 10vw, 1.3rem);
 }
 
 .navbar-top-right {
   display: flex;
   gap: 1rem;
+}
+
+.navbar-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+@media only screen and (max-width: 800px) {
+  .navbar-top-middle, .navbar-top-right {
+    display: none;
+  }
+
+  .navbar-icon {
+    display: block;
+  }
+
 }
