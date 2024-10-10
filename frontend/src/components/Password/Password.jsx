@@ -2,7 +2,7 @@ import Icon from "../Icon/Icon";
 import "./password_style.css";
 import { useState } from "react";
 
-function Password({ children, ...props }) {
+function Password({ children, placeholder, ...props }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ function Password({ children, ...props }) {
       <input
         {...props}
         type={isOpen ? "text" : "password"}
-        placeholder="Password"
+        placeholder={placeholder || "Password"}
       />
       <div
         onClick={() => {
