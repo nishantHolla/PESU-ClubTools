@@ -1,17 +1,8 @@
 import "./button_style.css";
 
-function Button({ color, ...props }) {
-  if (!color) color = "var(--theme-0)";
-
+function Button({ ...props }) {
   return (
-    <div
-      className="button-component"
-      style={{
-        background: color,
-      }}
-    >
-      <button {...props} />
-    </div>
+    <button {...props} className={`button-component ${props.className}`} />
   );
 }
 
