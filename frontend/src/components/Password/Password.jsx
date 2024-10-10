@@ -7,7 +7,7 @@ function Password({ children, ...props }) {
 
   return (
     <div className="password-component">
-      <Icon type="password" />
+      <Icon type="mdi:lock" />
       {children}
       <input
         {...props}
@@ -19,7 +19,7 @@ function Password({ children, ...props }) {
           setIsOpen(!isOpen);
         }}
       >
-        <Icon type={isOpen ? "eye-opened" : "eye-closed"} />
+        <Icon type={isOpen ? "mdi:eye" : "mdi:eye-off"} />
       </div>
     </div>
   );

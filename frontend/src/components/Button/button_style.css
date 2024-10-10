@@ -1,5 +1,6 @@
 .button-component {
   border-radius: var(--border-radius);
+  border: none;
   color: var(--theme-1000);
   background-color: var(--theme-0);
 
