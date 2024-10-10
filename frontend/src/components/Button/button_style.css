@@ -1,13 +1,21 @@
 .button-component {
   border-radius: var(--border-radius);
+  color: var(--theme-1000);
+  background-color: var(--theme-0);
 
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max-content;
+  width: 100%;
+  min-width: 100px;
 
-  button {
-    background: transparent;
-    border: none;
-  }
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+
+  cursor: pointer;
+}
+
+.button-component:hover {
+  color: var(--theme-0);
+  background-color: var(--theme-1000);
 }
