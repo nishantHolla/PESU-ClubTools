@@ -6,7 +6,7 @@ import "./styles/colors.css";
 import "./styles/fonts.css";
 import "./styles/layout.css";
 
-import Signup from "./pages/Signup";
+import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
