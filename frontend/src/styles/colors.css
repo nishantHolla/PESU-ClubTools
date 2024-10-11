@@ -11,6 +11,15 @@
   --theme-900: #263682;
   --theme-950: #1c244f;
   --theme-1000: #000000;
+
+  --theme-error: #ef4444;
+  --theme-error-dark: #450a0a;
+
+  --theme-warning: #eab308;
+  --theme-warning-dark: #422006;
+
+  --theme-success: #22c55e;
+  --theme-success-dark: #052e16;
 }
 
 body {

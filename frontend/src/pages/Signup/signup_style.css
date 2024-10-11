@@ -46,3 +46,11 @@
     color: var(--theme-1000);
   }
 }
+
+.signup-form .input-component:has(.signup-error) {
+  outline: 3px solid var(--theme-error);
+}
+
+.signup-form * {
+  transition: outline-width 100ms linear;
+}

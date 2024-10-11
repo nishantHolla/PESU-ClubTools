@@ -6,7 +6,7 @@ function Password({ children, placeholder, ...props }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="password-component">
+    <div className="password-component input-component">
       <Icon type="eva:lock" />
       {children}
       <input
