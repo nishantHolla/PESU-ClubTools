@@ -15,6 +15,7 @@ function NavLink({ text, href }) {
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isWide, setIsWide] = useState(true);
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -59,16 +60,21 @@ function NavBar() {
   };
 
   const checkWindowWidth = () => {
-    if (window.innerWidth > 800) setIsOpen(false);
+    setIsWide(window.innerWidth > 800);
   };
 
   useEffect(() => {
     window.addEventListener("resize", checkWindowWidth);
+    checkWindowWidth();
 
     return () => {
       window.removeEventListener("resize", checkWindowWidth);
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    if (isWide && isOpen) setIsOpen(false);
+  }, [isWide]);
 
   return (
     <nav className="navbar-component" data-state={isOpen ? "open" : "close"}>
@@ -84,20 +90,22 @@ function NavBar() {
           </Link>
         </div>
         <div className="navbar-top-middle">
-          {getLinks(pathname).map((l, i) => (
+          {isWide && getLinks(pathname).map((l, i) => (
             <NavLink text={l.name} href={l.href} key={i} />
           ))}
         </div>
-        <div className="navbar-top-right">{getActions(pathname)}</div>
-        {getLinks(pathname).length > 0 && (
-          <Icon
-            type={isOpen ? "eva:close" : "eva:menu"}
-            className="navbar-icon"
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-          />
-        )}
+        <div className="navbar-top-right">
+          {isWide && getActions(pathname)}
+          {getLinks(pathname).length > 0 && !isWide && (
+            <Icon
+              type={isOpen ? "eva:close" : "eva:menu"}
+              className="navbar-icon"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            />
+          )}
+        </div>
       </div>
       <div className="navbar-bottom">
         {getLinks(pathname).map((l, i) => (

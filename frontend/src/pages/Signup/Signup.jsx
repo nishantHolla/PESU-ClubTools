@@ -17,8 +17,8 @@ function Signup() {
           <Input icon="eva:mail" placeholder="Email"></Input>
           <Password placeholder="Enter password" />
           <Password placeholder="Re-enter password" />
-          <Button>Signup</Button>
-          <Button>Signup with Google</Button>
+          <Button>Sign up</Button>
+          <Button>Sign up with Google</Button>
           <p className="signup-redirect">Already a member? Login here</p>
         </div>
       </Box>
