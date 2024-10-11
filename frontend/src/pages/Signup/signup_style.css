@@ -3,23 +3,34 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 1rem;
 
-  .icon {
-    font-size: 1.5rem;
+  .signup-form {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    gap: 20px;
+  }
+
+  .signup-form > * {
+    flex-grow: 1;
+  }
+
+  .signup-heading {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 10px;
   }
 }
 
 .signup-box {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-flow: column;
-  gap: 10px;
+  gap: 40px;
   color: var(--theme-0);
 
   .icon {
-    font-size: 2rem;
     color: var(--theme-1000);
   }
 }

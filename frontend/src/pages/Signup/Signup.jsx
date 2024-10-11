@@ -8,15 +8,19 @@ function Signup() {
   return (
     <div className="signup-container">
       <Box className="signup-box">
-        <h2>Join us today!</h2>
-        <p>Signup now to become a member</p>
-        <Input icon="mdi:user" placeholder="Clubname"></Input>
-        <Input icon="mdi:mail" placeholder="Email"></Input>
-        <Input icon="mdi:password" placeholder="Password"></Input>
-        <Password placeholder="Re-enter password" />
-        <Button>Signup</Button>
-        <p>Already a member? Login here</p>
-        <Button>Signup with Google</Button>
+        <div className="signup-heading">
+          <h2>Join us today!</h2>
+          <p>Signup now to become a member</p>
+        </div>
+        <div className="signup-form">
+          <Input icon="eva:person" placeholder="Clubname"></Input>
+          <Input icon="eva:mail" placeholder="Email"></Input>
+          <Password placeholder="Enter password" />
+          <Password placeholder="Re-enter password" />
+          <Button>Signup</Button>
+          <p>Already a member? Login here</p>
+          <Button>Signup with Google</Button>
+        </div>
       </Box>
     </div>
   );
