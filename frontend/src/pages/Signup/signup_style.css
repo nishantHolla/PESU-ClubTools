@@ -17,6 +17,7 @@
     flex-flow: column;
     flex-grow: 1;
     gap: 20px;
+    padding: 3px;
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;

@@ -2,7 +2,8 @@
 .status-component {
   position: absolute;
   left: 50%;
-  top: 10px;
+  top: 0px;
+  margin: 10px;
   z-index: 1000;
   transform: translateX(-50%);
 

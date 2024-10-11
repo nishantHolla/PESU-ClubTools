@@ -22,7 +22,7 @@ export function StatusProvider({ children }) {
   return (
     <StatusContext.Provider value={[setStatus]}>
       {message && (
-        <div className="status-component" data-type={type || "none"}>
+        <div className="status-component" data-type={type || "none"} onClick={() => setMessage("")}>
           <Icon type={`eva:${type}`} />
           {message}
         </div>
