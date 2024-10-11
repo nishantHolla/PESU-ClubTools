@@ -2,7 +2,8 @@ import "./navbar_style.css";
 import { useLocation } from "react-router-dom";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function NavLink({ text, href }) {
   return (
@@ -36,12 +37,20 @@ function NavBar() {
     return [];
   };
 
+  const closeNavBar = () => {
+    setIsOpen(false);
+  };
+
   const getActions = (pathname) => {
     if (pathname === "/") {
       return (
         <>
-          <Button>Signup</Button>
-          <Button>Login</Button>
+          <Link to="/signup">
+            <Button onClick={closeNavBar}>Signup</Button>
+          </Link>
+          <Link to="/login">
+            <Button onClick={closeNavBar}>Login</Button>
+          </Link>
         </>
       );
     }
@@ -49,28 +58,46 @@ function NavBar() {
     return <></>;
   };
 
+  const checkWindowWidth = () => {
+    if (window.innerWidth > 800) setIsOpen(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", checkWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", checkWindowWidth);
+    };
+  });
+
   return (
-    <nav className="navbar-component" data-state={isOpen ? 'open' : 'close'}>
+    <nav className="navbar-component" data-state={isOpen ? "open" : "close"}>
       <div className="navbar-top">
-        <img
-          src="/images/logo_transparent.png"
-          width="153px"
-          height="40px"
-          alt="logo"
-        />
+        <div className="navbar-top-left">
+          <Link to="/">
+            <img
+              src="/images/logo_transparent.png"
+              width="153px"
+              height="40px"
+              alt="logo"
+            />
+          </Link>
+        </div>
         <div className="navbar-top-middle">
           {getLinks(pathname).map((l, i) => (
             <NavLink text={l.name} href={l.href} key={i} />
           ))}
         </div>
         <div className="navbar-top-right">{getActions(pathname)}</div>
-        <Icon
-          type={isOpen ? "mdi:close" : "mdi:menu"}
-          className="navbar-icon"
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        />
+        {getLinks(pathname).length > 0 && (
+          <Icon
+            type={isOpen ? "eva:close" : "eva:menu"}
+            className="navbar-icon"
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        )}
       </div>
       <div className="navbar-bottom">
         {getLinks(pathname).map((l, i) => (

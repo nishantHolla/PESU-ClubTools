@@ -1,8 +1,10 @@
 import "./button_style.css";
 
-function Button({ ...props }) {
+function Button({ className, ...props }) {
+  if (!className) className = ''
+
   return (
-    <button {...props} className={`button-component ${props.className}`} />
+    <button {...props} className={`button-component ${className}`} />
   );
 }
 

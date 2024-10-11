@@ -12,15 +12,18 @@
   top: 100%;
   left: 0;
   right: 0;
+  z-index: 1000;
+
+  font-size: 1.3rem;
+  transition: transform 100ms linear;
+  transform-origin: top left;
+  padding: 0 10px;
   background: var(--theme-100);
+  overflow: hidden;
+
   display: flex;
   flex-flow: column;
-  gap: 10px;
   align-items: center;
-  overflow: hidden;
-  font-size: 1.5rem;
-  padding: 0 10px;
-  transition: height 250ms linear;
 
   .navbar-link {
     height: 40px;
@@ -31,17 +34,17 @@
 }
 
 nav[data-state="close"] .navbar-bottom {
-  height: 0px;
+  transform: scaleY(0)
 }
 
 nav[data-state="open"] .navbar-bottom {
-  height: 200px;
+  transform: scaleY(1)
 }
 
 .navbar-bottom-actions {
   display: flex;
   gap: 1rem;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .navbar-top {
@@ -56,7 +59,7 @@ nav[data-state="open"] .navbar-bottom {
 .navbar-top-middle {
   display: flex;
   gap: 5dvw;
-  font-size: clamp(1rem, 10vw, 1.3rem);
+  font-size: 1rem;
 }
 
 .navbar-top-right {
