@@ -11,8 +11,10 @@
   justify-content: center;
   flex-flow: column;
   gap: 10px;
+  color: var(--theme-0);
 
   .icon {
     font-size: 2rem;
+    color: var(--theme-1000);
   }
 }
