@@ -1,6 +1,7 @@
 .navbar-component {
   position: relative;
   background: var(--theme-100);
+  color: var(--theme-1000);
   width: 100%;
 
   display: flex;
