@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import MainLayout from "./layouts/MainLayout";
+import { StatusProvider } from "./providers/status/Status";
 
 function rout() {
   const router = createBrowserRouter([
@@ -49,6 +50,8 @@ const router = rout();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+    <StatusProvider>
+      <RouterProvider router={router} />
+    </StatusProvider>
+  </StrictMode>,
 );

@@ -1,0 +1,41 @@
+
+.status-component {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  z-index: 1000;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  border-radius: 10px;
+  width: max-content;
+  min-width: 300px;
+  border: 3px solid transparent;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 1rem;
+
+  .icon-component {
+    font-size: 1.3rem;
+  }
+}
+
+.status-component[data-type="error"] {
+  background: var(--theme-error);
+  border-color: var(--theme-error-dark);
+  color: var(--theme-error-dark);
+}
+
+.status-component[data-type="warning"] {
+  background: var(--theme-warning);
+  border-color: var(--theme-warning-dark);
+  color: var(--theme-warning-dark);
+}
+
+.status-component[data-type="success"] {
+  background: var(--theme-success);
+  border-color: var(--theme-success-dark);
+  color: var(--theme-success-dark);
+}

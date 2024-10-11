@@ -16,7 +16,12 @@
   cursor: pointer;
 }
 
-.button-component:hover {
+.button-component:not(:disabled):hover {
   color: var(--theme-0);
   background-color: var(--theme-1000);
+}
+
+.button-component[disabled] {
+  filter: brightness(75%);
+  cursor: default;
 }
