@@ -1,6 +1,8 @@
 import "./box_style.css";
 
 function Box({ color, children, className, ...props }) {
+  if (!className) className = "";
+
   return (
     <div
       className={`box-component ${className}`}

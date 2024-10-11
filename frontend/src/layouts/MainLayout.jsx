@@ -3,10 +3,14 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
-    <>
-      <NavBar />
-      <Outlet />
-    </>
+    <div className="main-layout">
+      <header>
+        <NavBar />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 }
 

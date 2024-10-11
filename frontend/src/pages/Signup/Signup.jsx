@@ -18,8 +18,8 @@ function Signup() {
           <Password placeholder="Enter password" />
           <Password placeholder="Re-enter password" />
           <Button>Signup</Button>
-          <p>Already a member? Login here</p>
           <Button>Signup with Google</Button>
+          <p className="signup-redirect">Already a member? Login here</p>
         </div>
       </Box>
     </div>
