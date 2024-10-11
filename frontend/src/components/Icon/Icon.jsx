@@ -25,7 +25,7 @@ function Icon({ type, className, ...props }) {
   if (Icon)
     return (
       <div className="icon-component">
-        <Icon className={`icon ${className}`} {...props} />;
+        <Icon className={`icon ${className}`} {...props} />
       </div>
     );
 

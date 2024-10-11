@@ -15,4 +15,5 @@
 
 body {
   background: var(--theme-950);
+  color: var(--theme-0);
 }
