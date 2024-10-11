@@ -7,7 +7,7 @@ function Password({ children, ...props }) {
 
   return (
     <div className="password-component">
-      <Icon type="mdi:lock" />
+      <Icon type="eva:lock" />
       {children}
       <input
         {...props}
@@ -15,11 +15,12 @@ function Password({ children, ...props }) {
         placeholder="Password"
       />
       <div
+        className="eye-container"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
-        <Icon type={isOpen ? "mdi:eye" : "mdi:eye-off"} />
+        <Icon type={isOpen ? "eva:eye" : "eva:eye-off"} />
       </div>
     </div>
   );

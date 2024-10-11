@@ -7,8 +7,8 @@ function Signup() {
   return (
     <div className="signup-container">
       <Box className="signup-box">
-        <Input icon="mdi:user" placeholder="Clubname"></Input>
-        <Input icon="mdi:mail" placeholder="Email"></Input>
+        <Input icon="eva:person" placeholder="Clubname"></Input>
+        <Input icon="eva:mail" placeholder="Email"></Input>
         <Password />
       </Box>
     </div>

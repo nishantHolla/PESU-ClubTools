@@ -50,7 +50,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="navbar-component" data-state={isOpen ? 'open' : 'close'}>
+    <nav className="navbar-component" data-state={isOpen ? "open" : "close"}>
       <div className="navbar-top">
         <img
           src="/images/logo_transparent.png"
@@ -64,13 +64,15 @@ function NavBar() {
           ))}
         </div>
         <div className="navbar-top-right">{getActions(pathname)}</div>
-        <Icon
-          type={isOpen ? "mdi:close" : "mdi:menu"}
-          className="navbar-icon"
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        />
+        {getLinks(pathname).length > 0 && (
+          <Icon
+            type={isOpen ? "eva:close" : "eva:menu"}
+            className="navbar-icon"
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        )}
       </div>
       <div className="navbar-bottom">
         {getLinks(pathname).map((l, i) => (
