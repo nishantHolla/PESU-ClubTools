@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
+import { ModalProvider } from "./providers/modal/Modal";
 
 function rout() {
   const router = createBrowserRouter([
@@ -64,9 +65,11 @@ const router = rout();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <SessionProvider>
-      <StatusProvider>
-        <RouterProvider router={router} />
-      </StatusProvider>
+      <ModalProvider>
+        <StatusProvider>
+          <RouterProvider router={router} />
+        </StatusProvider>
+      </ModalProvider>
     </SessionProvider>
   </StrictMode>
 );

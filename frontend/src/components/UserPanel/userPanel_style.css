@@ -1,0 +1,60 @@
+.userPanel-component {
+  position: absolute;
+  top: 60px;
+  right: -15px;
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  z-index: 1000;
+  background: var(--theme-100);
+  color: var(--theme-1000);
+  cursor: default;
+
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.userPanel-actions {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.userPanel-delete-account {
+  background: var(--theme-error);
+  color: var(--theme-error-dark);
+}
+
+@media only screen and (max-width: 800px) {
+  .userPanel-component {
+    top: 50px;
+    left: auto;
+    right: auto;
+  }
+}
+
+.delete-modal {
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+  font-size: 1.3rem;
+}
+
+.delete-heading {
+  font-size: 2rem;
+}
+
+.delete-confirm {
+  background: var(--theme-error);
+  color: var(--theme-error-dark);
+}
+
+.delete-actions {
+  display: flex;
+  gap: 10px;
+  min-height: 40px;
+}
