@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSession } from "../../providers/session/Session";
+import Avatar from "../Avatar/Avatar";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import { Link as RouterLink } from "react-router-dom";
@@ -79,6 +80,10 @@ function NavBar() {
     return <></>;
   };
 
+  const getAvatar = () => {
+    return <Avatar />;
+  };
+
   const checkWindowWidth = () => {
     setIsWide(window.innerWidth > 800);
   };
@@ -121,6 +126,7 @@ function NavBar() {
         </div>
         <div className="navbar-top-right">
           {isWide && getActions(pathname)}
+          {pathname.startsWith("/u") && isWide && getAvatar()}
           {getLinks(pathname).length > 0 && !isWide && (
             <Icon
               type={isOpen ? "eva:close" : "eva:menu"}
@@ -136,6 +142,7 @@ function NavBar() {
         {getLinks(pathname).map((l, i) => (
           <NavLink text={l.name} href={l.href} key={i} onClick={closeNavBar} />
         ))}
+        {pathname.startsWith("/u") && getAvatar()}
         <div className="navbar-bottom-actions">{getActions(pathname)}</div>
       </div>
     </nav>

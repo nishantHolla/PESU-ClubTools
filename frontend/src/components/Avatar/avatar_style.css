@@ -1,0 +1,16 @@
+
+.avatar-component {
+  background: var(--theme-900);
+  color: var(--theme-0);
+  border-radius: 100%;
+  border: 3px solid black;
+  font-size: 1.3rem;
+  padding: 3px;
+  aspect-ratio: 1;
+  width: 40px;
+
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+}

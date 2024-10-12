@@ -4,25 +4,26 @@ import { useSession } from "../../providers/session/Session";
 import { useStatus } from "../../providers/status/Status";
 import { useNavigate } from "react-router-dom";
 
-const SignupWithGoogle = (props) => {
+const SignupWithGoogle = ({ preClick, postClick, ...props }) => {
   const navigate = useNavigate();
   const { user, loginGoogle } = useSession();
-  const {setStatus} = useStatus();
+  const { setStatus } = useStatus();
 
   const handleLogin = () => {
-    loginGoogle()
-      .then((result) => {
-        if (result.user) {
-          navigate(`/u/${result.user.uid}/projects`);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setStatus(
-          "error",
-          "Login with Google failed. See console for details.",
-        );
-      });
+    if (preClick) preClick();
+    const loginSuccess = (user) => {
+      if (user) {
+        navigate(`/u/${user.uid}/projects`);
+      }
+    };
+
+    const loginFail = (error) => {
+      console.error(error);
+      setStatus("error", "Login with Google failed. See console for details.");
+    };
+
+    loginGoogle(loginSuccess, loginFail);
+    if (postClick) postClick();
   };
 
   return (
