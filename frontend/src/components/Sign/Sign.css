@@ -1,0 +1,20 @@
+.google-signin-button {
+    background-color: var(--theme-0); 
+    border: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  .google-signin-button:hover {
+    background-color: var(--theme-100);
+  }
+  
+  .google-signin-button svg {
+    margin-right: 10px;
+  }
+  
