@@ -1,7 +1,7 @@
 .image-frame {
   position: relative;
-  width: 250px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1920/1200;
   border-radius: 15px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.1); /* Frosted effect */
