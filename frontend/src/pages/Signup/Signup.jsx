@@ -11,6 +11,7 @@ import Password from "../../components/Password/Password";
 import Button from "../../components/Button/Button";
 import SignupWithGoogle from "../../components/SignupWithGoogle/SignupWithGoogle";
 import Link from "../../components/Link/Link";
+import "./signup_style.css";
 
 function Signup() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function Signup() {
     return String(email)
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
 
@@ -142,7 +143,12 @@ function Signup() {
           <Button disabled={!isValid || loading} onClick={handleSignup}>
             {loading ? "Loading..." : "Sign up"}
           </Button>
-          <SignupWithGoogle disabled={loading} preClick={() => {setLoading(true)}} />
+          <SignupWithGoogle
+            disabled={loading}
+            preClick={() => {
+              setLoading(true);
+            }}
+          />
           <p className="signup-redirect">
             Already a member?&nbsp;
             <Link to="/login">Login here</Link>

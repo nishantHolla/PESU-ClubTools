@@ -9,7 +9,7 @@ import "./styles/layout.css";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
@@ -68,5 +68,5 @@ createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       </StatusProvider>
     </SessionProvider>
-  </StrictMode>,
+  </StrictMode>
 );
