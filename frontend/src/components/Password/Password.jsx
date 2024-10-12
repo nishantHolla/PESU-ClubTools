@@ -2,12 +2,12 @@ import Icon from "../Icon/Icon";
 import "./password_style.css";
 import { useState } from "react";
 
-function Password({ children, placeholder, ...props }) {
+function Password({ children, placeholder, icon, ...props }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="password-component input-component">
-      <Icon type="eva:lock" />
+      <Icon type={icon || "eva:lock"} />
       {children}
       <input
         {...props}

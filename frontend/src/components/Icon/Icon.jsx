@@ -10,6 +10,7 @@ import EvaPerson from "./svgs/eva-person.svg?react";
 import EvaError from "./svgs/eva-error.svg?react";
 import EvaWarning from "./svgs/eva-warning.svg?react";
 import EvaSuccess from "./svgs/eva-success.svg?react";
+import EvaCheck from "./svgs/eva-check.svg?react";
 
 const iconMap = {
   "eva:menu": EvaMenu,
@@ -22,6 +23,7 @@ const iconMap = {
   "eva:error": EvaError,
   "eva:warning": EvaWarning,
   "eva:success": EvaSuccess,
+  "eva:check": EvaCheck,
 };
 
 function Icon({ type, className, ...props }) {
