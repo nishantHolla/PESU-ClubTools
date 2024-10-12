@@ -1,12 +1,12 @@
 import { useStatus } from "../../providers/status/Status";
+import { useEffect, useState } from "react";
 import Box from "../../components/Box/Box";
 import Input from "../../components/Input/Input";
 import Password from "../../components/Password/Password";
 import Button from "../../components/Button/Button";
-import "./signup_style.css";
-import { useEffect, useState } from "react";
 import SignupWithGoogle from "../../components/SignupWithGoogle/SignupWithGoogle";
 import Link from "../../components/Link/Link";
+import "./signup_style.css";
 
 function Signup() {
   const [setStatus] = useStatus();
@@ -33,7 +33,7 @@ function Signup() {
     return String(email)
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
 
