@@ -37,6 +37,18 @@ function rout() {
           element: <Dashboard />,
         },
         {
+          path: "u/:uid/projects",
+          element: <Dashboard />,
+        },
+        {
+          path: "u/:uid/templates",
+          element: <Dashboard />,
+        },
+        {
+          path: "u/:uid/settings",
+          element: <Dashboard />,
+        },
+        {
           path: "u",
           element: <Dashboard />,
         },

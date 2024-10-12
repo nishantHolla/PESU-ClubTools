@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -33,13 +34,17 @@ export function SessionProvider({ children }) {
     return signInWithPopup(auth, provider);
   };
 
+  const signup = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
   const logout = () => {
     return signOut(auth);
   };
 
   return (
     <SessionContext.Provider
-      value={{user, loginEmail, loginGoogle, logout, loading}}
+      value={{ user, loginEmail, loginGoogle, signup, logout, loading }}
     >
       {loading ? <Loading /> : children}
     </SessionContext.Provider>

@@ -13,7 +13,7 @@ const SignupWithGoogle = (props) => {
     loginGoogle()
       .then((result) => {
         if (result.user) {
-          navigate(`/u/${result.user.uid}`);
+          navigate(`/u/${result.user.uid}/projects`);
         }
       })
       .catch((err) => {

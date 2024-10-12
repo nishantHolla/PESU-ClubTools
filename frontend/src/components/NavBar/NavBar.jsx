@@ -1,20 +1,24 @@
 import "./navbar_style.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSession } from "../../providers/session/Session";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
-import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Link from "../Link/Link"
+import Link from "../Link/Link";
 
-function NavLink({ text, href }) {
+function NavLink({ text, href, onClick }) {
   return (
-    <Link className="navbar-link" to={href}>
+    <Link className="navbar-link" to={href} onClick={onClick}>
       {text}
     </Link>
   );
 }
 
 function NavBar() {
+  const { user } = useSession();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isWide, setIsWide] = useState(true);
   const location = useLocation();
@@ -27,34 +31,49 @@ function NavBar() {
       { name: "Contact Us", href: "/contact" },
     ],
     "/u": [
-      { name: "My Projects", href: "/about" },
-      { name: "Templates", href: "/gettingStarted" },
-      { name: "Documentation", href: "/contact" },
+      { name: "My Projects", href: `/u/:uid/projects` },
+      { name: "Templates", href: `/u/:uid/templates` },
+      { name: "Settings", href: `/u/:uid/settings` },
     ],
-  };
-
-  const getLinks = (pathname) => {
-    if (pathname.startsWith("/u")) return links["/u"];
-    else if (links[pathname]) return links[pathname];
-    return [];
   };
 
   const closeNavBar = () => {
     setIsOpen(false);
   };
 
+  const getLinks = (pathname) => {
+    if (pathname.startsWith("/u") && user) {
+      return links["/u"].map((l) => {
+        l.href = l.href.replace(":uid", user ? user.uid : "unk");
+        return l;
+      });
+    } else if (links[pathname]) {
+      return links[pathname];
+    }
+
+    return [];
+  };
+
   const getActions = (pathname) => {
     if (pathname === "/") {
-      return (
-        <>
-          <RouterLink to="/signup">
-            <Button onClick={closeNavBar}>Signup</Button>
+      if (user) {
+        return (
+          <RouterLink to={`/u/${user.uid}`}>
+            <Button onClick={closeNavBar}>Dashboard</Button>
           </RouterLink>
-          <RouterLink to="/login">
-            <Button onClick={closeNavBar}>Login</Button>
-          </RouterLink>
-        </>
-      );
+        );
+      } else {
+        return (
+          <>
+            <RouterLink to="/signup">
+              <Button onClick={closeNavBar}>Signup</Button>
+            </RouterLink>
+            <RouterLink to="/login">
+              <Button onClick={closeNavBar}>Login</Button>
+            </RouterLink>
+          </>
+        );
+      }
     }
 
     return <></>;
@@ -67,6 +86,10 @@ function NavBar() {
   useEffect(() => {
     window.addEventListener("resize", checkWindowWidth);
     checkWindowWidth();
+
+    if (pathname.startsWith("/u") && !user) {
+      navigate("/");
+    }
 
     return () => {
       window.removeEventListener("resize", checkWindowWidth);
@@ -91,9 +114,10 @@ function NavBar() {
           </RouterLink>
         </div>
         <div className="navbar-top-middle">
-          {isWide && getLinks(pathname).map((l, i) => (
-            <NavLink text={l.name} href={l.href} key={i} />
-          ))}
+          {isWide &&
+            getLinks(pathname).map((l, i) => (
+              <NavLink text={l.name} href={l.href} key={i} hello="a" />
+            ))}
         </div>
         <div className="navbar-top-right">
           {isWide && getActions(pathname)}
@@ -110,7 +134,7 @@ function NavBar() {
       </div>
       <div className="navbar-bottom">
         {getLinks(pathname).map((l, i) => (
-          <NavLink text={l.name} href={l.href} key={i} />
+          <NavLink text={l.name} href={l.href} key={i} onClick={closeNavBar} />
         ))}
         <div className="navbar-bottom-actions">{getActions(pathname)}</div>
       </div>
