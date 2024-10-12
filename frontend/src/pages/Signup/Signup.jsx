@@ -1,15 +1,21 @@
+import "./signup_style.css";
+
 import { useStatus } from "../../providers/status/Status";
+import { useEffect, useState } from "react";
+import { useSession } from "../../providers/session/Session";
+import { useNavigate } from "react-router-dom";
+
 import Box from "../../components/Box/Box";
 import Input from "../../components/Input/Input";
 import Password from "../../components/Password/Password";
 import Button from "../../components/Button/Button";
-import "./signup_style.css";
-import { useEffect, useState } from "react";
 import SignupWithGoogle from "../../components/SignupWithGoogle/SignupWithGoogle";
 import Link from "../../components/Link/Link";
 
 function Signup() {
-  const [setStatus] = useStatus();
+  const navigate = useNavigate();
+  const { signup } = useSession();
+  const { setStatus } = useStatus();
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [validity, setValidity] = useState(0);
@@ -35,6 +41,21 @@ function Signup() {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
+  };
+
+  const handleSignup = () => {
+    signup(form.email, form.password)
+      .then((cred) => {
+        navigate(`/u/${cred.user.uid}`);
+      })
+      .catch((err) => {
+        if (err.code === "auth/email-already-in-use") {
+          setStatus("error", "Email already in use. Do you want to login?");
+        } else {
+          setStatus("error", "Something went wrong. See console.");
+          console.log(err);
+        }
+      });
   };
 
   const validateForm = () => {
@@ -111,7 +132,9 @@ function Signup() {
               updateForm("confirmPassword", e.target.value);
             }}
           />
-          <Button disabled={!isValid}>Sign up</Button>
+          <Button disabled={!isValid} onClick={handleSignup}>
+            Sign up
+          </Button>
           <SignupWithGoogle />
           <p className="signup-redirect">
             Already a member?&nbsp;

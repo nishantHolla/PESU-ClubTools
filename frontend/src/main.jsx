@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
+import { SessionProvider } from "./providers/session/Session";
 
 function rout() {
   const router = createBrowserRouter([
@@ -36,6 +37,18 @@ function rout() {
           element: <Dashboard />,
         },
         {
+          path: "u/:uid/projects",
+          element: <Dashboard />,
+        },
+        {
+          path: "u/:uid/templates",
+          element: <Dashboard />,
+        },
+        {
+          path: "u/:uid/settings",
+          element: <Dashboard />,
+        },
+        {
           path: "u",
           element: <Dashboard />,
         },
@@ -50,8 +63,10 @@ const router = rout();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StatusProvider>
-      <RouterProvider router={router} />
-    </StatusProvider>
+    <SessionProvider>
+      <StatusProvider>
+        <RouterProvider router={router} />
+      </StatusProvider>
+    </SessionProvider>
   </StrictMode>,
 );
