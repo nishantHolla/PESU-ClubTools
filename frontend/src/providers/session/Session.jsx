@@ -2,12 +2,15 @@ import { auth } from "../../lib/firebase";
 import { createContext, useContext, useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
+  EmailAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
+  reauthenticateWithCredential,
+  reauthenticateWithPopup,
 } from "firebase/auth";
 import Loading from "../../components/Loading/Loading";
 
@@ -64,9 +67,44 @@ export function SessionProvider({ children }) {
     }
   };
 
+  const deleteAccount = async (password, cb, err) => {
+    if (!user) return;
+
+    try {
+      const providerId = user.providerData[0]?.providerId;
+
+      if (providerId === "password") {
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credential);
+      } else if (providerId === "google.com") {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential) {
+          await reauthenticateWithCredential(user, credential);
+        } else {
+          throw new Error("No credentials");
+        }
+      }
+
+      await user.delete();
+      if (cb) cb();
+    } catch (e) {
+      if (err) err(e);
+    }
+  };
+
   return (
     <SessionContext.Provider
-      value={{ user, loginEmail, loginGoogle, signup, logout, loading }}
+      value={{
+        user,
+        loginEmail,
+        loginGoogle,
+        signup,
+        logout,
+        loading,
+        deleteAccount,
+      }}
     >
       {loading ? <Loading /> : children}
     </SessionContext.Provider>

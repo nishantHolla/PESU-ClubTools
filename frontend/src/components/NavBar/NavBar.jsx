@@ -33,8 +33,8 @@ function NavBar() {
     ],
     "/u": [
       { name: "My Projects", href: `/u/:uid/projects` },
-      { name: "Templates", href: `/u/:uid/templates` },
-      { name: "Settings", href: `/u/:uid/settings` },
+      { name: "Getting Started", href: `/gettingStarted` },
+      { name: "Contact Us", href: `/contact` },
     ],
   };
 
@@ -80,10 +80,6 @@ function NavBar() {
     return <></>;
   };
 
-  const getAvatar = () => {
-    return <Avatar />;
-  };
-
   const checkWindowWidth = () => {
     setIsWide(window.innerWidth > 800);
   };
@@ -126,7 +122,11 @@ function NavBar() {
         </div>
         <div className="navbar-top-right">
           {isWide && getActions(pathname)}
-          {pathname.startsWith("/u") && isWide && getAvatar()}
+          {pathname.startsWith("/u") && isWide && (
+            <div className="navbar-avatar">
+              <Avatar showPanel={true} />
+            </div>
+          )}
           {getLinks(pathname).length > 0 && !isWide && (
             <Icon
               type={isOpen ? "eva:close" : "eva:menu"}
@@ -142,8 +142,12 @@ function NavBar() {
         {getLinks(pathname).map((l, i) => (
           <NavLink text={l.name} href={l.href} key={i} onClick={closeNavBar} />
         ))}
-        {pathname.startsWith("/u") && getAvatar()}
-        <div className="navbar-bottom-actions">{getActions(pathname)}</div>
+        <div className="navbar-bottom-actions">
+          <div className="navbar-avatar">
+            {pathname.startsWith("/u") && <Avatar showPanel={true} />}
+          </div>
+          {getActions(pathname)}
+        </div>
       </div>
     </nav>
   );

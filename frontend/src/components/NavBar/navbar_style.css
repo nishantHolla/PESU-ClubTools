@@ -25,17 +25,15 @@
   transform-origin: top left;
   padding: 0 10px;
   background: var(--theme-100);
-  overflow: hidden;
 
   display: flex;
   flex-flow: column;
-  align-items: center;
+  align-items: flex-start;
 
   .navbar-link {
     height: 40px;
     display: flex;
     align-items: center;
-    width: 100%;
   }
 }
 
@@ -51,6 +49,8 @@ nav[data-state="open"] .navbar-bottom {
   display: flex;
   gap: 1rem;
   margin-bottom: 10px;
+  align-self: stretch;
+  justify-content: center;
 }
 
 .navbar-top {
@@ -85,5 +85,17 @@ nav[data-state="open"] .navbar-bottom {
 .navbar-icon {
   cursor: pointer;
   font-size: 2rem;
+}
+
+.navbar-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .avatar-component {
+    cursor: pointer;
+  }
+
 }
 

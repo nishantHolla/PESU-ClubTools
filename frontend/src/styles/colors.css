@@ -20,6 +20,8 @@
 
   --theme-success: #22c55e;
   --theme-success-dark: #052e16;
+
+  --theme-modal-background: #222222;
 }
 
 body {

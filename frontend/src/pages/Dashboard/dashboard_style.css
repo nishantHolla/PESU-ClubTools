@@ -1,8 +1,21 @@
 .dashboard-container {
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-content: center;
   justify-items: center;
   height: 100%;
   gap: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
 }

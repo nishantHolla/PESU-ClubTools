@@ -55,7 +55,7 @@
   }
 }
 
-.signup-form .input-component:has(.signup-error) {
+.signup-form .signup-error {
   outline: 3px solid var(--theme-error);
 }
 
