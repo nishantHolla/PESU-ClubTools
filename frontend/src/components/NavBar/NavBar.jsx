@@ -3,13 +3,14 @@ import { useLocation } from "react-router-dom";
 import Button from "../Button/Button";
 import Icon from "../Icon/Icon";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "../Link/Link"
 
 function NavLink({ text, href }) {
   return (
-    <span className="navbar-link" href={href}>
+    <Link className="navbar-link" to={href}>
       {text}
-    </span>
+    </Link>
   );
 }
 
@@ -46,12 +47,12 @@ function NavBar() {
     if (pathname === "/") {
       return (
         <>
-          <Link to="/signup">
+          <RouterLink to="/signup">
             <Button onClick={closeNavBar}>Signup</Button>
-          </Link>
-          <Link to="/login">
+          </RouterLink>
+          <RouterLink to="/login">
             <Button onClick={closeNavBar}>Login</Button>
-          </Link>
+          </RouterLink>
         </>
       );
     }
@@ -80,14 +81,14 @@ function NavBar() {
     <nav className="navbar-component" data-state={isOpen ? "open" : "close"}>
       <div className="navbar-top">
         <div className="navbar-top-left">
-          <Link to="/">
+          <RouterLink to="/">
             <img
               src="/images/logo_transparent.png"
               width="153px"
               height="40px"
               alt="logo"
             />
-          </Link>
+          </RouterLink>
         </div>
         <div className="navbar-top-middle">
           {isWide && getLinks(pathname).map((l, i) => (

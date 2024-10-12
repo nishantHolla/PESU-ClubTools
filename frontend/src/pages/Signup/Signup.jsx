@@ -5,6 +5,8 @@ import Password from "../../components/Password/Password";
 import Button from "../../components/Button/Button";
 import "./signup_style.css";
 import { useEffect, useState } from "react";
+import SignupWithGoogle from "../../components/SignupWithGoogle/SignupWithGoogle";
+import Link from "../../components/Link/Link";
 
 function Signup() {
   const [setStatus] = useStatus();
@@ -71,7 +73,7 @@ function Signup() {
       <Box className="signup-box">
         <div className="signup-heading">
           <h2>Join us today!</h2>
-          <p>Signup now to become a member</p>
+          <p>Sign up now to become a member</p>
         </div>
         <div className="signup-form">
           <Input
@@ -103,14 +105,18 @@ function Signup() {
           <Password
             placeholder="Re-enter password"
             className={validity === 4 ? "signup-error" : ""}
+            icon="eva:check"
             value={form.confirmPassword}
             onChange={(e) => {
               updateForm("confirmPassword", e.target.value);
             }}
           />
           <Button disabled={!isValid}>Sign up</Button>
-          <Button>Sign up with Google</Button>
-          <p className="signup-redirect">Already a member? Login here</p>
+          <SignupWithGoogle />
+          <p className="signup-redirect">
+            Already a member?&nbsp;
+            <Link to="/login">Login here</Link>
+          </p>
         </div>
       </Box>
     </div>
