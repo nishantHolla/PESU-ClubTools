@@ -19,6 +19,7 @@ function Signup() {
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [validity, setValidity] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     clubname: "",
@@ -44,18 +45,24 @@ function Signup() {
   };
 
   const handleSignup = () => {
-    signup(form.email, form.password)
-      .then((cred) => {
-        navigate(`/u/${cred.user.uid}`);
-      })
-      .catch((err) => {
-        if (err.code === "auth/email-already-in-use") {
-          setStatus("error", "Email already in use. Do you want to login?");
-        } else {
-          setStatus("error", "Something went wrong. See console.");
-          console.log(err);
-        }
-      });
+    setLoading(true);
+
+    const signupSuccess = (user) => {
+      if (user) {
+        navigate(`/u/${user.uid}`);
+      }
+    };
+
+    const signupFail = (error) => {
+      if (error.code === "auth/email-already-in-use") {
+        setStatus("error", "Email already in use. Do you want to login?");
+      } else {
+        setStatus("error", "Something went wrong. See console.");
+        console.log(error);
+      }
+    };
+
+    signup(form.email, form.password, form.clubname, signupSuccess, signupFail);
   };
 
   const validateForm = () => {
@@ -132,10 +139,10 @@ function Signup() {
               updateForm("confirmPassword", e.target.value);
             }}
           />
-          <Button disabled={!isValid} onClick={handleSignup}>
-            Sign up
+          <Button disabled={!isValid || loading} onClick={handleSignup}>
+            {loading ? "Loading..." : "Sign up"}
           </Button>
-          <SignupWithGoogle />
+          <SignupWithGoogle disabled={loading} preClick={() => {setLoading(true)}} />
           <p className="signup-redirect">
             Already a member?&nbsp;
             <Link to="/login">Login here</Link>
