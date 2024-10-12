@@ -9,7 +9,7 @@ import SignupWithGoogle from "../../components/SignupWithGoogle/SignupWithGoogle
 import Link from "../../components/Link/Link";
 
 function Signup() {
-  const [setStatus] = useStatus();
+  const {setStatus} = useStatus();
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [validity, setValidity] = useState(0);

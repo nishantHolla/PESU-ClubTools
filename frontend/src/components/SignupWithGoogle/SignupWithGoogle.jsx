@@ -1,9 +1,32 @@
 import React from "react";
 import "./SignupWithGoogle.css";
+import { useSession } from "../../providers/session/Session";
+import { useStatus } from "../../providers/status/Status";
+import { useNavigate } from "react-router-dom";
 
 const SignupWithGoogle = (props) => {
+  const navigate = useNavigate();
+  const { user, loginGoogle } = useSession();
+  const {setStatus} = useStatus();
+
+  const handleLogin = () => {
+    loginGoogle()
+      .then((result) => {
+        if (result.user) {
+          navigate(`/u/${result.user.uid}`);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setStatus(
+          "error",
+          "Login with Google failed. See console for details.",
+        );
+      });
+  };
+
   return (
-    <button {...props} className="google-signin-button">
+    <button {...props} className="google-signin-button" onClick={handleLogin}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20px"
