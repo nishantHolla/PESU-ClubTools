@@ -11,11 +11,15 @@
     border-radius: 5px;
   }
   
-  .google-signin-button:hover {
-    background-color: var(--theme-100);
-  }
-  
-  .google-signin-button svg {
-    margin-right: 10px;
-  }
-  
+.google-signin-button:not(:disabled):hover {
+  background-color: var(--theme-100);
+}
+
+.google-signin-button[disabled] {
+  filter: brightness(75%);
+  cursor: default;
+}
+
+.google-signin-button svg {
+  margin-right: 10px;
+}

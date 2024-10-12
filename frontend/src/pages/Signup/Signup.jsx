@@ -1,5 +1,10 @@
+import "./signup_style.css";
+
 import { useStatus } from "../../providers/status/Status";
 import { useEffect, useState } from "react";
+import { useSession } from "../../providers/session/Session";
+import { useNavigate } from "react-router-dom";
+
 import Box from "../../components/Box/Box";
 import Input from "../../components/Input/Input";
 import Password from "../../components/Password/Password";
@@ -9,10 +14,13 @@ import Link from "../../components/Link/Link";
 import "./signup_style.css";
 
 function Signup() {
-  const [setStatus] = useStatus();
+  const navigate = useNavigate();
+  const { signup } = useSession();
+  const { setStatus } = useStatus();
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [validity, setValidity] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     clubname: "",
@@ -35,6 +43,27 @@ function Signup() {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
+  };
+
+  const handleSignup = () => {
+    setLoading(true);
+
+    const signupSuccess = (user) => {
+      if (user) {
+        navigate(`/u/${user.uid}`);
+      }
+    };
+
+    const signupFail = (error) => {
+      if (error.code === "auth/email-already-in-use") {
+        setStatus("error", "Email already in use. Do you want to login?");
+      } else {
+        setStatus("error", "Something went wrong. See console.");
+        console.log(error);
+      }
+    };
+
+    signup(form.email, form.password, form.clubname, signupSuccess, signupFail);
   };
 
   const validateForm = () => {
@@ -111,8 +140,15 @@ function Signup() {
               updateForm("confirmPassword", e.target.value);
             }}
           />
-          <Button disabled={!isValid}>Sign up</Button>
-          <SignupWithGoogle />
+          <Button disabled={!isValid || loading} onClick={handleSignup}>
+            {loading ? "Loading..." : "Sign up"}
+          </Button>
+          <SignupWithGoogle
+            disabled={loading}
+            preClick={() => {
+              setLoading(true);
+            }}
+          />
           <p className="signup-redirect">
             Already a member?&nbsp;
             <Link to="/login">Login here</Link>
