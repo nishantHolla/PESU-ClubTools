@@ -18,8 +18,3 @@
     min-height: 30px;
   }
 }
-
-.box-component .button-component {
-  color: black;
-  background-color: var(--theme-400);
-}

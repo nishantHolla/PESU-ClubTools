@@ -75,7 +75,7 @@ function ChangeModal({ success, failure, action }) {
       </div>
       <div className="change-actions">
         <Button
-          className="change-confirm"
+          className="change-confirm button-primary"
           disabled={loading || validity !== 4}
           onClick={() => {
             if (validity !== 4) return;
