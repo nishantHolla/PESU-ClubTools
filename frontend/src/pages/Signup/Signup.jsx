@@ -15,12 +15,18 @@ import "./signup_style.css";
 
 function Signup() {
   const navigate = useNavigate();
-  const { signup } = useSession();
+  const { signup, user } = useSession();
   const { setStatus } = useStatus();
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [validity, setValidity] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate(`/u/${user.uid}`);
+    }
+  }, []);
 
   const [form, setForm] = useState({
     clubname: "",
@@ -41,7 +47,7 @@ function Signup() {
     return String(email)
       .toLowerCase()
       .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
   };
 
@@ -140,7 +146,11 @@ function Signup() {
               updateForm("confirmPassword", e.target.value);
             }}
           />
-          <Button className="button-primary" disabled={!isValid || loading} onClick={handleSignup}>
+          <Button
+            className="button-primary"
+            disabled={!isValid || loading}
+            onClick={handleSignup}
+          >
             {loading ? "Loading..." : "Sign up"}
           </Button>
           <SignupWithGoogle
