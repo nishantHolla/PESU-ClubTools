@@ -1,23 +1,25 @@
 import "./avatar_style.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "../../providers/session/Session";
 import UserPanel from "../UserPanel/UserPanel";
+import Icon from "../Icon/Icon";
 
-function Avatar({showPanel}) {
+function Avatar({ showPanel }) {
   const { user } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef(null);
 
   return (
     <div
       className="avatar-component"
-      ref={ref}
       onClick={(e) => {
-        if (e.target !== ref.current || !showPanel) return;
         setIsOpen(!isOpen);
       }}
     >
-      {user && user.displayName && user.displayName[0]}
+      <div className="avatar-badge">
+        {user && user.displayName && user.displayName[0]}
+      </div>
+      <div className="avatar-name">{user && user.displayName}</div>
+      <Icon type="eva:arrow-down" className="avatar-icon"/>
       {isOpen && showPanel && <UserPanel />}
     </div>
   );

@@ -10,6 +10,7 @@
   background: var(--theme-100);
   color: var(--theme-1000);
   cursor: default;
+  font-size: 1rem;
 
   display: flex;
   flex-flow: column;
@@ -27,8 +28,8 @@
 @media only screen and (max-width: 800px) {
   .userPanel-component {
     top: 50px;
-    left: auto;
-    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
