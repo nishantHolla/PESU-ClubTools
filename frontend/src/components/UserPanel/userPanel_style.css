@@ -21,7 +21,7 @@
 .userPanel-actions {
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: 5px;
   align-self: stretch;
 }
 

@@ -5,6 +5,7 @@ import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
 import { useNavigate } from "react-router-dom";
 import Link from "../../components/Link/Link";
+import Icon from "../../components/Icon/Icon";
 
 function Home() {
   const { setStatus } = useStatus();
@@ -38,7 +39,7 @@ function Home() {
         <div className="hero1img">
           <img
             className="img1"
-            src="/images/home_page1.png"
+            src="/images/certificate.svg"
             width="500px"
             height="500px"
             alt="logo"
