@@ -39,8 +39,8 @@ function Home() {
           <img
             className="img1"
             src="/images/home_page1.png"
-            width="600px"
-            height="600px"
+            width="500px"
+            height="500px"
             alt="logo"
           />
         </div>
