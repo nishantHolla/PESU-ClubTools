@@ -9,8 +9,8 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  updatePassword,
   reauthenticateWithCredential,
-  reauthenticateWithPopup,
 } from "firebase/auth";
 import Loading from "../../components/Loading/Loading";
 
@@ -94,6 +94,21 @@ export function SessionProvider({ children }) {
     }
   };
 
+  const changePassword = async (oldPassword, newPassword, cb, err) => {
+    if (!user) return;
+
+    try {
+      const providerId = user.providerData[0]?.providerId;
+      if (providerId !== "password") return;
+      const credential = EmailAuthProvider.credential(user.email, oldPassword);
+      await reauthenticateWithCredential(user, credential);
+      await updatePassword(user, newPassword);
+      if (cb) cb();
+    } catch (e) {
+      if (err) err(e);
+    }
+  };
+
   return (
     <SessionContext.Provider
       value={{
@@ -104,6 +119,7 @@ export function SessionProvider({ children }) {
         logout,
         loading,
         deleteAccount,
+        changePassword,
       }}
     >
       {loading ? <Loading /> : children}
