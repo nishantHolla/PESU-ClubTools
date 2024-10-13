@@ -25,16 +25,37 @@ function NavBar() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  const goTo = (id) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const links = {
     "/": [
-      { name: "About", href: "/about" },
-      { name: "Getting Started", href: "/gettingStarted" },
-      { name: "Contact Us", href: "/contact" },
+      {
+        name: "How to use",
+        onClick: () => {
+          goTo("#home-usage");
+        },
+      },
+      {
+        name: "About",
+        onClick: () => {
+          goTo("#home-about");
+        },
+      },
+      {
+        name: "Contact Us",
+        onClick: () => {
+          goTo("#home-contact-us");
+        },
+      },
     ],
     "/u": [
       { name: "My Projects", href: `/u/:uid/projects` },
-      { name: "Getting Started", href: `/gettingStarted` },
-      { name: "Contact Us", href: `/contact` },
+      { name: "Templates", href: `/u/:uid/templates` },
     ],
   };
 
@@ -117,7 +138,13 @@ function NavBar() {
         <div className="navbar-top-middle">
           {isWide &&
             getLinks(pathname).map((l, i) => (
-              <NavLink text={l.name} href={l.href} key={i} hello="a" />
+              <NavLink
+                text={l.name}
+                href={l.href}
+                onClick={l.onClick}
+                key={i}
+                hello="a"
+              />
             ))}
         </div>
         <div className="navbar-top-right">

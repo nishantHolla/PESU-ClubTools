@@ -26,11 +26,11 @@
 }
 
 .status-component[data-visible="1"] {
-  opacity: 1;
+  display: flex;
 }
 
 .status-component[data-visible="0"] {
-  opacity: 0;
+  display: none;
 }
 
 .status-component[data-type="error"] {
