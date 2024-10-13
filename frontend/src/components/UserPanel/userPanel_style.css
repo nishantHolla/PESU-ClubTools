@@ -24,11 +24,6 @@
   align-self: stretch;
 }
 
-.userPanel-delete-account {
-  background: var(--theme-error);
-  color: var(--theme-error-dark);
-}
-
 @media only screen and (max-width: 800px) {
   .userPanel-component {
     top: 50px;
@@ -48,11 +43,6 @@
   font-size: 2rem;
 }
 
-.delete-confirm, .change-confirm {
-  background: var(--theme-error);
-  color: var(--theme-error-dark);
-}
-
 .delete-actions, .change-actions {
   display: flex;
   gap: 10px;
@@ -62,7 +52,7 @@
 .change-inputs, .delete-inputs {
   display: flex;
   flex-flow: column;
-  gap: 10px;
+  gap: var(--form-gap);
 
   .input-component {
     min-height: 40px;

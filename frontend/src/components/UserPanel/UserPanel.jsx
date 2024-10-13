@@ -111,7 +111,7 @@ function UserPanel() {
           Log out
         </Button>
         <Button
-          className="userPanel-delete-account"
+          className="userPanel-delete-account button-danger"
           onClick={handleDeletAccount}
         >
           Delete account
