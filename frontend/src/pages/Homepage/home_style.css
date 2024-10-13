@@ -10,7 +10,7 @@
   .hero1text {
     width: 800px;
     height: 500px;
-    margin: 40px;
+    margin: 120px 0;
     display: flex;
     flex-direction: column;
   }
