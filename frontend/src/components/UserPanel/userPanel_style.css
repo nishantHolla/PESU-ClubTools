@@ -37,24 +37,43 @@
   }
 }
 
-.delete-modal {
+.delete-modal, .change-modal {
   display: flex;
   flex-flow: column;
   gap: 2rem;
   font-size: 1.3rem;
 }
 
-.delete-heading {
+.delete-heading, .change-heading {
   font-size: 2rem;
 }
 
-.delete-confirm {
+.delete-confirm, .change-confirm {
   background: var(--theme-error);
   color: var(--theme-error-dark);
 }
 
-.delete-actions {
+.delete-actions, .change-actions {
   display: flex;
   gap: 10px;
   min-height: 40px;
+}
+
+.change-inputs, .delete-inputs {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+
+  .input-component {
+    min-height: 40px;
+
+    .icon {
+      font-size: 1.3rem;
+    }
+
+  }
+}
+
+.change-error {
+  outline: 3px solid var(--theme-error);
 }

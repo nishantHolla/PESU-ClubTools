@@ -14,14 +14,16 @@ function DeleteModal({ success, failure, action, providerId }) {
         templates. Please confirm your action since it can not be reversed.
       </p>
       {providerId === "password" && (
-        <Password
-          className="delete-password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
+        <div className="delete-inputs">
+          <Password
+            className="delete-password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+        </div>
       )}
 
       <div className="delete-actions">

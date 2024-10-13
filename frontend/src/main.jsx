@@ -65,11 +65,11 @@ const router = rout();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <SessionProvider>
-      <ModalProvider>
-        <StatusProvider>
+      <StatusProvider>
+        <ModalProvider>
           <RouterProvider router={router} />
-        </StatusProvider>
-      </ModalProvider>
+        </ModalProvider>
+      </StatusProvider>
     </SessionProvider>
-  </StrictMode>
+  </StrictMode>,
 );

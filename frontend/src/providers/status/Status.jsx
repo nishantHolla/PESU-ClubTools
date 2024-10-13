@@ -20,13 +20,16 @@ export function StatusProvider({ children }) {
   };
 
   return (
-    <StatusContext.Provider value={{setStatus}}>
-      {message && (
-        <div className="status-component" data-type={type || "none"} onClick={() => setMessage("")}>
-          <Icon type={`eva:${type}`} />
-          {message}
-        </div>
-      )}
+    <StatusContext.Provider value={{ setStatus }}>
+      <div
+        className="status-component"
+        data-visible={message ? "1" : "0"}
+        data-type={type || "none"}
+        onClick={() => setMessage("")}
+      >
+        <Icon type={`eva:${type}`} />
+        {message}
+      </div>
       {children}
     </StatusContext.Provider>
   );
