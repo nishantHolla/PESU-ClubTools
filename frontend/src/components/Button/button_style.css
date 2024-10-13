@@ -1,8 +1,6 @@
 .button-component {
   border-radius: var(--border-radius);
   border: 2px solid black;
-  color: var(--theme-1000);
-  background-color: var(--theme-0);
 
   display: flex;
   align-items: center;
@@ -10,18 +8,42 @@
   width: 100%;
 
   font-size: inherit;
-
   transition: color 0.3s ease, background-color 0.3s ease;
+}
 
-  cursor: pointer;
+.button-component {
+  color: var(--theme-1000);
+  background: var(--theme-0);
 }
 
 .button-component:not(:disabled):hover {
   color: var(--theme-1000);
   background-color: var(--theme-300);
+  cursor: pointer;
 }
 
-.button-component[disabled] {
+.button-component:disabled {
   filter: brightness(75%);
   cursor: default;
+}
+
+.button-danger {
+  background: var(--theme-error);
+  color: var(--theme-1000);
+  cursor: default;
+}
+
+.button-danger {
+  color: var(--theme-1000);
+  background: var(-theme-error-light);
+}
+
+.button-danger:not(:disabled):hover {
+  background: var(--theme-error-dark);
+  cursor: pointer;
+}
+
+.button-primary {
+  color: var(--theme-1000);
+  background: var(--theme-400);
 }

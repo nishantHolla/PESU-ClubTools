@@ -12,14 +12,17 @@
   --theme-950: #1c244f;
   --theme-1000: #000000;
 
-  --theme-error: #f43f5e;
-  --theme-error-dark: #4c0519;
+  --theme-error: #f44336;
+  --theme-error-light: #e57373;
+  --theme-error-dark: #d32f2f;
 
-  --theme-warning: #eab308;
-  --theme-warning-dark: #422006;
+  --theme-warning: #ffa726;
+  --theme-warning-light: #ffb74d;
+  --theme-warning-dark: #f57c00;
 
-  --theme-success: #22c55e;
-  --theme-success-dark: #052e16;
+  --theme-success: #66bb6a;
+  --theme-success-light: #81c784;
+  --theme-success-dark: #388e3c;
 
   --theme-modal-background: #222222;
 }

@@ -36,17 +36,17 @@
 .status-component[data-type="error"] {
   background: var(--theme-error);
   border-color: var(--theme-error-dark);
-  color: var(--theme-error-dark);
+  color: var(--theme-1000);
 }
 
 .status-component[data-type="warning"] {
   background: var(--theme-warning);
   border-color: var(--theme-warning-dark);
-  color: var(--theme-warning-dark);
+  color: var(--theme-1000);
 }
 
 .status-component[data-type="success"] {
   background: var(--theme-success);
   border-color: var(--theme-success-dark);
-  color: var(--theme-success-dark);
+  color: var(--theme-1000);
 }

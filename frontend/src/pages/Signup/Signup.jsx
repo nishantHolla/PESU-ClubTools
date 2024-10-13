@@ -140,7 +140,7 @@ function Signup() {
               updateForm("confirmPassword", e.target.value);
             }}
           />
-          <Button disabled={!isValid || loading} onClick={handleSignup}>
+          <Button className="button-primary" disabled={!isValid || loading} onClick={handleSignup}>
             {loading ? "Loading..." : "Sign up"}
           </Button>
           <SignupWithGoogle

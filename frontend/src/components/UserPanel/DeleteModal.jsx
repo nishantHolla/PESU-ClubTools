@@ -28,7 +28,7 @@ function DeleteModal({ success, failure, action, providerId }) {
 
       <div className="delete-actions">
         <Button
-          className="delete-confirm"
+          className="delete-confirm button-danger"
           disabled={loading}
           onClick={() => {
             setLoading(true);
