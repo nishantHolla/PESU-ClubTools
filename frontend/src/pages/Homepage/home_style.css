@@ -53,7 +53,6 @@
     height: 85vh;
     display: flex;
     margin-top: 50px;
-    background-color: var(--theme-950);
   }
 
   .hero2text1 {
