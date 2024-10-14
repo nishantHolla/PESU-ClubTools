@@ -1,8 +1,10 @@
 .navbar-component {
   position: relative;
+  border-radius: var(--border-radius);
+  margin: 20px;
+  padding: 0 10px;
   background: var(--theme-100);
   color: var(--theme-1000);
-  width: 100%;
 
   display: flex;
   flex-flow: column;
@@ -15,7 +17,8 @@
 
 .navbar-bottom {
   position: absolute;
-  top: 100%;
+  border-radius: 30px;
+  top: 115%;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -23,12 +26,12 @@
   font-size: 1.3rem;
   transition: transform 100ms linear;
   transform-origin: top left;
-  padding: 0 10px;
   background: var(--theme-100);
 
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  padding: 20px 20px 0 20px;
 
   .navbar-link {
     height: 40px;
