@@ -9,6 +9,7 @@
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
+    min-height: 50px;
   }
   
 .google-signin-button:not(:disabled):hover {
