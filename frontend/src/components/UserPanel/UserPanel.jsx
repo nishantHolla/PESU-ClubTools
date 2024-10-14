@@ -7,7 +7,7 @@ import DeleteModal from "./DeleteModal";
 import ChangeModal from "./ChangeModal";
 import Button from "../Button/Button";
 
-function UserPanel() {
+function UserPanel({setRef}) {
   const navigate = useNavigate();
   const { user, logout, deleteAccount, changePassword } = useSession();
   const { setStatus } = useStatus();
@@ -96,7 +96,7 @@ function UserPanel() {
   };
 
   return (
-    <div className="userPanel-component">
+    <div className="userPanel-component" ref={setRef}>
       <h3>{user.displayName}</h3>
       <div className="userPanel-actions">
         {providerId === "password" && (
