@@ -9,8 +9,8 @@
   max-width: 500px;
   height: 70vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-flow: column;
 
   .input-component,
   .password-component,
