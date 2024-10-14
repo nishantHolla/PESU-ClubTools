@@ -21,8 +21,8 @@ function Home() {
       <div className="hero1">
         <div className="hero1text">
           <div className="heading">
-            <span>Club tools</span>
-            <br></br>Certificate generator
+            <span className="title">Club tools</span>
+            <span className="subtitle">Certificate generator</span>
           </div>
           <div className="buttons">
             <Button
@@ -39,8 +39,6 @@ function Home() {
           <img
             className="img1"
             src="/images/certificate.svg"
-            width="500px"
-            height="500px"
             alt="logo"
           />
         </div>

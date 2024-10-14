@@ -25,6 +25,11 @@
   --theme-success-dark: #388e3c;
 
   --theme-modal-background: #222222;
+  --theme-container-background: rgba(255, 255, 255, 0.1);
+  --theme-container-background-2: rgba(255, 255, 255, 0.8);
+  --theme-container-border: 1px solid rgba(255, 255, 255, 0.18);
+
+  --theme-background: linear-gradient(to right, #243B55, #141E30);
 }
 
 body {
@@ -36,7 +41,5 @@ body {
   width: 100dvw;
   height: 100dvh;
   z-index: -100;
-  background: #141E30;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: var(--theme-background);
 }
