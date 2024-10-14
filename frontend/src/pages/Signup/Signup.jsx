@@ -23,6 +23,7 @@ function Signup() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setStatus(null, null);
     if (user) {
       navigate(`/u/${user.uid}`);
     }
