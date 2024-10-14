@@ -1,6 +1,6 @@
 .button-component {
   border-radius: var(--border-radius);
-  border: 2px solid black;
+  border: none;
 
   display: flex;
   align-items: center;

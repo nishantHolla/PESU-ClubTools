@@ -14,7 +14,7 @@ import Link from "../../components/Link/Link";
 
 function Login() {
   const navigate = useNavigate();
-  const { login, user } = useSession();
+  const { loginEmail, user } = useSession();
   const { setStatus } = useStatus();
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
@@ -22,6 +22,8 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setStatus(null, null);
+
     if (user) {
       navigate(`/u/${user.uid}`);
     }
@@ -66,7 +68,7 @@ function Login() {
       }
     };
 
-    login(form.email, form.password, loginSuccess, loginFail);
+    loginEmail(form.email, form.password, loginSuccess, loginFail);
   };
 
   const validateForm = () => {
