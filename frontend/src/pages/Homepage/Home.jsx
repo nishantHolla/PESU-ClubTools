@@ -21,8 +21,8 @@ function Home() {
       <div className="hero1">
         <div className="hero1text">
           <div className="heading">
-            <span className="title">Club tools</span>
-            <span className="subtitle">Certificate generator</span>
+            <span className="title">Clubtools</span>
+            <span className="subtitle">Certificate Generator</span>
           </div>
           <div className="buttons">
             <Button
@@ -36,11 +36,7 @@ function Home() {
           </div>
         </div>
         <div className="hero1img">
-          <img
-            className="img1"
-            src="/images/certificate.svg"
-            alt="logo"
-          />
+          <img className="img1" src="/images/certificate.svg" alt="logo" />
         </div>
       </div>
       <div className="hero2" id="home-usage">
