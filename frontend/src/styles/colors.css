@@ -29,7 +29,8 @@
   --theme-container-background-2: rgba(255, 255, 255, 0.8);
   --theme-container-border: 1px solid rgba(255, 255, 255, 0.18);
 
-  --theme-background: linear-gradient(to right, #243B55, #141E30);
+  --theme-background: linear-gradient(to right, #0c8cae, #093143);
+  /* --theme-background: #093143; */
 }
 
 body {
