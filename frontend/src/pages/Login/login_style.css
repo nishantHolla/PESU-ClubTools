@@ -4,6 +4,7 @@
   align-items: center;
   height: 100%;
   color: var(--theme-1000);
+  font-size: 1rem;
 
   .icon-component {
     font-size: 1.5rem;
@@ -21,6 +22,11 @@
   gap: 10px;
   font-size: 1.3rem;
   color: var(--theme-0);
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
 }
 
 .login-form {

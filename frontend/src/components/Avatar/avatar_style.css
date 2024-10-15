@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.avatar-component[data-isOpen="1"] {
+.avatar-component[data-isopen="1"] {
   background: var(--theme-container-background-2);
   color: var(--theme-1000);
 }
