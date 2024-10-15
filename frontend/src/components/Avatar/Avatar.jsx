@@ -29,7 +29,7 @@ function Avatar({ showPanel }) {
   return (
     <div
       className="avatar-component"
-      data-isOpen={isOpen ? "1" : "0"}
+      data-isopen={isOpen ? "1" : "0"}
       onClick={toggleIsOpen}
     >
       <div className="avatar-badge">

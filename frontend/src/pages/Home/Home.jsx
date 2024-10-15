@@ -42,30 +42,16 @@ function Home() {
       </div>
       <div className="hero2" id="home-usage">
         <div className="hero2text1">
+          <h3>How to use</h3>
           <div className="heading">
-            Here is how you can use<br></br> CertGen
+            Here is how you can use Clubtools for all your certificate needs
           </div>
-          <div className="text2">
-            News write-ups offer a great way to let clients know about new
-            products and services, events, awards, and more. News write-ups
-            offer a great way to let clients know about new products and
-            services, events, awards, and more.
-          </div>
-        </div>
-        <div className="hero2img1">
-          <img
-            className="img2"
-            src="/images/home_page2.png"
-            width="600px"
-            height="500px"
-            alt="logo"
-          />
+          <div className="text2">TODO: Add content</div>
         </div>
       </div>
-      <div>
-        <h1 style={{ padding: 100 }} id="home-about">
-          Todo: Add About section
-        </h1>
+      <div id="home-about" className="hero3">
+    <h3>About</h3>
+        <p>Todo: Add About section</p>
       </div>
       <div className="footer" id="home-contact-us">
         <div className="text1">We would love to hear from you </div>

@@ -1,11 +1,15 @@
 .home-container {
 
+  h3 {
+    font-size: clamp(2rem, 5dvw, 2.5rem);
+    font-weight: bold;
+  }
+
   .hero1 {
-    width: 100%;
     height: 85vh;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
   }
 
   .hero1text {
@@ -16,24 +20,24 @@
 
   .hero1text .heading {
     display: flex;
+    gap: 5px;
     flex-flow: column;
-    width: fit-content;
-    height: fit-content;
     font-size: 80px;
-    color: white;
   }
 
   .hero1text .heading .title {
+    font-size: clamp(4rem, 10dvw, 6rem);
     font-weight: bold;
   }
 
   .hero1text .heading .subtitle {
-    font-size: 40px;
+    font-size: clamp(2rem, 10dvw, 3rem);
   }
 
   .buttons {
     display: flex;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     height: 50px;
   }
 
@@ -44,91 +48,77 @@
   }
 
   .img1 {
-    max-width: 400px;
-    min-width: 300px;
-    aspect-ratio: 1;
-    width: 100%;
+    aspect-ratio: 1/1.05;
+    width: 30dvw;
 
   }
 
   .hero2 {
-    width: 100%;
-    height: 85vh;
+    min-height: 85vh;
     display: flex;
-    margin-top: 50px;
   }
 
   .hero2text1 {
-    background-color: transparent;
     height: 400px;
-    width: 600px;
-    margin-top: 150px;
-    margin-left: 90px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
   }
 
   .hero2text1 .heading {
-    font-size: 40px;
-    color: white;
-    margin-left: 40px;
-    width: fit-content;
-    word-spacing: 10px;
-    font-weight: 400;
+    font-size: clamp(1.6rem, 5dvw, 2.3rem);
   }
 
   .hero2text1 .text2 {
-    color: white;
-    margin-left: 40px;
-    width: fit-content;
     word-spacing: 2px;
     font-size: 1.4rem;
     line-height: 2rem;
-    margin-top: 20px;
-    width: 500px;
-    font-weight: 500;
   }
 
-  .img2 {
-    margin-left: 100px;
-    border-top-right-radius: 40px;
+  .hero3 {
+    min-height: 85vh;
   }
 
   .footer {
-    margin: 20px;
     border-radius: var(--border-radius);
-    background-color: var(--theme-container-background);
+    background: var(--theme-container-background);
     border: var(--theme-container-border);
-    color: var(--theme-0);
     display: flex;
     gap: 10px;
     padding: 50px;
     flex-direction: column;
     align-items: center;
-  }
-
-  .footer .text1 {
-    width: fit-content;
-    font-size: 40px;
-    font-weight: lighter;
-  }
-
-  .footer .text2 {
-    width: fit-content;
-    font-size: 40px;
-    font-weight: 100;
+    font-size: clamp(1rem, 5dvw, 2rem);
+    text-align: center;
   }
 
 }
 
 @media only screen and (max-width: 800px) {
-  .img1 {
-    display: none;
-  }
+  .home-container {
+    .img1 {
+      display: none;
+    }
 
-  .hero1text {
-    align-items: center;
-  }
+    .hero1 {
+      justify-content: center;
+    }
 
-  .buttons {
-    justify-content: center;
+    .hero1text {
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero2text1 .heading {
+      text-align: center;
+    }
+
+    .buttons {
+      justify-content: center;
+    }
+
+    .footer {
+      padding: 30px;
+    }
   }
 }
