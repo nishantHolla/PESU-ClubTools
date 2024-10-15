@@ -1,6 +1,6 @@
 .input-component {
   background: var(--theme-0);
-  padding: 4px 8px;
+  padding: 4px 16px;
   border-radius: var(--border-radius);
   display: flex;
   gap: 10px;

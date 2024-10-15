@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 function MainLayout() {
   return (
     <div className="main-layout">
+      <div className="background-container"></div>
       <header>
         <NavBar />
       </header>

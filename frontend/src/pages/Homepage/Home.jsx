@@ -21,8 +21,8 @@ function Home() {
       <div className="hero1">
         <div className="hero1text">
           <div className="heading">
-            <span>Club tools</span>
-            <br></br>Certificate generator
+            <span className="title">Club tools</span>
+            <span className="subtitle">Certificate generator</span>
           </div>
           <div className="buttons">
             <Button
@@ -33,15 +33,12 @@ function Home() {
             >
               Get Started
             </Button>
-            <Button className="button2">Click for confetti</Button>
           </div>
         </div>
         <div className="hero1img">
           <img
             className="img1"
             src="/images/certificate.svg"
-            width="500px"
-            height="500px"
             alt="logo"
           />
         </div>
@@ -75,7 +72,7 @@ function Home() {
       </div>
       <div className="footer" id="home-contact-us">
         <div className="text1">We would love to hear from you </div>
-        <div className="text2">Connect with us </div>
+        <div className="text2">connect with us</div>
         <Link to="mailto:clubtoolsorg@gmail.com" target="_blank">
           <div className="text3">clubtoolsorg@gmail.com</div>
         </Link>

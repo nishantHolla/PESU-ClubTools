@@ -1,11 +1,16 @@
 .avatar-component {
-  background: var(--theme-0);
+  color: var(--theme-0);
   border-radius: 20px;
   padding: 5px 10px;
 
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.avatar-component[data-isOpen="1"] {
+  background: var(--theme-container-background-2);
+  color: var(--theme-1000);
 }
 
 .avatar-name {
@@ -16,7 +21,7 @@
   background: var(--theme-900);
   color: var(--theme-0);
   border-radius: 100%;
-  border: 3px solid black;
+  border: 1px solid black;
   font-size: 0.8rem;
   padding: 3px;
   aspect-ratio: 1;

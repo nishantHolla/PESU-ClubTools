@@ -1,21 +1,26 @@
 .navbar-component {
   position: relative;
-  background: var(--theme-100);
-  color: var(--theme-1000);
-  width: 100%;
+  border-radius: var(--border-radius);
+  border:var(--theme-container-border);
+  margin: 20px;
+  padding: 0 10px;
+  background: var(--theme-container-background);
+  color: var(--theme-0);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 
   display: flex;
   flex-flow: column;
 
   .button-component {
-    padding: 5px 10px;
+    padding: 10px 15px;
     min-width: 100px;
   }
 }
 
 .navbar-bottom {
   position: absolute;
-  top: 100%;
+  border-radius: 30px;
+  top: 115%;
   left: 0;
   right: 0;
   z-index: 1000;
@@ -23,17 +28,23 @@
   font-size: 1.3rem;
   transition: transform 100ms linear;
   transform-origin: top left;
-  padding: 0 10px;
-  background: var(--theme-100);
+  background-color: var(--theme-container-background-2);
+  border: var(--theme-container-border);
 
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  padding: 20px 20px 0 20px;
 
   .navbar-link {
     height: 40px;
     display: flex;
     align-items: center;
+    color: var(--theme-600);
+  }
+
+  .avatar-component {
+    color: var(--theme-1000);
   }
 }
 

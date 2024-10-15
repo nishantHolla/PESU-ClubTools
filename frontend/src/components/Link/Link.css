@@ -1,10 +1,10 @@
 .link-component {
-  color: var(--theme-600); 
+  color: var(--theme-300); 
   text-decoration: none;
   font-weight: bold;
 }
 
 .link-component:hover {
   text-decoration: underline;
-  color: var(--theme-700);
+  color: var(--theme-500);
 }

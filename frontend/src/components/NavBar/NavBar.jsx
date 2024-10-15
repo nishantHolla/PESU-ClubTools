@@ -9,6 +9,13 @@ import Icon from "../Icon/Icon";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "../Link/Link";
 
+function isMobile() {
+  const userAgent = navigator.userAgent || window.opera;
+  return /android|iphone|ipad|iPod|blackberry|iemobile|opera mini/i.test(
+    userAgent.toLowerCase(),
+  );
+}
+
 function NavLink({ text, href, onClick }) {
   return (
     <Link className="navbar-link" to={href} onClick={onClick}>
@@ -102,7 +109,11 @@ function NavBar() {
   };
 
   const checkWindowWidth = () => {
-    setIsWide(window.innerWidth > 800);
+    if (isMobile()) {
+      setIsWide(window.screen.width > 800);
+    } else {
+      setIsWide(window.innerWidth > 800);
+    }
   };
 
   useEffect(() => {
@@ -128,7 +139,7 @@ function NavBar() {
         <div className="navbar-top-left">
           <RouterLink to="/">
             <img
-              src="/images/logo_transparent.png"
+              src="/images/logo_transparent-white.png"
               width="153px"
               height="40px"
               alt="logo"
