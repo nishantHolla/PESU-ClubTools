@@ -1,0 +1,39 @@
+.mail-container {
+  padding: 20px;
+  height: 100%;
+  gap: 20px;
+  display: flex;
+
+  .mail-container-left {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    flex-grow: 1;
+  }
+
+  .mail-container-right {
+    display: flex;
+    align-items: stretch;
+    min-width: 300px;
+  }
+
+  .icon-component {
+    font-size: 1.5rem;
+  }
+
+  input {
+    margin: 20px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+  }
+}
