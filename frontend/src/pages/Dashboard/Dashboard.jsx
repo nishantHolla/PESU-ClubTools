@@ -20,7 +20,7 @@ function Dashboard() {
     }
 
     if (location.pathname === `/u/${user.uid}`) {
-      navigate(`/u/${user.uid}/projects`)
+      navigate(`/u/${user.uid}/projects`);
     }
   }, []);
 

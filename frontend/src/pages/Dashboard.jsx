@@ -8,9 +8,9 @@ function Dashboard() {
 
   const handleLogout = () => {
     logout().then(() => {
-      return navigate('/');
-    })
-  }
+      return navigate("/");
+    });
+  };
 
   return (
     <div>
