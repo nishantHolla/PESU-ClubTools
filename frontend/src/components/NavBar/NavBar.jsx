@@ -178,7 +178,15 @@ function NavBar() {
       </div>
       <div className="navbar-bottom">
         {getLinks(pathname).map((l, i) => (
-          <NavLink text={l.name} href={l.href} key={i} onClick={closeNavBar} />
+          <NavLink
+            text={l.name}
+            href={l.href}
+            key={i}
+            onClick={() => {
+              l.onClick();
+              closeNavBar();
+            }}
+          />
         ))}
         <div className="navbar-bottom-actions">
           <div className="navbar-avatar">
