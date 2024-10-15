@@ -6,6 +6,7 @@ import { useSession } from "../../providers/session/Session";
 import { useNavigate } from "react-router-dom";
 import Link from "../../components/Link/Link";
 import Icon from "../../components/Icon/Icon";
+import Textarea from "../../components/Textarea/Textarea";
 
 function Home() {
   const { setStatus } = useStatus();
