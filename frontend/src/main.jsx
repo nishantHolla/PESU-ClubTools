@@ -8,8 +8,9 @@ import "./styles/layout.css";
 
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
-import Home from "./pages/Homepage/Home";
+import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Mail from "./pages/Mail/Mail";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
@@ -49,6 +50,10 @@ function rout() {
           path: "u",
           element: <Dashboard />,
         },
+        {
+          path: "u/:userid/p/:projectid",
+          element: <Mail />,
+        },
       ],
     },
   ]);
@@ -67,5 +72,5 @@ createRoot(document.getElementById("root")).render(
         </ModalProvider>
       </StatusProvider>
     </SessionProvider>
-  </StrictMode>,
+  </StrictMode>
 );

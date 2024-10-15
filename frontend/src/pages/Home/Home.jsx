@@ -6,6 +6,7 @@ import { useSession } from "../../providers/session/Session";
 import { useNavigate } from "react-router-dom";
 import Link from "../../components/Link/Link";
 import Icon from "../../components/Icon/Icon";
+import Textarea from "../../components/Textarea/Textarea";
 
 function Home() {
   const { setStatus } = useStatus();
@@ -21,8 +22,8 @@ function Home() {
       <div className="hero1">
         <div className="hero1text">
           <div className="heading">
-            <span className="title">Club tools</span>
-            <span className="subtitle">Certificate generator</span>
+            <span className="title">Clubtools</span>
+            <span className="subtitle">Certificate Generator</span>
           </div>
           <div className="buttons">
             <Button
