@@ -4,15 +4,15 @@ PESU Sem 3: Mini project for Web Tech.
 
 # Team Members
 
-Nishant Holla - PES1UG23CS401 </br>
-Pranav Hemanth - PES1UG23CS433 </br>
-Aneesh Dutt - PES1UG23CS371 </br>
-Nagarjun A H - PES1UG23CS375 </br>
+- Nishant Holla - PES1UG23CS401 [Github](https://github.com/nishantHolla)
+- Pranav Hemanth - PES1UG23CS433 [Github](https://github.com/Pranavh-2004)
+- Aneesh Dutt - PES1UG23CS371 [Github](https://github.com/STRAWBARREL657)
+- Nagarjun A H - PES1UG23CS375 [Github](https://github.com/Arjun2453hi)
 
 ## Setup
 
 1. Generate a new ssh key and add it to github
-[Follow this video](https://www.youtube.com/watch?v=O5H_KFzla6M)
+   [Follow this video](https://www.youtube.com/watch?v=O5H_KFzla6M)
 
 2. Clone the repo
 
@@ -50,7 +50,7 @@ npm run dev
 6. Check setup - open [http://localhost:5173](http://localhost:5173) in browser and click ping server button
 
 7. To check if you are able to push changes to github, edit this README.md file with some new text (it can be anything).
-And then push the changes to github
+   And then push the changes to github
 
 ```bash
 git config --global user.email "change this with your github email id"
