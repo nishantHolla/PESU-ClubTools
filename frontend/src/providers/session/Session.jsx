@@ -1,5 +1,6 @@
 import { auth } from "../../lib/firebase";
 import { createContext, useContext, useState, useEffect } from "react";
+import { getUser, createUser, deleteUser } from "../../lib/db";
 import {
   GoogleAuthProvider,
   EmailAuthProvider,
@@ -19,10 +20,28 @@ const SessionContext = createContext(null);
 export function SessionProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      try {
+        let foundUser = false;
+
+        await getUser((res) => {
+          if (!res.data) return;
+          setData(res.data);
+          foundUser = true;
+        });
+
+        if (!foundUser) {
+          await createUser((res) => {
+            setData(res.data);
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
       setLoading(false);
     });
 
@@ -71,6 +90,10 @@ export function SessionProvider({ children }) {
     if (!user) return;
 
     try {
+      await deleteUser(null, (e) => {
+        return;
+      });
+
       const providerId = user.providerData[0]?.providerId;
 
       if (providerId === "password") {
@@ -120,6 +143,7 @@ export function SessionProvider({ children }) {
         loading,
         deleteAccount,
         changePassword,
+        data,
       }}
     >
       {loading ? <Loading /> : children}

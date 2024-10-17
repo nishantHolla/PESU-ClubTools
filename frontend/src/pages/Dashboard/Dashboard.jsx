@@ -4,9 +4,10 @@ import { useSession } from "../../providers/session/Session";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUser, createUser } from "../../lib/db";
 
 function Dashboard() {
-  const { user } = useSession();
+  const { user, data } = useSession();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,11 +28,9 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <ImageFrame className="blank-project">Blank Project</ImageFrame>
-      <ImageFrame src="certificate1.png" alt="Certificate 1" />
-      <ImageFrame src="certificate2.png" alt="Certificate 2" />
-      <ImageFrame src="certificate3.png" alt="Certificate 3" />
-      <ImageFrame src="certificate4.png" alt="Certificate 4" />
-      <ImageFrame src="certificate5.png" alt="Certificate 5" />
+      {data.projectids.map((id) => {
+        return <ImageFrame src="" alt="" key={id} />;
+      })}
     </div>
   );
 }

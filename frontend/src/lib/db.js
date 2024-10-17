@@ -1,4 +1,82 @@
 import { auth } from "./firebase";
 import axios from "axios";
 
-export {};
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+async function getUser(cb, err) {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+
+    const response = await axios({
+      method: "get",
+      url: `${BACKEND_URL}/api/v1/users/${user.uid}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+
+    if (cb) cb(response.data);
+  } catch (e) {
+    if (err) err(e.response.data);
+  }
+}
+
+async function createUser(cb, err) {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+    const response = await axios({
+      method: "post",
+      url: `${BACKEND_URL}/api/v1/users`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        uid: user.uid,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+
+    if (cb) cb(response.data);
+  } catch (e) {
+    if (err) err(e.response.data);
+  }
+}
+
+async function deleteUser(cb, err) {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+    const response = await axios({
+      method: "delete",
+      url: `${BACKEND_URL}/api/v1/users`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        uid: user.uid,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+
+    if (cb) cb(response.data);
+  } catch (e) {
+    if (err) err(e.response.data);
+  }
+}
+
+export { getUser, createUser, deleteUser };
