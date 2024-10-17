@@ -25,15 +25,3 @@
     margin: 20px;
   }
 }
-
-@media only screen and (max-width: 800px) {
-  .dashboard-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .dashboard-container {
-    grid-template-columns: 1fr;
-  }
-}
