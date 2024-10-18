@@ -22,7 +22,7 @@ export function SessionProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
 
-  const queryUserData = async () => {
+  const queryUserData = async (currentUser) => {
     if (userData) return;
 
     try {
@@ -47,7 +47,7 @@ export function SessionProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      queryUserData();
+      queryUserData(currentUser);
       setLoading(false);
     });
 
