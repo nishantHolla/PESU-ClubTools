@@ -9,16 +9,16 @@ async function testDb(cb, err) {
       method: "get",
       url: `${BACKEND_URL}/api/v1/ping/db`,
     });
-    console.log(response.data)
+    console.log(response.data);
+    if (cb) cb(response.data);
   } catch (e) {
     console.log(err);
     if (err) err(e);
   }
 }
 
-async function getUser(cb, err) {
+async function getUser(user, cb, err) {
   try {
-    const user = auth.currentUser;
     if (!user) return;
     const token = await user.getIdToken();
 
@@ -40,9 +40,8 @@ async function getUser(cb, err) {
   }
 }
 
-async function createUser(cb, err) {
+async function createUser(user, cb, err) {
   try {
-    const user = auth.currentUser;
     if (!user) return;
     const token = await user.getIdToken();
     const response = await axios({
