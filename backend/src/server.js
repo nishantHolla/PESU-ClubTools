@@ -3,13 +3,14 @@ const cors = require("cors");
 const v1 = require("./routes/v1");
 
 const app = express();
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 
 app.use(
   cors({
-    origin: "https://pesu-club-tools.vercel.app",
+    origin: ["https://pesu-club-tools.vercel.app", "http://localhost:5173"],
   }),
 );
+
 app.use(express.json());
 app.use("/api/v1", v1);
 
