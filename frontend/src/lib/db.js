@@ -1,5 +1,5 @@
-import { auth } from "./firebase";
 import axios from "axios";
+import { auth } from "./firebase";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
