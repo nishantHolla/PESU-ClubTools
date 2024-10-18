@@ -3,6 +3,19 @@ import { auth } from "./firebase";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
+async function testDb(cb, err) {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${BACKEND_URL}/api/v1/ping/db`,
+    });
+    console.log(response.data)
+  } catch (e) {
+    console.log(err);
+    if (err) err(e);
+  }
+}
+
 async function getUser(cb, err) {
   try {
     const user = auth.currentUser;
@@ -79,4 +92,4 @@ async function deleteUser(cb, err) {
   }
 }
 
-export { getUser, createUser, deleteUser };
+export { getUser, createUser, deleteUser, testDb };

@@ -1,15 +1,9 @@
 import Button from "../Button/Button";
 import axios from "axios";
+import { testDb } from "../../lib/db";
 
 function TestBackend() {
-  return <Button onClick={async () => {
-    const r = await axios({
-      method: 'get',
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/ping`
-    })
-    console.log(r.data)
-
-  }}>Test Backend</Button>;
+  return <Button onClick={testDb}>Test Backend</Button>;
 }
 
 export default TestBackend;

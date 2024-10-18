@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
-const { getUser, createUser, deleteUser } = require("../lib/db");
+const { getTest, getUser, createUser, deleteUser } = require("../lib/db");
 
 router.get("/ping", async (req, res) => {
   return res.status(200).json({ message: "Hello" });
+});
+
+router.get("/ping/db", async (req, res) => {
+  console.log('ok')
+  const data = await getTest();
+  return res.status(200).json({ message: "ok", data });
 });
 
 router.get("/users/:uid", auth, async (req, res) => {
