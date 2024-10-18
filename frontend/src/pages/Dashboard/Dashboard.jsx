@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser, createUser } from "../../lib/db";
 
 function Dashboard() {
-  const { user, data } = useSession();
+  const { user, userData } = useSession();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,12 +24,14 @@ function Dashboard() {
       navigate(`/u/${user.uid}/projects`);
     }
 
-    console.log(data);
   }, []);
 
   return (
     <div className="dashboard-container">
       <ImageFrame className="blank-project">Blank Project</ImageFrame>
+      {userData && userData.projectids.map((id) => {
+        return <ImageFrame src="" alt="" key={id} />;
+      })}
     </div>
   );
 }

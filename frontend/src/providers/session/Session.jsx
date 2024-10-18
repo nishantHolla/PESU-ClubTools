@@ -20,7 +20,7 @@ const SessionContext = createContext(null);
 export function SessionProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -28,15 +28,15 @@ export function SessionProvider({ children }) {
       try {
         let foundUser = false;
 
-        await getUser((res) => {
+        await getUser(currentUser, (res) => {
           if (!res.data) return;
-          setData(res.data);
+          setUserData(res.data);
           foundUser = true;
         });
 
         if (!foundUser) {
-          await createUser((res) => {
-            setData(res.data);
+          await createUser(currentUser, (res) => {
+            setUserData(res.data);
           });
         }
       } catch (e) {
@@ -143,7 +143,7 @@ export function SessionProvider({ children }) {
         loading,
         deleteAccount,
         changePassword,
-        data,
+        userData,
       }}
     >
       {loading ? <Loading /> : children}
