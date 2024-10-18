@@ -23,14 +23,13 @@ function Dashboard() {
     if (location.pathname === `/u/${user.uid}`) {
       navigate(`/u/${user.uid}/projects`);
     }
+
+    console.log(data);
   }, []);
 
   return (
     <div className="dashboard-container">
       <ImageFrame className="blank-project">Blank Project</ImageFrame>
-      {data.projectids.map((id) => {
-        return <ImageFrame src="" alt="" key={id} />;
-      })}
     </div>
   );
 }
