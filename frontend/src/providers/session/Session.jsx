@@ -22,26 +22,32 @@ export function SessionProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
 
+  const queryUserData = async () => {
+    if (userData) return;
+
+    try {
+      let foundUser = false;
+
+      await getUser(currentUser, (res) => {
+        if (!res.data) return;
+        setUserData(res.data);
+        foundUser = true;
+      });
+
+      if (!foundUser) {
+        await createUser(currentUser, (res) => {
+          setUserData(res.data);
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      try {
-        let foundUser = false;
-
-        await getUser(currentUser, (res) => {
-          if (!res.data) return;
-          setUserData(res.data);
-          foundUser = true;
-        });
-
-        if (!foundUser) {
-          await createUser(currentUser, (res) => {
-            setUserData(res.data);
-          });
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      queryUserData();
       setLoading(false);
     });
 
