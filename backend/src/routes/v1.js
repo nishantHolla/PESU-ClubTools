@@ -3,6 +3,10 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const { getUser, createUser, deleteUser } = require("../lib/db");
 
+router.get("/ping", async (req, res) => {
+  return res.status(200).json({ message: "Hello" });
+});
+
 router.get("/users/:uid", auth, async (req, res) => {
   if (req.user?.user_id !== req.params.uid) {
     return res
