@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { MongoClient } = require("mongodb");
 
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 const database = client.db("clubtools");
 const users = database.collection("users");
