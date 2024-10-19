@@ -1,0 +1,10 @@
+
+.project-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  .project-workspace {
+    flex-grow: 1;
+  }
+}
