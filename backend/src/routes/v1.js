@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
-const { getTest, getUser, createUser, deleteUser } = require("../lib/db");
+const {
+  getTest,
+  getUser,
+  createUser,
+  deleteUser,
+  createProject,
+} = require("../lib/db");
 
 router.get("/ping", async (req, res) => {
   return res.status(200).json({ message: "Hello" });
 });
 
 router.get("/ping/db", async (req, res) => {
-  console.log('ok')
+  console.log("ok");
   const data = await getTest();
   return res.status(200).json({ message: "ok", data });
 });
@@ -20,8 +26,8 @@ router.get("/users/:uid", auth, async (req, res) => {
       .json({ message: "Unauthorized (uid mismatched)", data: null });
   }
 
-  const user = await getUser(req.user.user_id);
-  return res.status(200).json({ message: "ok", data: user });
+  const data = await getUser(req.user.user_id);
+  return res.status(200).json({ message: "ok", data });
 });
 
 router.post("/users", auth, async (req, res) => {
@@ -47,6 +53,11 @@ router.delete("/users", auth, async (req, res) => {
   }
 
   const result = await deleteUser(req.body.uid);
+  return res.status(200).json({ message: "ok", data: result });
+});
+
+router.post("/project", auth, async (req, res) => {
+  const result = await createProject(req.user.user_id);
   return res.status(200).json({ message: "ok", data: result });
 });
 

@@ -31,6 +31,7 @@ export function SessionProvider({ children }) {
       await getUser(currentUser, (res) => {
         if (!res.data) return;
         setUserData(res.data);
+        console.log(res.data);
         foundUser = true;
       });
 
@@ -46,8 +47,13 @@ export function SessionProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      queryUserData(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+        queryUserData(currentUser);
+      } else {
+        setUser(null);
+        setUserData(null);
+      }
       setLoading(false);
     });
 
@@ -138,6 +144,12 @@ export function SessionProvider({ children }) {
     }
   };
 
+  const addProject = (project) => {
+    const u = userData;
+    u.projects.push(project);
+    setUserData(u);
+  };
+
   return (
     <SessionContext.Provider
       value={{
@@ -150,6 +162,7 @@ export function SessionProvider({ children }) {
         deleteAccount,
         changePassword,
         userData,
+        addProject,
       }}
     >
       {loading ? <Loading /> : children}

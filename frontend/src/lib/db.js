@@ -91,4 +91,26 @@ async function deleteUser(cb, err) {
   }
 }
 
-export { getUser, createUser, deleteUser, testDb };
+async function createProject(cb, err) {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+    const token = await user.getIdToken();
+    const response = await axios({
+      method: "post",
+      url: `${BACKEND_URL}/api/v1/project`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(response);
+    }
+    if (cb) cb(response.data);
+  } catch (e) {
+    if (err) err(e.response.data);
+  }
+}
+
+export { getUser, createUser, deleteUser, testDb, createProject };
