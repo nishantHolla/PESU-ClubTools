@@ -7,6 +7,8 @@ const {
   createUser,
   deleteUser,
   createProject,
+  getProject,
+  updateProject,
 } = require("../lib/db");
 
 router.get("/ping", async (req, res) => {
@@ -58,6 +60,28 @@ router.delete("/users", auth, async (req, res) => {
 
 router.post("/project", auth, async (req, res) => {
   const result = await createProject(req.user.user_id);
+  return res.status(200).json({ message: "ok", data: result });
+});
+
+router.post("/project/:projectid", auth, async (req, res) => {
+  const project = await getProject(req.params.projectid);
+  if (!project) {
+    return res.status(404).json({ message: "Project not found", data: null });
+  }
+
+  if (project.userid !== req.user.user_id) {
+    return res.status(401).json({
+      message: "Unauthorized (uid does not match project owner)",
+      data: null,
+    });
+  }
+
+  const update = req.body.project;
+  if (!update) {
+    return res.status(400).json({ message: "Update not found", data: null });
+  }
+
+  const result = updateProject(update);
   return res.status(200).json({ message: "ok", data: result });
 });
 

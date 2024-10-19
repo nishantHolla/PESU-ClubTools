@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import Textarea from "../../components/Textarea/Textarea";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import MailSidebar from "./MailSidebar";
 
 function Mail() {
   const { user } = useSession();
@@ -33,7 +33,7 @@ function Mail() {
         <Textarea placeholder="Body:" />
       </div>
       <div className="mail-container-right">
-        <Sidebar />
+        <MailSidebar />
       </div>
     </div>
   );
