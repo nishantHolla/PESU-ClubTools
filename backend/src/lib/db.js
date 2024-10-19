@@ -69,6 +69,7 @@ async function createProject(uid) {
     coords: [],
     createAt: Date.now(),
     qr: {},
+    image: null,
   };
 
   try {
