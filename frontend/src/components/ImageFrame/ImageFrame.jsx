@@ -1,6 +1,6 @@
 import "./image_frame_style.css";
 
-function ImageFrame({ src, alt, children, className, ...props }) {
+function ImageFrame({ src, alt, children, className, blue, ...props }) {
   if (!className) className = "";
 
   return (
@@ -8,7 +8,7 @@ function ImageFrame({ src, alt, children, className, ...props }) {
       {src ? (
         <img src={src} alt={alt || "Image"} className="frame-image" />
       ) : (
-        <div className="frame-placeholder">{children}</div>
+        <div className={`frame-placeholder ${blue && 'frame-blue'}`}>{children}</div>
       )}
     </div>
   );

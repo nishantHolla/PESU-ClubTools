@@ -23,7 +23,17 @@ export function SessionProvider({ children }) {
   const [userData, setUserData] = useState(null);
 
   const queryUserData = async (currentUser) => {
-    if (userData) return;
+    if (userData) {
+      console.log("User data present");
+      return;
+    }
+
+    const sessionUserData = JSON.parse(sessionStorage.getItem("user-data"));
+    if (sessionUserData) {
+      console.log("User data restored from session");
+      setUserData(sessionUserData);
+      return;
+    }
 
     try {
       let foundUser = false;
@@ -31,12 +41,13 @@ export function SessionProvider({ children }) {
       await getUser(currentUser, (res) => {
         if (!res.data) return;
         setUserData(res.data);
-        console.log(res.data);
+        sessionStorage.setItem("user-data", JSON.stringify(res.data));
         foundUser = true;
       });
 
       if (!foundUser) {
         await createUser(currentUser, (res) => {
+          sessionStorage.setItem("user-data", JSON.stringify(res.data));
           setUserData(res.data);
         });
       }
@@ -92,6 +103,7 @@ export function SessionProvider({ children }) {
   const logout = async (cb, err) => {
     try {
       await signOut(auth);
+      sessionStorage.removeItem("user-data");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
@@ -146,8 +158,9 @@ export function SessionProvider({ children }) {
 
   const addProject = (project) => {
     const u = userData;
-    u.projects.push(project);
+    u.projects.push(project.data);
     setUserData(u);
+    sessionStorage.setItem("user-data", JSON.stringify(u));
   };
 
   return (

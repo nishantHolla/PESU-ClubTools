@@ -1,4 +1,5 @@
 import ImageFrame from "../../components/ImageFrame/ImageFrame";
+import ProjectTile from "../../components/ProjectTile/ProjectTile";
 import "./dashboard_style.css";
 import { useSession } from "../../providers/session/Session";
 import { useLocation } from "react-router-dom";
@@ -37,20 +38,11 @@ function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <ImageFrame className="blank-project" onClick={handleCreateProject}>
+      <ImageFrame className="blank-project" onClick={handleCreateProject} blue={true}>
         Blank Project
       </ImageFrame>
       {userData.projects.map((p) => {
-        return (
-          <ImageFrame
-            src=""
-            alt=""
-            key={p.projectid}
-            onClick={() => {
-              navigate(`/u/${user.uid}/p/${p.projectid}`);
-            }}
-          />
-        );
+        return <ProjectTile project={p} key={p.projectid} />;
       })}
     </div>
   );
