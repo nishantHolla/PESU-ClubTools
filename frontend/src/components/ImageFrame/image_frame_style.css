@@ -32,5 +32,8 @@
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+}
+
+.frame-blue {
   background-color: var(--theme-400);
 }
