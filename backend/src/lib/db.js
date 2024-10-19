@@ -81,4 +81,37 @@ async function createProject(uid) {
   }
 }
 
-module.exports = { getTest, getUser, createUser, deleteUser, createProject };
+async function getProject(projectid) {
+  try {
+    const project = await projectsCollection.findOne({ projectid });
+    return project;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+async function updateProject(project) {
+  try {
+    await projectsCollection.updateOne(
+      { projectid: project.projectid },
+      {
+        $set: { name: project.name },
+      },
+    );
+    return await getProject(project.projectid);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+module.exports = {
+  getTest,
+  getUser,
+  createUser,
+  deleteUser,
+  createProject,
+  getProject,
+  updateProject,
+};

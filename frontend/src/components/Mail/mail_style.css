@@ -14,7 +14,7 @@
   .mail-container-right {
     display: flex;
     align-items: stretch;
-    min-width: 250px;
+    min-width: 300px;
   }
 
   .icon-component {
@@ -24,5 +24,27 @@
   input {
     margin: 20px;
     font-weight: bold;
+  }
+}
+
+.sidebar-component {
+  right: 0;
+  padding: 50px;
+  border-radius: 3.6rem;
+  backdrop-filter: blur(10px);
+  background: var(--theme-container-background);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: var(--theme-container-border);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex-flow: column;
+
+  .input-component,
+  .password-component,
+  .button-component {
+    min-height: 50px;
   }
 }

@@ -163,6 +163,16 @@ export function SessionProvider({ children }) {
     sessionStorage.setItem("user-data", JSON.stringify(u));
   };
 
+  const updateProject = async (project) => {
+    const u = userData.projects.map((p) => {
+      if (p.projectid !== project.projectid) return p;
+
+      return project;
+    });
+    setUserData({ ...userData, projects: u });
+    sessionStorage.setItem("user-data", JSON.stringify(u));
+  };
+
   return (
     <SessionContext.Provider
       value={{
@@ -176,6 +186,7 @@ export function SessionProvider({ children }) {
         changePassword,
         userData,
         addProject,
+        updateProject,
       }}
     >
       {loading ? <Loading /> : children}

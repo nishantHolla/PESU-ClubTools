@@ -1,5 +1,3 @@
-import "./sidebar_style.css";
-
 function Sidebar({ color, children, className, ...props }) {
   if (!className) className = "";
 
