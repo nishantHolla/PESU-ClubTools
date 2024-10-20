@@ -1,20 +1,37 @@
 import "./template_style.css";
+import { IMAGE_FILE_TYPES } from "../../lib/constants";
 import { useSession } from "../../providers/session/Session";
-import { useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useStatus } from "../../providers/status/Status";
+import { updateProject as dbUpdateProject, uploadImage } from "../../lib/db";
+
 import Editable from "../Editable/Editable";
 import Button from "../Button/Button";
-import { updateProject as dbUpdateProject } from "../../lib/db";
+import File from "../File/File";
 
 function Template({ projectid }) {
+  const imageRef = useRef(null);
+  const [imageUploaded, setImageUploaded] = useState(false);
   const { setStatus } = useStatus();
   const { userData, updateProject } = useSession();
   const [project, setProject] = useState(
     userData.projects.find((i) => i.projectid === projectid),
   );
 
+  useEffect(() => {
+    if (project && project.image) {
+      imageRef.current.src = URL.createObjectURL(project.image);
+    }
+  }, []);
+
   const handleUpdateName = (e) => {
     setProject({ ...project, name: e.target.value });
+  };
+
+  const handleTemplateUpload = (file) => {
+    setProject({ ...project, image: file });
+    imageRef.current.src = URL.createObjectURL(file);
+    setImageUploaded(true);
   };
 
   const handleSave = () => {
@@ -22,7 +39,11 @@ function Template({ projectid }) {
     dbUpdateProject(
       project,
       () => {
-        setStatus("success", "Project saved!", 3000);
+        if (imageUploaded)
+          uploadImage(project.projectid, project.image, () => {
+            setStatus("success", "Project saved!", 3000);
+          });
+        else setStatus("success", "Project saved!", 3000);
       },
       () => {
         setStatus("error", "Something went wrong. Try again later");
@@ -32,11 +53,39 @@ function Template({ projectid }) {
 
   return (
     <div className="template-container">
-      <div className="template-container-left"></div>
+      <div className="template-container-left">
+        <img ref={imageRef} className="template-image" />
+      </div>
       <div className="template-container-right">
         <div className="template-sidebar">
-          <Editable value={project.name} onChange={handleUpdateName} />
-          <div className="template-panel"></div>
+          <div className="template-project-name">
+            <Editable value={project.name} onChange={handleUpdateName} />
+          </div>
+          <div className="template-panel">
+            <div className="template-panel-section">
+              <h3 className="template-panel-heading">Upload template</h3>
+              <File
+                value={project.image}
+                types={IMAGE_FILE_TYPES}
+                handleChange={handleTemplateUpload}
+                maxSize={2}
+                onTypeError={() => {
+                  setStatus(
+                    "error",
+                    `Supported files types are ${IMAGE_FILE_TYPES.join(", ")}`,
+                    3000,
+                  );
+                }}
+                onSizeError={() => {
+                  setStatus(
+                    "error",
+                    "File size must be smaller than 2MB.",
+                    3000,
+                  );
+                }}
+              />
+            </div>
+          </div>
           <Button className="template-save" onClick={handleSave}>
             Save
           </Button>
