@@ -18,6 +18,9 @@ function base64ToBlob(base64, contentType = "", sliceSize = 512) {
 }
 
 function base64ToFile(base64, filename, contentType = "") {
+  if (typeof base64 !== "string") {
+    return base64;
+  }
   const blob = base64ToBlob(base64, contentType);
   return new File([blob], filename, { type: contentType });
 }
