@@ -38,7 +38,7 @@ async function createUser(uid) {
 
   try {
     await usersCollection.insertOne(user);
-    return user;
+    return { user, projects: [] };
   } catch (e) {
     console.log(e);
     return null;
@@ -96,7 +96,7 @@ async function updateProject(project) {
     await projectsCollection.updateOne(
       { projectid: project.projectid },
       {
-        $set: { name: project.name },
+        $set: { name: project.name, csv: project.csv },
       },
     );
     return await getProject(project.projectid);

@@ -1,9 +1,11 @@
 import "./template_style.css";
-import { IMAGE_FILE_TYPES } from "../../lib/constants";
+import { base64ToFile } from "../../lib/utils";
+import { IMAGE_FILE_TYPES, DATA_FILE_TYPES } from "../../lib/constants";
 import { useSession } from "../../providers/session/Session";
 import { useState, useRef, useEffect } from "react";
 import { useStatus } from "../../providers/status/Status";
 import { updateProject as dbUpdateProject, uploadImage } from "../../lib/db";
+import Papa from "papaparse";
 
 import Editable from "../Editable/Editable";
 import Button from "../Button/Button";
@@ -20,8 +22,9 @@ function Template({ projectid }) {
 
   useEffect(() => {
     if (project && project.image) {
-      imageRef.current.src = URL.createObjectURL(project.image);
+      imageRef.current.src = URL.createObjectURL(base64ToFile(project.image));
     }
+    console.log(project)
   }, []);
 
   const handleUpdateName = (e) => {
@@ -32,6 +35,19 @@ function Template({ projectid }) {
     setProject({ ...project, image: file });
     imageRef.current.src = URL.createObjectURL(file);
     setImageUploaded(true);
+  };
+
+  const handleDataUpload = (file) => {
+    Papa.parse(file, {
+      complete: (result) => {
+        const csvString = result.data
+          .slice(0, -1)
+          .map((row) => row.join(","))
+          .join("\n");
+        setProject({ ...project, csv: csvString });
+      },
+      header: false,
+    });
   };
 
   const handleSave = () => {
@@ -73,6 +89,29 @@ function Template({ projectid }) {
                   setStatus(
                     "error",
                     `Supported files types are ${IMAGE_FILE_TYPES.join(", ")}`,
+                    3000,
+                  );
+                }}
+                onSizeError={() => {
+                  setStatus(
+                    "error",
+                    "File size must be smaller than 2MB.",
+                    3000,
+                  );
+                }}
+              />
+            </div>
+            <div className="template-panel-section">
+              <h3 className="template-panel-heading">Upload data</h3>
+              <File
+                value={project.csv}
+                types={DATA_FILE_TYPES}
+                handleChange={handleDataUpload}
+                maxSize={2}
+                onTypeError={() => {
+                  setStatus(
+                    "error",
+                    `Supported files types are ${DATA_FILE_TYPES.join(", ")}`,
                     3000,
                   );
                 }}

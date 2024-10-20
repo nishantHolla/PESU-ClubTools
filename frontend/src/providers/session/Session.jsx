@@ -1,5 +1,5 @@
 import { auth } from "../../lib/firebase";
-import {base64ToFile} from "../../lib/utils";
+import { base64ToFile } from "../../lib/utils";
 import { createContext, useContext, useState, useEffect } from "react";
 import { getUser, createUser, deleteUser } from "../../lib/db";
 import {
@@ -41,12 +41,6 @@ export function SessionProvider({ children }) {
 
       await getUser(currentUser, (res) => {
         if (!res.data) return;
-        res.data.projects.map(p => {
-          if (typeof p.image === 'string') {
-            p.image = base64ToFile(p.image)
-          }
-          return p
-        })
         setUserData(res.data);
         sessionStorage.setItem("user-data", JSON.stringify(res.data));
         foundUser = true;
@@ -74,6 +68,13 @@ export function SessionProvider({ children }) {
       }
       setLoading(false);
     });
+
+    if (!userData) {
+      const check = JSON.parse(sessionStorage.getItem("user-data"));
+      if (check) {
+        setUserData(check);
+      }
+    }
 
     return () => unsubscribe();
   }, []);
@@ -142,6 +143,7 @@ export function SessionProvider({ children }) {
       }
 
       await user.delete();
+      sessionStorage.removeItem("user-data");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
@@ -164,19 +166,20 @@ export function SessionProvider({ children }) {
   };
 
   const addProject = (project) => {
-    const u = userData;
+    const u = JSON.parse(JSON.stringify(userData));
     u.projects.push(project.data);
     setUserData(u);
     sessionStorage.setItem("user-data", JSON.stringify(u));
   };
 
   const updateProject = async (project) => {
-    const u = userData.projects.map((p) => {
+    const u = JSON.parse(JSON.stringify(userData));
+    u.projects = u.projects.map((p) => {
       if (p.projectid !== project.projectid) return p;
-
       return project;
     });
-    setUserData({ ...userData, projects: u });
+
+    setUserData(u);
     sessionStorage.setItem("user-data", JSON.stringify(u));
   };
 
