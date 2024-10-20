@@ -10,6 +10,11 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    padding: 20px;
+  }
+
+  .template-image {
+    width: 80%;
   }
 
   .template-container-right {
@@ -24,15 +29,43 @@
     border: var(--theme-container-border);
     width: 100%;
     max-width: 500px;
-    padding: 30px 10px;
+    padding: 30px 20px;
     border-radius: 3.6rem;
     display: flex;
     flex-flow: column;
-    align-items: center;
-    gap: 20px;
+    gap: 40px;
+
+    .template-project-name {
+      align-self: center;
+    }
 
     .template-panel {
       flex-grow: 1;
+      display: flex;
+      gap: 30px;
+      flex-flow: column;
+    }
+
+    .template-panel-section {
+      display: flex;
+      flex-flow: column;
+      gap: 20px;
+    }
+
+    .template-panel-heading {
+      align-self: flex-start;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .template-upload-zone {
+      padding: 10px;
+      border: 2px dashed white;
+    }
+
+    .template-upload-zone[data-uploaded="1"] {
+      color: green;
+      broder: 2px solid green;
     }
 
     .template-save {

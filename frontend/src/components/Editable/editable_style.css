@@ -1,4 +1,8 @@
 
+.editable-component.input-component {
+  width: max-content;
+}
+
 .editable-component {
   input[data-ison="0"] {
     display: none;
@@ -11,7 +15,8 @@
   .editable-label[data-ison="0"] {
     display: flex;
     gap: 10px;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: bold;
 
     .icon-component {
       font-size: 1.3rem;

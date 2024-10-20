@@ -13,7 +13,7 @@ function Editable({ value, onChange }) {
   }, [isEditing]);
 
   return (
-    <div className="editable-component">
+    <div className={`editable-component ${isEditing && 'input-component'}`}>
       <input
         value={value}
         onChange={onChange}
