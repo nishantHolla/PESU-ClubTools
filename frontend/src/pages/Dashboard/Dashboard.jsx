@@ -15,7 +15,6 @@ function Dashboard() {
   const handleCreateProject = () => {
     createProject((result) => {
       addProject(result);
-      console.log(result);
       navigate(`/u/${user.uid}/p/${result.data.projectid}`);
     });
   };

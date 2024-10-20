@@ -1,5 +1,6 @@
 import "./projectTile_style.css";
 import ImageFrame from "../ImageFrame/ImageFrame";
+import { base64ToFile } from "../../lib/utils";
 import { useSession } from "../../providers/session/Session";
 import { useNavigate } from "react-router-dom";
 
@@ -21,9 +22,8 @@ function ProjectTile({ project }) {
   };
 
   const getSrc = () => {
-    console.log(project.image);
     if (project.image) {
-      return URL.createObjectURL(project.image);
+      return URL.createObjectURL(base64ToFile(project.image));
     } else {
       return "";
     }

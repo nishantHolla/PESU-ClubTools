@@ -118,6 +118,10 @@ async function updateProject(project, cb, err) {
     const user = auth.currentUser;
     if (!user) return;
     const token = await user.getIdToken();
+
+    const copy = JSON.parse(JSON.stringify(project))
+    delete copy.image
+
     const response = await axios({
       method: "post",
       url: `${BACKEND_URL}/api/v1/project/${project.projectid}`,
@@ -125,7 +129,7 @@ async function updateProject(project, cb, err) {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        project,
+        project: copy,
       },
     });
 
