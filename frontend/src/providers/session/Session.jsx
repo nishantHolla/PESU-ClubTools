@@ -1,7 +1,5 @@
 import { auth } from "../../lib/firebase";
-import { base64ToFile } from "../../lib/utils";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getUser, createUser, deleteUser } from "../../lib/db";
 import {
   GoogleAuthProvider,
   EmailAuthProvider,
@@ -21,60 +19,12 @@ const SessionContext = createContext(null);
 export function SessionProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
-
-  const queryUserData = async (currentUser) => {
-    if (userData) {
-      console.log("User data present");
-      return;
-    }
-
-    const sessionUserData = JSON.parse(sessionStorage.getItem("user-data"));
-    if (sessionUserData) {
-      console.log("User data restored from session");
-      setUserData(sessionUserData);
-      return;
-    }
-
-    try {
-      let foundUser = false;
-
-      await getUser(currentUser, (res) => {
-        if (!res.data) return;
-        setUserData(res.data);
-        sessionStorage.setItem("user-data", JSON.stringify(res.data));
-        foundUser = true;
-      });
-
-      if (!foundUser) {
-        await createUser(currentUser, (res) => {
-          sessionStorage.setItem("user-data", JSON.stringify(res.data));
-          setUserData(res.data);
-        });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        queryUserData(currentUser);
-      } else {
-        setUser(null);
-        setUserData(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
       setLoading(false);
     });
-
-    if (!userData) {
-      const check = JSON.parse(sessionStorage.getItem("user-data"));
-      if (check) {
-        setUserData(check);
-      }
-    }
 
     return () => unsubscribe();
   }, []);
@@ -111,7 +61,6 @@ export function SessionProvider({ children }) {
   const logout = async (cb, err) => {
     try {
       await signOut(auth);
-      sessionStorage.removeItem("user-data");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
@@ -122,10 +71,6 @@ export function SessionProvider({ children }) {
     if (!user) return;
 
     try {
-      await deleteUser(null, (e) => {
-        return;
-      });
-
       const providerId = user.providerData[0]?.providerId;
 
       if (providerId === "password") {
@@ -143,7 +88,6 @@ export function SessionProvider({ children }) {
       }
 
       await user.delete();
-      sessionStorage.removeItem("user-data");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
@@ -165,24 +109,6 @@ export function SessionProvider({ children }) {
     }
   };
 
-  const addProject = (project) => {
-    const u = JSON.parse(JSON.stringify(userData));
-    u.projects.push(project.data);
-    setUserData(u);
-    sessionStorage.setItem("user-data", JSON.stringify(u));
-  };
-
-  const updateProject = async (project) => {
-    const u = JSON.parse(JSON.stringify(userData));
-    u.projects = u.projects.map((p) => {
-      if (p.projectid !== project.projectid) return p;
-      return project;
-    });
-
-    setUserData(u);
-    sessionStorage.setItem("user-data", JSON.stringify(u));
-  };
-
   return (
     <SessionContext.Provider
       value={{
@@ -194,9 +120,6 @@ export function SessionProvider({ children }) {
         loading,
         deleteAccount,
         changePassword,
-        userData,
-        addProject,
-        updateProject,
       }}
     >
       {loading ? <Loading /> : children}

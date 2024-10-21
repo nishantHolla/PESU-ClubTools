@@ -12,10 +12,6 @@ import EvaWarning from "./svgs/eva-warning.svg?react";
 import EvaSuccess from "./svgs/eva-success.svg?react";
 import EvaCheck from "./svgs/eva-check.svg?react";
 import EvaArrowDown from "./svgs/eva-arrow-down.svg?react";
-import EvaBrush from "./svgs/eva-brush.svg?react";
-import EvaSettings from "./svgs/eva-settings.svg?react";
-import EvaCube from "./svgs/eva-cube.svg?react";
-import EvaEdit from "./svgs/eva-edit.svg?react";
 
 const iconMap = {
   "eva:menu": EvaMenu,
@@ -30,10 +26,6 @@ const iconMap = {
   "eva:success": EvaSuccess,
   "eva:check": EvaCheck,
   "eva:arrow-down": EvaArrowDown,
-  "eva:brush": EvaBrush,
-  "eva:settings": EvaSettings,
-  "eva:cube": EvaCube,
-  "eva:edit": EvaEdit,
 };
 
 function Icon({ type, className, ...props }) {
