@@ -1,8 +1,11 @@
 import { auth } from "../../lib/firebase";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import {base64ToFile} from "../../lib/utils";
 >>>>>>> parent of 0f89069 (Add data uploading)
+=======
+>>>>>>> parent of 5a09ac4 (Add template uploading)
 import { createContext, useContext, useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
@@ -45,12 +48,6 @@ export function SessionProvider({ children }) {
 
       await getUser(currentUser, (res) => {
         if (!res.data) return;
-        res.data.projects.map(p => {
-          if (typeof p.image === 'string') {
-            p.image = base64ToFile(p.image)
-          }
-          return p
-        })
         setUserData(res.data);
         sessionStorage.setItem("user-data", JSON.stringify(res.data));
         foundUser = true;

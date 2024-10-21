@@ -106,18 +106,6 @@ async function updateProject(project) {
   }
 }
 
-async function uploadImage(project, buffer) {
-  try {
-    return await projectsCollection.updateOne(
-      { projectid: project.projectid },
-      { $set: { image: buffer } },
-    );
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
 module.exports = {
   getTest,
   getUser,
@@ -126,5 +114,4 @@ module.exports = {
   createProject,
   getProject,
   updateProject,
-  uploadImage,
 };

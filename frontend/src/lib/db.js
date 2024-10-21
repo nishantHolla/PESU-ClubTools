@@ -142,32 +142,6 @@ async function updateProject(project, cb, err) {
   }
 }
 
-async function uploadImage(projectid, image, cb, err) {
-  try {
-    const user = auth.currentUser;
-    if (!user) return;
-    const token = await user.getIdToken();
-    const formData = new FormData();
-    formData.append("image", image);
-    const response = await axios({
-      method: "post",
-      url: `${BACKEND_URL}/api/v1/project/${projectid}/image`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      },
-      data: formData,
-    });
-    if (response.status !== 200) {
-      throw new Error(response);
-    }
-
-    if (cb) cb(response.data);
-  } catch (e) {
-    if (err) err(e.response.data);
-  }
-}
-
 export {
   getUser,
   createUser,
@@ -175,6 +149,5 @@ export {
   testDb,
   createProject,
   updateProject,
-  uploadImage,
 };
 >>>>>>> parent of 0f89069 (Add data uploading)
