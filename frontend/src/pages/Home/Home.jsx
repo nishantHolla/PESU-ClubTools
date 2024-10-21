@@ -1,10 +1,12 @@
+import Button from "../../components/Button/Button";
 import "./home_style.css";
 import { useEffect } from "react";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
 import { useNavigate } from "react-router-dom";
 import Link from "../../components/Link/Link";
-import Button from "../../components/Button/Button";
+import Icon from "../../components/Icon/Icon";
+import Textarea from "../../components/Textarea/Textarea";
 
 function Home() {
   const { setStatus } = useStatus();
@@ -48,7 +50,7 @@ function Home() {
         </div>
       </div>
       <div id="home-about" className="hero3">
-        <h3>About</h3>
+    <h3>About</h3>
         <p>Todo: Add About section</p>
       </div>
       <div className="footer" id="home-contact-us">

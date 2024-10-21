@@ -14,7 +14,7 @@
   .mail-container-right {
     display: flex;
     align-items: stretch;
-    min-width: 250px;
+    min-width: 300px;
   }
 
   .icon-component {
@@ -23,6 +23,5 @@
 
   input {
     margin: 20px;
-    font-weight: bold;
   }
 }
