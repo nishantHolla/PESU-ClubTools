@@ -1,9 +1,0 @@
-.file-component {
-  padding: 20px 10px;
-  border: 2px dashed white;
-}
-
-.file-component[data-isaccepted="1"] {
-  border: 2px solid var(--theme-success-light);
-  color: var(--theme-success-light);
-}

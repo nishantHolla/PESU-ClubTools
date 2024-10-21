@@ -1,11 +1,13 @@
-import ImageFrame from "../../components/ImageFrame/ImageFrame";
-import "./dashboard_style.css";
+import "./mail_style.css";
 import { useSession } from "../../providers/session/Session";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Input from "../../components/Input/Input";
+import Textarea from "../../components/Textarea/Textarea";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
-function Dashboard() {
+function Mail() {
   const { user } = useSession();
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,15 +27,16 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="dashboard-container">
-      <ImageFrame className="blank-project">Blank Project</ImageFrame>
-      <ImageFrame src="certificate1.png" alt="Certificate 1" />
-      <ImageFrame src="certificate2.png" alt="Certificate 2" />
-      <ImageFrame src="certificate3.png" alt="Certificate 3" />
-      <ImageFrame src="certificate4.png" alt="Certificate 4" />
-      <ImageFrame src="certificate5.png" alt="Certificate 5" />
+    <div className="mail-container">
+      <div className="mail-container-left">
+        <Input placeholder="Subject:" />
+        <Textarea placeholder="Body:" />
+      </div>
+      <div className="mail-container-right">
+        <Sidebar />
+      </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default Mail;

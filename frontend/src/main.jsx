@@ -11,7 +11,7 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Project from "./pages/Project/Project"
+import Mail from "./pages/Mail/Mail";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
@@ -53,7 +53,7 @@ function rout() {
         },
         {
           path: "u/:userid/p/:projectid",
-          element: <Project />,
+          element: <Mail />,
         },
       ],
     },

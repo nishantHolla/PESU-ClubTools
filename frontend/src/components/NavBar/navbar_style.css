@@ -15,10 +15,6 @@
     padding: 10px 15px;
     min-width: 100px;
   }
-
-  .navbar-link {
-    color: var(--theme-0);
-  }
 }
 
 .navbar-bottom {
@@ -44,7 +40,7 @@
     height: 40px;
     display: flex;
     align-items: center;
-    color: var(--theme-1000);
+    color: var(--theme-600);
   }
 
   .avatar-component {
