@@ -10,6 +10,17 @@ function Dashboard() {
   const navigate = useNavigate();
   const location = useLocation();
 
+<<<<<<< HEAD
+=======
+  const handleCreateProject = () => {
+    createProject((result) => {
+      addProject(result);
+      console.log(result);
+      navigate(`/u/${user.uid}/p/${result.data.projectid}`);
+    });
+  };
+
+>>>>>>> parent of 0f89069 (Add data uploading)
   useEffect(() => {
     if (!user) {
       navigate("/");

@@ -1,4 +1,8 @@
 import { auth } from "../../lib/firebase";
+<<<<<<< HEAD
+=======
+import {base64ToFile} from "../../lib/utils";
+>>>>>>> parent of 0f89069 (Add data uploading)
 import { createContext, useContext, useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
@@ -19,6 +23,50 @@ const SessionContext = createContext(null);
 export function SessionProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
+=======
+  const [userData, setUserData] = useState(null);
+
+  const queryUserData = async (currentUser) => {
+    if (userData) {
+      console.log("User data present");
+      return;
+    }
+
+    const sessionUserData = JSON.parse(sessionStorage.getItem("user-data"));
+    if (sessionUserData) {
+      console.log("User data restored from session");
+      setUserData(sessionUserData);
+      return;
+    }
+
+    try {
+      let foundUser = false;
+
+      await getUser(currentUser, (res) => {
+        if (!res.data) return;
+        res.data.projects.map(p => {
+          if (typeof p.image === 'string') {
+            p.image = base64ToFile(p.image)
+          }
+          return p
+        })
+        setUserData(res.data);
+        sessionStorage.setItem("user-data", JSON.stringify(res.data));
+        foundUser = true;
+      });
+
+      if (!foundUser) {
+        await createUser(currentUser, (res) => {
+          sessionStorage.setItem("user-data", JSON.stringify(res.data));
+          setUserData(res.data);
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+>>>>>>> parent of 0f89069 (Add data uploading)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -109,6 +157,26 @@ export function SessionProvider({ children }) {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const addProject = (project) => {
+    const u = userData;
+    u.projects.push(project.data);
+    setUserData(u);
+    sessionStorage.setItem("user-data", JSON.stringify(u));
+  };
+
+  const updateProject = async (project) => {
+    const u = userData.projects.map((p) => {
+      if (p.projectid !== project.projectid) return p;
+
+      return project;
+    });
+    setUserData({ ...userData, projects: u });
+    sessionStorage.setItem("user-data", JSON.stringify(u));
+  };
+
+>>>>>>> parent of 0f89069 (Add data uploading)
   return (
     <SessionContext.Provider
       value={{
