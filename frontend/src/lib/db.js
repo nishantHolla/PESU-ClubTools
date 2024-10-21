@@ -116,6 +116,7 @@ async function createProject(cb, err) {
   }
 }
 
+<<<<<<< HEAD
 async function updateProject(project, cb, err) {
   try {
     const user = auth.currentUser;
@@ -151,3 +152,6 @@ export {
   updateProject,
 };
 >>>>>>> parent of 0f89069 (Add data uploading)
+=======
+export { getUser, createUser, deleteUser, testDb, createProject };
+>>>>>>> parent of 7d9838d (Add project editing)

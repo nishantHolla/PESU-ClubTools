@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:frontend/src/components/Sidebar/sidebar_style.css
 .sidebar-component {
   right: 0;
   padding: 50px;
@@ -17,5 +18,33 @@
   .password-component,
   .button-component {
     min-height: 50px;
+========
+.mail-container {
+  padding: 20px;
+  height: 100%;
+  gap: 20px;
+  display: flex;
+
+  .mail-container-left {
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    flex-grow: 1;
+  }
+
+  .mail-container-right {
+    display: flex;
+    align-items: stretch;
+    min-width: 250px;
+  }
+
+  .icon-component {
+    font-size: 1.5rem;
+  }
+
+  input {
+    margin: 20px;
+    font-weight: bold;
+>>>>>>>> parent of 7d9838d (Add project editing):frontend/src/components/Mail/mail_style.css
   }
 }
