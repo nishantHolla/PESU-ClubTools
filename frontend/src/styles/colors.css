@@ -12,6 +12,19 @@
   --theme-950: #1c244f;
   --theme-1000: #000000;
 
+  --theme-0-alpha: #ffffff99;
+  --theme-100-alpha: #dee8fb99;
+  --theme-200-alpha: #c4d7f999;
+  --theme-300-alpha: #9bbdf599;
+  --theme-400-alpha: #6c9bee99;
+  --theme-500-alpha: #4977e899;
+  --theme-600-alpha: #345bd99c;
+  --theme-700-alpha: #2a45c399;
+  --theme-800-alpha: #293ba499;
+  --theme-900-alpha: #26368299;
+  --theme-950-alpha: #1c244f99;
+  --theme-1000-alpha: #00000099;
+
   --theme-error: #f44336;
   --theme-error-light: #e57373;
   --theme-error-dark: #d32f2f;

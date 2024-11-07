@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { ObjectId } = require("mongodb");
 
 const app = express();
 
@@ -10,6 +11,7 @@ function run(port, database) {
   /* All collections in database */
 
   const userCollection = database.collection("users");
+  const projectCollection = database.collection("projects");
 
   /* General routes*/
 
@@ -28,13 +30,20 @@ function run(port, database) {
     try {
       const query = await userCollection.findOne(
         { email: req.params.email.toLowerCase() },
-        { projection: { _id: 0, createdAt: 0 } },
+        { projection: { createdAt: 0 } },
       );
+
+      const uid = query["_id"];
+      query["_id"] = undefined;
+      const projects = await projectCollection.find({ author: uid }).toArray();
+
       if (!query) {
         return res.status(404).json({ message: "User does not exist" });
       }
 
-      return res.status(200).json({ message: "Found user", result: query });
+      return res
+        .status(200)
+        .json({ message: "Found user", result: { user: query, projects } });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: "Internal server error" });
@@ -98,6 +107,41 @@ function run(port, database) {
   });
 
   /* Projects routes */
+  app.post("/api/v1/project", async (req, res) => {
+    if (!req.body.email) {
+      return res.status(400).json({ message: "User email id not provided" });
+    }
+
+    try {
+      const user = await userCollection.findOne({
+        email: req.body.email.toLowerCase(),
+      });
+      if (!user) {
+        return res.status(404).json({ message: "User does not exist" });
+      }
+
+      const project = {
+        author: new ObjectId(user["_id"]),
+        name: "Untitled project",
+        csv: "",
+        emailBody: "",
+        emailSubject: "",
+        status: [],
+        coords: [],
+        createdAt: Date.now(),
+        qr: null,
+        image: null,
+      };
+
+      await projectCollection.insertOne(project);
+      return res
+        .status(200)
+        .json({ message: "Created new project", result: project });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
   /* Certificate routes */
 

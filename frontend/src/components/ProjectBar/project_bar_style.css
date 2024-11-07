@@ -1,0 +1,25 @@
+.project-bar {
+  display: flex;
+  gap: 40px;
+  background: var(--theme-100-alpha);
+  align-self: center;
+  padding: 15px 40px;
+  border-radius: var(--border-radius);
+  color: var(--theme-1000);
+}
+
+.project-item {
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+
+  .icon-component {
+    font-size: 1.4rem;
+  }
+}
+
+.project-item-active {
+  color: var(--theme-700);
+}
