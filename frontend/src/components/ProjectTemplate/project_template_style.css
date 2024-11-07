@@ -1,0 +1,48 @@
+
+.project-template-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.project-template-sidebar {
+  background: var(--theme-100-alpha);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  padding: 40px;
+  color: var(--theme-1000);
+}
+
+.project-name {
+  font-size: 1.3rem;
+  align-self: center;
+  font-weight: bold;
+}
+
+.template-image-drop {
+  border: 2px dashed var(--theme-0);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .icon-component {
+    font-size: 4rem;
+  }
+
+  .template-image-instruction {
+    display: flex;
+    flex-flow: column;
+    gap: 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+.template-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

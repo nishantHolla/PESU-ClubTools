@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../../providers/session/Session";
 import ImageFrame from "../ImageFrame/ImageFrame";
+import {inferImage} from "../../lib/util"
 import "./project_frame_style.css";
 
 function ProjectFrame({ project }) {
@@ -13,7 +14,7 @@ function ProjectFrame({ project }) {
         navigate(`/u/${user.uid}/p/${project["_id"]}`);
       }}
     >
-      <ImageFrame />
+      <ImageFrame src={inferImage(project)}/>
       <div className="project-frame-info">
         <h3 className="project-frame-title">{project.name}</h3>
         <p className="project-frame-date">

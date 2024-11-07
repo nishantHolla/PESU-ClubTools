@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const { user, projects, setProjects } = useSession();
-  const { setStatus } = useStatus();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    console.log(projects);
     if (!user) {
       navigate("/");
     }
@@ -34,7 +34,7 @@ function Dashboard() {
       email: user.email,
     });
     const project = response.data.result;
-    console.log(project)
+    console.log(project);
     setProjects([project, ...projects]);
     navigate(`/u/${user.uid}/p/${project["_id"]}`);
   };

@@ -1,8 +1,11 @@
 const express = require("express");
+const multer = require("multer");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 
 const app = express();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.use(cors());
 app.use(express.json());
@@ -142,6 +145,34 @@ function run(port, database) {
       return res.status(500).json({ message: "Internal server error" });
     }
   });
+
+  app.post(
+    "/api/v1/template/:projectid",
+    upload.single("image"),
+    async (req, res) => {
+      try {
+        if (!req.file) {
+          return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        const imageBinary = req.file.buffer;
+        const projectid = req.params.projectid;
+
+        if (!projectid) {
+          return res.status(400).json({ message: "No project id specified" });
+        }
+
+        await projectCollection.updateOne(
+          { _id: new ObjectId(projectid) },
+          { $set: { image: imageBinary, contentType: req.file.mimetype } },
+        );
+
+        return res.status(200).json({ message: "Image uploaded", result: {} });
+      } catch (e) {
+        return res.status(500).json({ message: "Internal server error" });
+      }
+    },
+  );
 
   /* Certificate routes */
 
