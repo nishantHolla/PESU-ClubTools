@@ -1,3 +1,5 @@
+import axios from "axios";
+import { BACKEND_URL } from "../../lib/constants";
 import { auth } from "../../lib/firebase";
 import { createContext, useContext, useState, useEffect } from "react";
 import {
@@ -32,17 +34,49 @@ export function SessionProvider({ children }) {
   const loginEmail = async (email, password, cb, err) => {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
-      if (cb) cb(cred.user);
+      try {
+        await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        if (cb) cb(cred.user);
+      } catch (e) {
+        if (e.status === 404) {
+          try {
+            await axios.post(`${BACKEND_URL}/api/v1/user`, {
+              email: cred.user.email,
+              name: cred.user.displayName,
+            });
+            if (cb) cb(cred.user);
+          } catch (e) {
+            if (err) err(e);
+          }
+        }
+      }
     } catch (e) {
       if (err) err(e);
     }
   };
 
   const loginGoogle = async (cb, err) => {
+    const provider = new GoogleAuthProvider();
+
     try {
-      const provider = new GoogleAuthProvider();
       const cred = await signInWithPopup(auth, provider);
-      if (cb) cb(cred.user);
+
+      try {
+        await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        if (cb) cb(cred.user);
+      } catch (e) {
+        if (e.status === 404) {
+          try {
+            await axios.post(`${BACKEND_URL}/api/v1/user`, {
+              email: cred.user.email,
+              name: cred.user.displayName,
+            });
+            if (cb) cb(cred.user);
+          } catch (e) {
+            if (err) err(e);
+          }
+        }
+      }
     } catch (e) {
       if (err) err(e);
     }
@@ -52,6 +86,18 @@ export function SessionProvider({ children }) {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
+
+      try {
+        await axios.post(`${BACKEND_URL}/api/v1/user`, {
+          email: cred.user.email,
+          name: name,
+        });
+        if (cb) cb(cred.user);
+      } catch (e) {
+        if (err) err(e);
+        return;
+      }
+
       if (cb) cb(cred.user);
     } catch (e) {
       if (err) err(e);
@@ -87,6 +133,12 @@ export function SessionProvider({ children }) {
         }
       }
 
+      try {
+        await axios.delete(`${BACKEND_URL}/api/v1/user/${user.email}`);
+      } catch (e) {
+        if (err) err(e);
+        return;
+      }
       await user.delete();
       if (cb) cb();
     } catch (e) {

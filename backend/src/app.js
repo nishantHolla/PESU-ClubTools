@@ -73,21 +73,21 @@ function run(port, database) {
   });
 
   // delete user in databasae
-  app.delete("/api/v1/user", async (req, res) => {
-    if (!req.body.email) {
+  app.delete("/api/v1/user/:email", async (req, res) => {
+    if (!req.params.email) {
       return res.status(400).json({ message: "User email id not provided" });
     }
 
     try {
       const query = await userCollection.findOne({
-        email: req.body.email.toLowerCase(),
+        email: req.params.email.toLowerCase(),
       });
       if (!query) {
         return res.status(404).json({ message: "User does not exist" });
       }
 
       await userCollection.deleteOne({
-        email: req.body.email,
+        email: req.params.email,
       });
 
       return res.status(200).json({ message: "Deleted user", result: {} });
