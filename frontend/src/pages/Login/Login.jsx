@@ -62,10 +62,13 @@ function Login() {
     const loginFail = (error) => {
       if (error.code === "auth/user-not-found") {
         setStatus("error", "User not found. Do you want to sign up?");
+      } else if (error.code === "auth/invalid-credential") {
+        setStatus("error", "Invalid email or password");
       } else {
         setStatus("error", "Something went wrong. See console.");
         console.log(error);
       }
+      setLoading(false)
     };
 
     loginEmail(form.email, form.password, loginSuccess, loginFail);

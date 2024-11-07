@@ -71,6 +71,7 @@ function UserPanel({setRef}) {
     };
 
     const deleteFailure = (e) => {
+      console.log(e)
       if (e && e.code === "auth/invalid-credential") {
         setStatus("error", "Incorrect password");
       }
