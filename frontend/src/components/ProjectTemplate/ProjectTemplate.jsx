@@ -1,10 +1,10 @@
 import Button from "../Button/Button";
 import axios from "axios";
-import { useStatus } from "../../providers/status/Status";
 import { BACKEND_URL } from "../../lib/constants";
 import "./project_template_style.css";
 import TemplateImage from "./TemplateImage";
 import CsvData from "./CsvData";
+import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
 import { useEffect, useState } from "react";
 import Field from "./Field";
@@ -37,11 +37,11 @@ function ProjectTemplate({ projectid }) {
 
   return (
     <div className="project-template-container">
-      <TemplateImage
-        projectid={projectid}
-        currentProject={currentProject}
-        setCurrentProject={setCurrentProject}
-      />
+        <TemplateImage
+          projectid={projectid}
+          currentProject={currentProject}
+          setCurrentProject={setCurrentProject}
+        />
       <div className="project-template-sidebar">
         {currentProject && (
           <>

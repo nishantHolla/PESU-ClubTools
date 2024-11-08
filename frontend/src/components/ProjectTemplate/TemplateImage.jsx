@@ -78,7 +78,7 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
     }
   };
 
-  if (!currentProject) return <></>;
+  if (!currentProject) return <div></div>;
 
   return currentProject.image ? (
     <div className="template-image-container">
