@@ -50,12 +50,14 @@ function TemplateImage({ projectid }) {
     }
   };
 
-  return currentProject?.image ? (
+  if (!currentProject) return <></>;
+
+  return currentProject.image ? (
     <div className="template-image-container">
       <img
         src={inferImage(currentProject)}
         alt="something went wrong"
-        width="100%"
+        width="90%"
       />
     </div>
   ) : (
