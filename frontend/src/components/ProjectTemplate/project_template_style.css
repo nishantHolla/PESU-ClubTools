@@ -47,6 +47,11 @@
   justify-content: center;
 }
 
+.template-image-ref {
+  position: relative;
+  width: 80%;
+}
+
 .csv-drop {
   border: 2px dashed var(--theme-0);
   border-radius: var(--border-radius);
@@ -98,4 +103,43 @@
 .project-subsection-heading {
   font-size: 1.3rem;
   padding: 10px 0;
+}
+
+.project-field-container {
+  margin: 10px 0;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.project-field-number {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: var(--theme-300);
+}
+
+.project-field {
+  display: flex;
+  gap: 10px;
+}
+
+.project-coord {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  color: var(--theme-1000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-300);
+  border-radius: 10px;
+  transform: translate(-50%, -50%)
+}
+
+.project-save-fields {
+  padding: 10px;
 }

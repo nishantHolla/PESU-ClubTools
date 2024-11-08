@@ -3,21 +3,49 @@ import Icon from "../Icon/Icon";
 import { useStatus } from "../../providers/status/Status";
 import axios from "axios";
 import { BACKEND_URL } from "../../lib/constants";
-import { useState, useEffect } from "react";
 import { useSession } from "../../providers/session/Session";
 import { FileUploader } from "react-drag-drop-files";
 
 const FILE_TYPES = ["JPG", "PNG"];
 
-function TemplateImage({ projectid }) {
-  const { projects, setProjects } = useSession();
-  const [currentProject, setCurrentProject] = useState(null);
-  const { setStatus } = useStatus();
-  const [file, setFile] = useState();
+function Coord({ i, c }) {
+  return (
+    <div
+      className="project-coord"
+      style={{
+        top: `${c.y}%`,
+        left: `${c.x}%`,
+      }}
+    >
+      {i}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    setCurrentProject(projects.find((f) => f["_id"] === projectid));
-  }, []);
+function TemplateImage({ projectid, currentProject, setCurrentProject }) {
+  const { projects, setProjects } = useSession();
+  const { setStatus } = useStatus();
+
+  const handleFieldAddition = (e) => {
+    const p = projects.find((f) => f["_id"] === projectid);
+    if (!p || !p.csv) return;
+    const rect = e.target.getBoundingClientRect();
+    const l = ((e.clientX - rect.left) / rect.width) * 100;
+    const t = ((e.clientY - rect.top) / rect.height) * 100;
+    console.log(rect.width, rect.height, l, t);
+
+    setCurrentProject({
+      ...currentProject,
+      coords: [
+        ...currentProject.coords,
+        {
+          x: l,
+          y: t,
+          field: currentProject.csv[0][0],
+        },
+      ],
+    });
+  };
 
   const handleChange = async (file) => {
     setProjects((old) => {
@@ -54,11 +82,17 @@ function TemplateImage({ projectid }) {
 
   return currentProject.image ? (
     <div className="template-image-container">
-      <img
-        src={inferImage(currentProject)}
-        alt="something went wrong"
-        width="90%"
-      />
+      <div className="template-image-ref">
+        <img
+          src={inferImage(currentProject)}
+          alt="something went wrong"
+          width="100%"
+          onClick={handleFieldAddition}
+        />
+        {currentProject.coords.map((c, i) => (
+          <Coord key={i} i={i} c={c} />
+        ))}
+      </div>
     </div>
   ) : (
     <FileUploader

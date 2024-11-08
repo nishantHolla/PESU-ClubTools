@@ -146,6 +146,27 @@ function run(port, database) {
     }
   });
 
+  app.post("/api/v1/project/:projectid", async (req, res) => {
+    try {
+      if (!req.params.projectid) {
+        return res.status(400).json({ message: "No project id specified" });
+      }
+
+      if (!req.body) {
+        return res.status(400).json({ message: "No updated specified" });
+      }
+
+      await projectCollection.updateOne(
+        { _id: new ObjectId(req.params.projectid) },
+        { $set: req.body },
+      );
+
+      return res.status(200).json({ message: "Project updated", result: {} });
+    } catch (e) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   app.post(
     "/api/v1/template/:projectid",
     upload.single("image"),
