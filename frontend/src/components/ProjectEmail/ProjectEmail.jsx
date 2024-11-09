@@ -5,13 +5,11 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
-import { useState, useEffect } from "react";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 
-function ProjectEmail({ projectid }) {
+function ProjectEmail({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
-  const [currentProject, setCurrentProject] = useState(null);
   const { setStatus } = useStatus();
 
   const modules = {
@@ -48,10 +46,6 @@ function ProjectEmail({ projectid }) {
     "color",
     "background"
   ];
-
-  useEffect(() => {
-    setCurrentProject(projects.find((f) => f["_id"] === projectid));
-  }, []);
 
   const handleSubjectChange = (e) => {
     setCurrentProject({ ...currentProject, emailSubject: e.target.value });

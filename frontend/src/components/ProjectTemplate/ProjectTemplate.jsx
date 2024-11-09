@@ -6,17 +6,11 @@ import TemplateImage from "./TemplateImage";
 import CsvData from "./CsvData";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
-import { useEffect, useState } from "react";
 import Field from "./Field";
 
-function ProjectTemplate({ projectid }) {
+function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
-  const [currentProject, setCurrentProject] = useState(null);
   const { setStatus } = useStatus();
-
-  useEffect(() => {
-    setCurrentProject(projects.find((f) => f["_id"] === projectid));
-  }, []);
 
   const saveFields = async () => {
     setProjects((o) =>
