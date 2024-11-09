@@ -24,6 +24,19 @@
   height: 100%;
   background: var(--theme-0);
   border-radius: var(--border-radius);
+  padding: 20px;
+  color: var(--theme-1000);
+  overflow: scroll;
+}
+
+
+.quill .ql-container.ql-snow {
+  border: none;
+}
+
+.quill .ql-toolbar.ql-snow {
+  border-radius: var(--border-radius);
+  background: var(--theme-200-alpha);
 }
 
 .project-email-sidebar {
@@ -40,4 +53,15 @@
   padding: 10px 20px;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.project-save-email {
+  padding: 10px;
+}
+
+.project-email-variable-section {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+  flex-grow: 1;
 }
