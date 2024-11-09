@@ -55,7 +55,7 @@ function Login() {
 
     const loginSuccess = (user) => {
       if (user) {
-        navigate(`/u/${user.uid}`);
+        navigate(`/u/${user.uid}/projects`);
       }
     };
 

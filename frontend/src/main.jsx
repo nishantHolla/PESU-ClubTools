@@ -11,7 +11,8 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Mail from "./pages/Mail/Mail";
+import Project from "./pages/Project/Project"
+import Verify from "./pages/Verify/Verify";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
@@ -52,9 +53,13 @@ function rout() {
           element: <Dashboard />,
         },
         {
-          path: "u/:userid/p/:projectid",
-          element: <Mail />,
+          path: "u/:userid/p/:projectid/:state",
+          element: <Project />,
         },
+        {
+          path: "verify/:certificateid",
+          element: <Verify />
+        }
       ],
     },
   ]);

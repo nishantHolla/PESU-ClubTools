@@ -1,0 +1,67 @@
+.project-email-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.project-email-left {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+
+.project-email-subject-input {
+  min-height: 50px;
+
+  input {
+    font-weight: bold;
+  }
+}
+
+.project-email-body-container {
+  width: 100%;
+  height: 100%;
+  background: var(--theme-0);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  color: var(--theme-1000);
+  overflow: scroll;
+}
+
+
+.quill .ql-container.ql-snow {
+  border: none;
+}
+
+.quill .ql-toolbar.ql-snow {
+  border-radius: var(--border-radius);
+  background: var(--theme-200-alpha);
+}
+
+.project-email-sidebar {
+  background: var(--theme-100-alpha);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  padding: 40px;
+  color: var(--theme-1000);
+}
+
+.project-email-variable {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.project-save-email {
+  padding: 10px;
+}
+
+.project-email-variable-section {
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
+  flex-grow: 1;
+}
