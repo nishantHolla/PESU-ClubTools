@@ -5,7 +5,8 @@ import "./project_style.css";
 import ProjectBar from "../../components/ProjectBar/ProjectBar";
 import ProjectTemplate from "../../components/ProjectTemplate/ProjectTemplate";
 import ProjectEmail from "../../components/ProjectEmail/ProjectEmail";
-import ProjectSettings from "../../components/ProjectSettings/ProjectSettings"
+import ProjectSettings from "../../components/ProjectSettings/ProjectSettings";
+import ProjectStatus from "../../components/ProjectStatus/ProjectStatus";
 
 function Project() {
   const { projects } = useSession();
@@ -39,6 +40,13 @@ function Project() {
       )}
       {params.state === "settings" && (
         <ProjectSettings
+          projectid={params.projectid}
+          currentProject={currentProject}
+          setCurrentProject={setCurrentProject}
+        />
+      )}
+      {params.state === "status" && (
+        <ProjectStatus
           projectid={params.projectid}
           currentProject={currentProject}
           setCurrentProject={setCurrentProject}

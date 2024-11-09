@@ -4,7 +4,7 @@ function CsvVisalizer({ data }) {
   return (
     <div
       className="csv-visualizer-container"
-      style={{ gridTemplateColumns: `repeat(${data[0].length}, 100px)` }}
+      style={{ gridTemplateColumns: `repeat(${data[0].length}, max-content)` }}
     >
       {headers.map((d, i) => (
         <div className="csv-header" key={`header-${i}`}>
