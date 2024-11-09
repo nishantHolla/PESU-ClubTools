@@ -12,6 +12,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Project from "./pages/Project/Project"
+import Verify from "./pages/Verify/Verify";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
 import { SessionProvider } from "./providers/session/Session";
@@ -55,6 +56,10 @@ function rout() {
           path: "u/:userid/p/:projectid/:state",
           element: <Project />,
         },
+        {
+          path: "verify/:certificateid",
+          element: <Verify />
+        }
       ],
     },
   ]);

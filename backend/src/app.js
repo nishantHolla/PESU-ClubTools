@@ -225,7 +225,7 @@ function run(port, database) {
         return res.status(400).json({ message: "No certificate id specified" });
       }
 
-      const certificate = certificateCollection.findOne({
+      const certificate = await certificateCollection.findOne({
         _id: new ObjectId(req.params.certificateid),
       });
 
