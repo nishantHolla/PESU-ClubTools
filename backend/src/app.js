@@ -38,13 +38,13 @@ function run(port, database) {
         { projection: { createdAt: 0 } },
       );
 
-      const uid = query["_id"];
-      query["_id"] = undefined;
-      const projects = await projectCollection.find({ author: uid }).toArray();
-
       if (!query) {
         return res.status(404).json({ message: "User does not exist" });
       }
+
+      const uid = query["_id"];
+      query["_id"] = undefined;
+      const projects = await projectCollection.find({ author: uid }).toArray();
 
       return res
         .status(200)
