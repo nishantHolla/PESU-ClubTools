@@ -110,6 +110,8 @@ function run(port, database) {
   });
 
   /* Projects routes */
+
+  // creante new project in database
   app.post("/api/v1/project", async (req, res) => {
     if (!req.body.email) {
       return res.status(400).json({ message: "User email id not provided" });
@@ -146,6 +148,7 @@ function run(port, database) {
     }
   });
 
+  // update project
   app.post("/api/v1/project/:projectid", async (req, res) => {
     try {
       if (!req.params.projectid) {
@@ -167,6 +170,7 @@ function run(port, database) {
     }
   });
 
+  // upload template image for a project
   app.post(
     "/api/v1/template/:projectid",
     upload.single("image"),
@@ -194,6 +198,23 @@ function run(port, database) {
       }
     },
   );
+
+  // delete project
+  app.delete("/api/v1/project/:projectid", async (req, res) => {
+    try {
+      if (!req.params.projectid) {
+        return res.status(400).json({ message: "No project id specified" });
+      }
+
+      await projectCollection.deleteOne({
+        _id: new ObjectId(req.params.projectid),
+      });
+
+      return res.status(200).json({ message: "Project deleted", result: {} });
+    } catch (e) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
   /* Certificate routes */
 

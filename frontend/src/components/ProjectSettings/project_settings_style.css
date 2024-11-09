@@ -1,0 +1,75 @@
+
+.project-settings-container {
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+}
+
+.project-settings-section {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.project-settings-heading {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.project-settings-name-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+
+  * {
+    flex: 0 0 max-content;
+  }
+
+}
+
+.project-rename-button {
+  padding: 10px 20px;
+}
+
+.project-rename-input {
+  min-width: 300px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.project-delete-button {
+  padding: 10px 20px;
+}
+
+.project-settings-label {
+  font-size: 1.2rem;
+}
+
+.delete-project-modal {
+  display: flex;
+  flex-flow: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.delete-project-heading {
+  font-size: 1.8rem;
+  color: var(--theme-error);
+}
+
+.delete-project-instruction {
+  font-size: 1.2rem;
+}
+
+.delete-project-actions {
+  display: flex;
+  gap: 10px;
+
+  * {
+    flex: 0 0 max-content;
+    padding: 10px 20px;
+  }
+}
