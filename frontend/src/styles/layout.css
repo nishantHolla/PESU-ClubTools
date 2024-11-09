@@ -32,3 +32,9 @@ main {
   flex-grow: 1;
   padding: 20px;
 }
+
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
+import { useSession } from "../../providers/session/Session";
 
 function Field({ i, currentProject, setCurrentProject }) {
+  const { projects } = useSession();
   const [options, setOptions] = useState(
     currentProject.csv[0].map((o) => {
       return { label: o, value: o };
@@ -26,7 +28,15 @@ function Field({ i, currentProject, setCurrentProject }) {
   return (
     <div className="project-field">
       <div className="project-field-number">{i}</div>
-      <Dropdown options={options} value={current} onChange={handleChange} />
+      <Dropdown
+        options={options}
+        value={current}
+        onChange={handleChange}
+        isDisabled={
+          projects.find((p) => p["_id"] === currentProject["_id"]).coords
+            .length > 0
+        }
+      />
     </div>
   );
 }

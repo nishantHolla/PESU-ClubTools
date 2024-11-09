@@ -1,6 +1,8 @@
 import { inferImage } from "../../lib/util";
+import QR from "./QR";
 import Icon from "../Icon/Icon";
 import { useStatus } from "../../providers/status/Status";
+import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../../lib/constants";
 import { useSession } from "../../providers/session/Session";
@@ -11,7 +13,7 @@ const FILE_TYPES = ["JPG", "PNG"];
 function Coord({ i, c }) {
   return (
     <div
-      className="project-coord"
+      className="project-coord unselectable"
       style={{
         top: `${c.y}%`,
         left: `${c.x}%`,
@@ -23,12 +25,13 @@ function Coord({ i, c }) {
 }
 
 function TemplateImage({ projectid, currentProject, setCurrentProject }) {
+  const qr_parent = useRef(null);
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
 
   const handleFieldAddition = (e) => {
     const p = projects.find((f) => f["_id"] === projectid);
-    if (!p || !p.csv) return;
+    if (!p || !p.csv || p.coords.length > 0) return;
     const rect = e.target.getBoundingClientRect();
     const l = ((e.clientX - rect.left) / rect.width) * 100;
     const t = ((e.clientY - rect.top) / rect.height) * 100;
@@ -82,8 +85,16 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
 
   return currentProject.image ? (
     <div className="template-image-container">
-      <div className="template-image-ref">
+      <div className="template-image-ref" ref={qr_parent}>
+        {currentProject.qr && (
+          <QR
+            currentProject={currentProject}
+            setCurrentProject={setCurrentProject}
+            parent={qr_parent}
+          />
+        )}
         <img
+          className="template-image unselectable"
           src={inferImage(currentProject)}
           alt="something went wrong"
           width="100%"

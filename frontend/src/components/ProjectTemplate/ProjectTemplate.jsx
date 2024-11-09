@@ -6,23 +6,26 @@ import TemplateImage from "./TemplateImage";
 import CsvData from "./CsvData";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
+import { useState, useEffect } from "react";
 import Field from "./Field";
 
 function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
+  const defaultQR = { x: 0, y: 0, size: 100 };
 
   const saveFields = async () => {
     setProjects((o) =>
       o.map((p) => {
         if (p["_id"] !== projectid) return p;
-        return { ...p, coords: currentProject.coords };
+        return { ...p, coords: currentProject.coords, qr: currentProject.qr };
       }),
     );
 
     try {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         coords: currentProject.coords,
+        qr: currentProject.qr,
       });
     } catch (e) {
       setStatus("error", "Failed to upload changes");
@@ -31,11 +34,11 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
 
   return (
     <div className="project-template-container">
-        <TemplateImage
-          projectid={projectid}
-          currentProject={currentProject}
-          setCurrentProject={setCurrentProject}
-        />
+      <TemplateImage
+        projectid={projectid}
+        currentProject={currentProject}
+        setCurrentProject={setCurrentProject}
+      />
       <div className="project-template-sidebar">
         {currentProject && (
           <>
@@ -63,6 +66,23 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                       setCurrentProject={setCurrentProject}
                     />
                   ))}
+                  <div className="project-qr-input">
+                    <input
+                      type="checkbox"
+                      checked={currentProject.qr ? true : false}
+                      disabled={
+                        projects.find((p) => p["_id"] === currentProject["_id"])
+                          .qr ? true : false
+                      }
+                      onChange={(e) => {
+                        setCurrentProject({
+                          ...currentProject,
+                          qr: e.target.checked ? defaultQR : null,
+                        });
+                      }}
+                    />
+                    <p>Add Verification QR code</p>
+                  </div>
                 </div>
                 {projects.find((f) => f["_id"] === projectid)?.coords.length ===
                   0 &&

@@ -112,6 +112,11 @@
   gap: 10px;
 }
 
+.project-qr-input {
+  display: flex;
+  gap: 10px;
+}
+
 .project-field-number {
   width: 40px;
   height: 40px;
@@ -142,4 +147,31 @@
 
 .project-save-fields {
   padding: 10px;
+}
+
+.project-qr {
+  position: absolute;
+  border: 2px solid black;
+}
+
+.project-qr-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 10px;
+  background: black;
+  color: white;
+  font-size: 0.8rem;
+
+}
+
+.project-qr-resizer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  cursor: "nwse-resize",
 }
