@@ -13,7 +13,7 @@ const FONT_PATH = "./font.otf";
 const FONT_COLOR = "black";
 const PASSWORD = process.env.CLUBTOOLS_GMAIL_APP_PASSWORD;
 const EMAIL_ID = process.env.CLUBTOOLS_GMAIL_ID;
-const VERIFICATION_URL = "http://localhost:5173/verify";
+const VERIFICATION_URL = "https://pesu-club-tools.vercel.app/verify";
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
