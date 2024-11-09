@@ -164,7 +164,7 @@ function sendEmail(
 ) {
   const mailOptions = {
     from: EMAIL_ID,
-    to: "nishantholla19@gmail.com",
+    to: email,
     subject: emailSubject,
     html: emailBody,
     attachments: [
