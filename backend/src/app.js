@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
+const { send } = require("./workers");
 
 const app = express();
 const storage = multer.memoryStorage();
@@ -15,6 +16,7 @@ function run(port, database) {
 
   const userCollection = database.collection("users");
   const projectCollection = database.collection("projects");
+  const certificateCollection = database.collection("certificates");
 
   /* General routes*/
 
@@ -217,6 +219,52 @@ function run(port, database) {
   });
 
   /* Certificate routes */
+  app.get("/api/v1/verify/:certificateid", async (req, res) => {
+    try {
+      if (!req.params.certificateid) {
+        return res.status(400).json({ message: "No certificate id specified" });
+      }
+
+      const certificate = certificateCollection.findOne({
+        _id: new ObjectId(req.params.certificateid),
+      });
+
+      if (!certificate) {
+        return res
+          .status(404)
+          .json({ message: "Certificate not found", result: {} });
+      }
+
+      return res.status(200).json({
+        message: "Certificate found",
+        result: { name: certificate.name, createdAt: certificate.createdAt },
+      });
+    } catch (e) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // send cetificates
+  app.post("/api/v1/send/:projectid", async (req, res) => {
+    try {
+      if (!req.params.projectid) {
+        return res.status(400).json({ message: "No project id specified" });
+      }
+
+      const project = await projectCollection.findOne({
+        _id: new ObjectId(req.params.projectid),
+      });
+      const err = await send(project, certificateCollection);
+
+      if (err) {
+        return res.status(500).json({ message: err, result: {} });
+      }
+
+      return res.status(200).json({ message: "Project sent", result: {} });
+    } catch (e) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
   /* Server actions */
 
