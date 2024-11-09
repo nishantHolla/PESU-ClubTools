@@ -52,7 +52,7 @@ function rout() {
           element: <Dashboard />,
         },
         {
-          path: "u/:userid/p/:projectid",
+          path: "u/:userid/p/:projectid/:state",
           element: <Project />,
         },
       ],

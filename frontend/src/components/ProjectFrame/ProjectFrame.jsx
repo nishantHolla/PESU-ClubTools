@@ -11,7 +11,7 @@ function ProjectFrame({ project }) {
     <div
       className="project-frame"
       onClick={() => {
-        navigate(`/u/${user.uid}/p/${project["_id"]}`);
+        navigate(`/u/${user.uid}/p/${project["_id"]}/template`);
       }}
     >
       <ImageFrame src={inferImage(project)}/>

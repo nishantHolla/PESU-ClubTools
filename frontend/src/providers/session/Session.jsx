@@ -40,7 +40,8 @@ export function SessionProvider({ children }) {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
       try {
-        await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        const response = await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        setProjects(response.data.result.projects);
         localStorage.setItem(
           "projects",
           JSON.stringify(response.data.result.projects),
@@ -48,15 +49,15 @@ export function SessionProvider({ children }) {
         if (cb) cb(cred.user);
       } catch (e) {
         if (e.status === 404) {
-          try {
-            await axios.post(`${BACKEND_URL}/api/v1/user`, {
-              email: cred.user.email,
-              name: cred.user.displayName,
-            });
-            if (cb) cb(cred.user);
-          } catch (e) {
-            if (err) err(e);
-          }
+          // try {
+          //   await axios.post(`${BACKEND_URL}/api/v1/user`, {
+          //     email: cred.user.email,
+          //     name: cred.user.displayName,
+          //   });
+          //   if (cb) cb(cred.user);
+          // } catch (e) {
+          //   if (err) err(e);
+          // }
         }
       }
     } catch (e) {

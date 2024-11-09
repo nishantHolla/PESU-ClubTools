@@ -43,6 +43,7 @@ function ProjectEmail({ projectid }) {
     "indent",
     "link",
     "font",
+    "script",
     "align",
     "color",
     "background"

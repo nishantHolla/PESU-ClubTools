@@ -36,7 +36,7 @@ function Dashboard() {
     const project = response.data.result;
     console.log(project);
     setProjects([project, ...projects]);
-    navigate(`/u/${user.uid}/p/${project["_id"]}`);
+    navigate(`/u/${user.uid}/p/${project["_id"]}/template`);
   };
 
   return (
