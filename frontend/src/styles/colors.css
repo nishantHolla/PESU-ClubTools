@@ -50,10 +50,24 @@ body {
   color: var(--theme-0);
 }
 
-.background-container {
-  position: fixed;
-  width: 100dvw;
-  height: 100dvh;
-  z-index: -100;
-  background: var(--theme-background);
+.background-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), rgba(255, 255, 255, 0)) transparent;
 }
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2000;
+  background: #0a0a0a;
+}
+
+
