@@ -20,11 +20,16 @@ const SessionContext = createContext(null);
 
 export function SessionProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      const projects = localStorage.getItem("projects");
+      if (projects) {
+        setProjects(JSON.parse(projects));
+      }
       setLoading(false);
     });
 
@@ -35,19 +40,24 @@ export function SessionProvider({ children }) {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
       try {
-        await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        const response = await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        setProjects(response.data.result.projects);
+        localStorage.setItem(
+          "projects",
+          JSON.stringify(response.data.result.projects),
+        );
         if (cb) cb(cred.user);
       } catch (e) {
         if (e.status === 404) {
-          try {
-            await axios.post(`${BACKEND_URL}/api/v1/user`, {
-              email: cred.user.email,
-              name: cred.user.displayName,
-            });
-            if (cb) cb(cred.user);
-          } catch (e) {
-            if (err) err(e);
-          }
+          // try {
+          //   await axios.post(`${BACKEND_URL}/api/v1/user`, {
+          //     email: cred.user.email,
+          //     name: cred.user.displayName,
+          //   });
+          //   if (cb) cb(cred.user);
+          // } catch (e) {
+          //   if (err) err(e);
+          // }
         }
       }
     } catch (e) {
@@ -62,7 +72,14 @@ export function SessionProvider({ children }) {
       const cred = await signInWithPopup(auth, provider);
 
       try {
-        await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/v1/user/${cred.user.email}`,
+        );
+        setProjects(response.data.result.projects);
+        localStorage.setItem(
+          "projects",
+          JSON.stringify(response.data.result.projects),
+        );
         if (cb) cb(cred.user);
       } catch (e) {
         if (e.status === 404) {
@@ -107,6 +124,7 @@ export function SessionProvider({ children }) {
   const logout = async (cb, err) => {
     try {
       await signOut(auth);
+      localStorage.removeItem("projects");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
@@ -172,6 +190,8 @@ export function SessionProvider({ children }) {
         loading,
         deleteAccount,
         changePassword,
+        projects,
+        setProjects,
       }}
     >
       {loading ? <Loading /> : children}
