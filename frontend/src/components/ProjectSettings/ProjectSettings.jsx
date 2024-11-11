@@ -4,12 +4,14 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import "./project_settings_style.css";
 import { useSession } from "../../providers/session/Session";
+import { useStatus } from "../../providers/status/Status";
 import { useEffect, useState } from "react";
 import { useModal } from "../../providers/modal/Modal";
 import { useNavigate } from "react-router-dom";
 
 function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
   const navigate = useNavigate();
+  const { setStatus } = useStatus();
   const { projects, setProjects } = useSession();
   const [isValidRename, setIsValidRename] = useState(false);
   const { setModal } = useModal();
@@ -40,6 +42,7 @@ function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         name: rename,
       });
+      setStatus("success", "Renamed project!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");
     }

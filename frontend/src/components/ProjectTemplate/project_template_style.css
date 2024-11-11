@@ -106,9 +106,16 @@
 }
 
 .project-field-container {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.project-field-list {
   margin: 10px 0;
   display: flex;
   flex-flow: column;
+  flex-grow: 1;
   gap: 10px;
 }
 

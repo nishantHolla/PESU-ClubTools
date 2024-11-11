@@ -35,7 +35,6 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
     const rect = e.target.getBoundingClientRect();
     const l = ((e.clientX - rect.left) / rect.width) * 100;
     const t = ((e.clientY - rect.top) / rect.height) * 100;
-    console.log(rect.width, rect.height, l, t);
 
     setCurrentProject({
       ...currentProject,
@@ -76,6 +75,7 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
           },
         },
       );
+      setStatus("success", "Uploaded image!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload image");
     }

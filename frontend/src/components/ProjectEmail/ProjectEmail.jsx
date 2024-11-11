@@ -44,7 +44,7 @@ function ProjectEmail({ projectid, currentProject, setCurrentProject }) {
     "script",
     "align",
     "color",
-    "background"
+    "background",
   ];
 
   const handleSubjectChange = (e) => {
@@ -72,6 +72,7 @@ function ProjectEmail({ projectid, currentProject, setCurrentProject }) {
         emailBody: currentProject.emailBody,
         emailSubject: currentProject.emailSubject,
       });
+      setStatus("success", "Uploaded email content!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");
     }
