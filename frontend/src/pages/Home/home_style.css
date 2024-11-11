@@ -1,5 +1,4 @@
 .home-container {
-
   h3 {
     font-size: clamp(2rem, 5dvw, 2.5rem);
     font-weight: bold;
@@ -50,23 +49,30 @@
   .img1 {
     aspect-ratio: 1/1.05;
     width: 30dvw;
-
   }
 
   .hero2 {
-    min-height: 85vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .hero2text1 {
     height: 400px;
     display: flex;
+    justify-content: center;
     flex-flow: column;
     gap: 20px;
   }
 
+  .hero2text1 h3 {
+    display: flex;
+    justify-content: center;
+  }
+
   .hero2text1 .heading {
     font-size: clamp(1.6rem, 5dvw, 2.3rem);
+    color: #777;
   }
 
   .hero2text1 .text2 {
@@ -74,9 +80,35 @@
     font-size: 1.4rem;
     line-height: 2rem;
   }
-
   .hero3 {
-    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero3text1 {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero3text1 h3 {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero3text1 .heading {
+    font-size: clamp(1.6rem, 5dvw, 2.3rem);
+    color: #777;
+  }
+
+  .hero3text1 .text2 {
+    word-spacing: 2px;
+    font-size: 1.4rem;
+    line-height: 2rem;
   }
 
   .footer {
@@ -91,7 +123,6 @@
     font-size: clamp(1rem, 5dvw, 2rem);
     text-align: center;
   }
-
 }
 
 @media only screen and (max-width: 800px) {
