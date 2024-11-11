@@ -3,6 +3,7 @@ const multer = require("multer");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 const { send } = require("./workers");
+const sanitizeHtml = require("sanitize-html");
 
 const app = express();
 const storage = multer.memoryStorage();
@@ -133,7 +134,6 @@ function run(port, database) {
         csv: "",
         emailBody: "",
         emailSubject: "",
-        status: [],
         coords: [],
         createdAt: Date.now(),
         qr: null,
@@ -161,9 +161,38 @@ function run(port, database) {
         return res.status(400).json({ message: "No updated specified" });
       }
 
+      const existingProject = await projectCollection.findOne({
+        _id: new ObjectId(req.params.projectid),
+      });
+
+      if (!existingProject) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+
+      if (req.body.emailBody) {
+        req.body.emailBody = sanitizeHtml(req.body.emailBody, {
+          allowedAttributes: false,
+        });
+      }
+
+      if (req.body.emailSubject) {
+        req.body.emailSubject = sanitizeHtml(req.body.emailSubject);
+      }
+
+      const updateData = Object.keys(req.body).reduce((acc, key) => {
+        if (existingProject.hasOwnProperty(key)) {
+          acc[key] = req.body[key];
+        }
+        return acc;
+      }, {});
+
+      if (Object.keys(updateData).length === 0) {
+        return res.status(400).json({ message: "No valid fields to update" });
+      }
+
       await projectCollection.updateOne(
         { _id: new ObjectId(req.params.projectid) },
-        { $set: req.body },
+        { $set: updateData },
       );
 
       return res.status(200).json({ message: "Project updated", result: {} });

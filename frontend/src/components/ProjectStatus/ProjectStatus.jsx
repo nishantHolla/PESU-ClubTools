@@ -9,6 +9,7 @@ function ProjectStatus({ projectid, currentProject, setCurrentProject }) {
   const handleSend = async () => {
     try {
       await axios.post(`${BACKEND_URL}/api/v1/send/${projectid}`);
+      setStatus("success", "Emails sent!", 3000);
     } catch (e) {
       setStatus("error", "Failed to send certificates");
     }

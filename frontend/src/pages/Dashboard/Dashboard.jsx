@@ -15,7 +15,6 @@ function Dashboard() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(projects);
     if (!user) {
       navigate("/");
     }
@@ -34,7 +33,6 @@ function Dashboard() {
       email: user.email,
     });
     const project = response.data.result;
-    console.log(project);
     setProjects([project, ...projects]);
     navigate(`/u/${user.uid}/p/${project["_id"]}/template`);
   };

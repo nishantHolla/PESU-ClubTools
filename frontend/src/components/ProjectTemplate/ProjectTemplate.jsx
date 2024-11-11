@@ -27,6 +27,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
         coords: currentProject.coords,
         qr: currentProject.qr,
       });
+      setStatus("success", "Uploaded changes!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");
     }
@@ -54,10 +55,10 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
               )}
             </div>
             {currentProject.csv && (
-              <div>
+              <div className="project-field-container">
                 <h4 className="project-subsection-heading">Fields</h4>
                 <p>Click on the image to add fields</p>
-                <div className="project-field-container">
+                <div className="project-field-list">
                   {currentProject.coords.map((_, i) => (
                     <Field
                       i={i}
@@ -72,7 +73,9 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                       checked={currentProject.qr ? true : false}
                       disabled={
                         projects.find((p) => p["_id"] === currentProject["_id"])
-                          .qr ? true : false
+                          .qr
+                          ? true
+                          : false
                       }
                       onChange={(e) => {
                         setCurrentProject({
