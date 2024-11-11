@@ -4,7 +4,8 @@ import { Outlet } from "react-router-dom";
 function MainLayout() {
   return (
     <div className="main-layout">
-      <div className="background-container"></div>
+      <div className="background-gradient"></div>
+      <div className="background"></div>
       <header>
         <NavBar />
       </header>
