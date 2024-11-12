@@ -5,6 +5,7 @@ function Hero({
   subtitle,
   image,
   className = "",
+  imageClass = "",
   reverseLayout = false,
   ...props
 }) {
@@ -19,7 +20,7 @@ function Hero({
           <p className="lead">{subtitle}</p>
         </div>
         <div className="image-section">
-          <img src={image} alt="Hero" />
+          <img src={image} alt="Hero" className={imageClass} />
         </div>
       </div>
     </div>
