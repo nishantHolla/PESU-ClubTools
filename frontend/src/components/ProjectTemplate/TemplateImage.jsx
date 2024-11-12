@@ -1,4 +1,4 @@
-import { inferImage } from "../../lib/util";
+import { inferImage, toBase64 } from "../../lib/util";
 import QR from "./QR";
 import Icon from "../Icon/Icon";
 import { useStatus } from "../../providers/status/Status";
@@ -63,17 +63,19 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
           },
         },
       );
+      const imageB64 = await toBase64(file);
+      console.log(imageB64)
 
       setProjects((old) => {
         return old.map((p) => {
           if (p["_id"] !== projectid) return p;
-          return { ...p, image: file, contentType: file.type };
+          return { ...p, image: imageB64, contentType: file.type };
         });
       });
 
       setCurrentProject({
         ...currentProject,
-        image: file,
+        image: imageB64,
         contentType: file.type,
       });
 
