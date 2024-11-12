@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const { user, projects, setProjects } = useSession();
+  const { setStatus } = useStatus();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,12 +30,17 @@ function Dashboard() {
   }, []);
 
   const createProject = async () => {
-    const response = await axios.post(`${BACKEND_URL}/api/v1/project`, {
-      email: user.email,
-    });
-    const project = response.data.result;
-    setProjects([project, ...projects]);
-    navigate(`/u/${user.uid}/p/${project["_id"]}/template`);
+    try {
+      const response = await axios.post(`${BACKEND_URL}/api/v1/project`, {
+        email: user.email,
+      });
+      const project = response.data.result;
+      setProjects([project, ...projects]);
+      navigate(`/u/${user.uid}/p/${project["_id"]}/template`);
+      localStorage.setItem('projects', JSON.stringify(projects))
+    } catch (e) {
+      setStatus("error", "Failed to create new project");
+    }
   };
 
   return (

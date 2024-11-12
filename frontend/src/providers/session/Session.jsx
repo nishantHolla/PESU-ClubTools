@@ -36,11 +36,21 @@ export function SessionProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+
+    localStorage.setItem("projects", JSON.stringify(projects));
+  }, [projects]);
+
   const loginEmail = async (email, password, cb, err) => {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/v1/user/${cred.user.email}`);
+        const response = await axios.get(
+          `${BACKEND_URL}/api/v1/user/${cred.user.email}`,
+        );
         setProjects(response.data.result.projects);
         localStorage.setItem(
           "projects",

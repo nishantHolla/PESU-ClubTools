@@ -50,18 +50,6 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
   };
 
   const handleChange = async (file) => {
-    setProjects((old) => {
-      return old.map((p) => {
-        if (p["_id"] !== projectid) return p;
-        return { ...p, image: file, contentType: file.type };
-      });
-    });
-    setCurrentProject({
-      ...currentProject,
-      image: file,
-      contentType: file.type,
-    });
-
     const formData = new FormData();
     formData.append("image", file);
 
@@ -75,6 +63,20 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
           },
         },
       );
+
+      setProjects((old) => {
+        return old.map((p) => {
+          if (p["_id"] !== projectid) return p;
+          return { ...p, image: file, contentType: file.type };
+        });
+      });
+
+      setCurrentProject({
+        ...currentProject,
+        image: file,
+        contentType: file.type,
+      });
+
       setStatus("success", "Uploaded image!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload image");

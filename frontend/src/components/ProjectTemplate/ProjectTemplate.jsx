@@ -15,18 +15,19 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const defaultQR = { x: 0, y: 0, size: 100 };
 
   const saveFields = async () => {
-    setProjects((o) =>
-      o.map((p) => {
-        if (p["_id"] !== projectid) return p;
-        return { ...p, coords: currentProject.coords, qr: currentProject.qr };
-      }),
-    );
-
     try {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         coords: currentProject.coords,
         qr: currentProject.qr,
       });
+
+      setProjects((o) =>
+        o.map((p) => {
+          if (p["_id"] !== projectid) return p;
+          return { ...p, coords: currentProject.coords, qr: currentProject.qr };
+        }),
+      );
+
       setStatus("success", "Uploaded changes!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");

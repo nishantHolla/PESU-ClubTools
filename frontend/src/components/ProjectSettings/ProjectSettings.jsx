@@ -29,19 +29,18 @@ function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
   }, [currentProject]);
 
   const handleRename = async () => {
-    setProjects((o) =>
-      o.map((p) => {
-        if (p["_id"] !== projectid) return p;
-        return { ...p, name: rename };
-      }),
-    );
-
-    setCurrentProject({ ...currentProject, name: rename });
-
     try {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         name: rename,
       });
+      setProjects((o) =>
+        o.map((p) => {
+          if (p["_id"] !== projectid) return p;
+          return { ...p, name: rename };
+        }),
+      );
+
+      setCurrentProject({ ...currentProject, name: rename });
       setStatus("success", "Renamed project!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");
@@ -49,11 +48,10 @@ function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
   };
 
   const confirmDelete = async () => {
-    setProjects((o) => o.filter((p) => p["_id"] !== projectid));
-    setCurrentProject(null);
-
     try {
       await axios.delete(`${BACKEND_URL}/api/v1/project/${projectid}`);
+      setProjects((o) => o.filter((p) => p["_id"] !== projectid));
+      setCurrentProject(null);
       setModal(null);
       navigate("/u");
     } catch (e) {
