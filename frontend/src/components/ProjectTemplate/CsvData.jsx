@@ -25,17 +25,21 @@ function CsvData({ projectid, currentProject, setCurrentProject }) {
             5000,
           );
         } else {
-          setProjects((old) => {
-            return old.map((p) => {
-              if (p["_id"] !== projectid) return p;
-              return { ...p, csv: result.data };
-            });
-          });
-          setCurrentProject({ ...currentProject, csv: result.data });
           try {
             await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
               csv: result.data,
             });
+
+            setProjects((old) => {
+              return old.map((p) => {
+                if (p["_id"] !== projectid) return p;
+                return { ...p, csv: result.data };
+              });
+            });
+
+            setCurrentProject({ ...currentProject, csv: result.data });
+
+            setStatus("success", "Uploaded data!", 3000)
           } catch (e) {
             setStatus("error", "Failed to upload data");
           }
