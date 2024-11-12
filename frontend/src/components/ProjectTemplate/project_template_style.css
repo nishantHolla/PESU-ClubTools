@@ -111,6 +111,17 @@
   flex-flow: column;
 }
 
+.project-field-properties {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+
+  .input-component {
+    padding: 10px;
+    border-radius: 5px;
+  }
+}
+
 .project-field-list {
   margin: 10px 0;
   display: flex;
