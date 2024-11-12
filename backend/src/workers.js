@@ -2,9 +2,7 @@ const { ObjectId } = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const fs = require("fs/promises");
 const nodemailer = require("nodemailer");
-const gm = require("gm").subClass({ imageMagick: true });
 const { createCanvas, loadImage } = require("canvas");
 const QRCode = require("qrcode");
 
@@ -38,17 +36,6 @@ function measureTextWidth(text, fontSize, fontFamily) {
   }
 }
 
-async function saveBase64Image(base64Data, outputPath) {
-  try {
-    const imageBuffer = Buffer.from(base64Data, "base64");
-    const filePath = outputPath;
-    await fs.writeFile(filePath, imageBuffer);
-    return null;
-  } catch (e) {
-    return e;
-  }
-}
-
 function prepareEmailBody(header, row, template) {
   let body = template;
   for (let i = 0; i < header.length; i++) {
@@ -57,62 +44,8 @@ function prepareEmailBody(header, row, template) {
   return body;
 }
 
-async function addQR(filePath, qr, url) {
-  try {
-    const image = await loadImage(filePath);
-    const canvas = createCanvas(image.width, image.height);
-    const context = canvas.getContext("2d");
-    context.drawImage(image, 0, 0);
-    const qrCodeDataUrl = await QRCode.toDataURL(url, {
-      color: {
-        light: "#ffffff55",
-        dark: "#000000",
-      },
-    });
-    const qrImage = await loadImage(qrCodeDataUrl);
-    context.drawImage(
-      qrImage,
-      (qr.x * image.width) / 100,
-      (qr.y * image.height) / 100,
-      qr.size,
-      qr.size,
-    );
-    await fs.writeFile(filePath, canvas.toBuffer());
-  } catch (e) {
-    return "Failed to draw qr image";
-  }
-}
-
-async function addText(filePath, text, textWidth, xPercentage, yPercentage) {
-  return new Promise((resolve, reject) => {
-    gm(filePath).size(function (err, dimensions) {
-      if (err) {
-        reject("Failed to get image dimensions");
-        return;
-      }
-
-      const { width, height } = dimensions;
-      const x = (xPercentage / 100) * width;
-      const y = (yPercentage / 100) * height;
-
-      gm(filePath)
-        .font(FONT_PATH, FONT_SIZE)
-        .fill(FONT_COLOR)
-        .drawText(x - textWidth / 2, y, text)
-        .write(filePath, function (err) {
-          if (err) {
-            reject("Failed to write text on the image");
-            return;
-          }
-          resolve();
-        });
-    });
-  });
-}
-
 async function createCertificate(
-  inFilePath,
-  outFilePath,
+  base64ImageData,
   coords,
   row,
   header,
@@ -120,36 +53,48 @@ async function createCertificate(
   url,
 ) {
   try {
-    await fs.copyFile(inFilePath, outFilePath);
+    const imageBuffer = Buffer.from(base64ImageData.buffer, "base64");
+    const image = await loadImage(imageBuffer);
+    const canvas = createCanvas(image.width, image.height);
+    const context = canvas.getContext("2d");
+    context.drawImage(image, 0, 0);
+
+    for (let i = 0; i < coords.length; i++) {
+      const c = coords[i];
+      const text = row[header.indexOf(c.field)];
+      const xPercentage = c.x;
+      const yPercentage = c.y;
+      const textWidth = measureTextWidth(text, FONT_SIZE, FONT_PATH);
+      if (!textWidth) throw new Error("Failed to get text width");
+
+      const x = (xPercentage / 100) * image.width;
+      const y = (yPercentage / 100) * image.height;
+      context.font = `${FONT_SIZE}px ${FONT_PATH}`;
+      context.fillStyle = FONT_COLOR;
+      context.fillText(text, x - textWidth / 2, y);
+    }
+
+    if (qr) {
+      const qrCodeDataUrl = await QRCode.toDataURL(url, {
+        color: {
+          light: "#ffffff55",
+          dark: "#000000",
+        },
+      });
+      const qrImage = await loadImage(qrCodeDataUrl);
+      const qrSize = qr.size;
+      context.drawImage(
+        qrImage,
+        (qr.x * image.width) / 100,
+        (qr.y * image.height) / 100,
+        qrSize,
+        qrSize,
+      );
+    }
+
+    return canvas.toBuffer();
   } catch (e) {
-    return "Failed to copy file";
-  }
-
-  for (let i = 0; i < coords.length; i++) {
-    const c = coords[i];
-    const text = row[header.indexOf(c.field)];
-    const xPercentage = c.x;
-    const yPercentage = c.y;
-
-    const textWidth = measureTextWidth(text, FONT_SIZE, FONT_PATH);
-    if (!textWidth) return "Failed to get text width";
-    const err = await addText(
-      outFilePath,
-      text,
-      textWidth,
-      xPercentage,
-      yPercentage,
-    );
-    if (err) {
-      return err;
-    }
-  }
-
-  if (qr) {
-    const err = await addQR(outFilePath, qr, url);
-    if (err) {
-      return err;
-    }
+    throw new Error("Certificate creation failed: " + e.message);
   }
 }
 
@@ -157,7 +102,7 @@ function sendEmail(
   emailSubject,
   emailBody,
   email,
-  imagePath,
+  imageBuffer,
   extension,
   cb,
   err,
@@ -170,7 +115,8 @@ function sendEmail(
     attachments: [
       {
         filename: `certificate.${extension}`,
-        path: imagePath,
+        content: imageBuffer,
+        encoding: "base64",
       },
     ],
   };
@@ -192,17 +138,20 @@ async function send(project, certificateCollection) {
 
   const header = project.csv[0];
   const extension = project.contentType.split("/")[1];
-  const baseFile = `./${project["_id"]}.${extension}`;
-
-  let err = await saveBase64Image(project.image.buffer, baseFile);
-  if (err) {
-    return "Failed to save base file";
-  }
 
   for (let i = 1; i < project.csv.length; i++) {
     const row = project.csv[i];
     const email = row[header.indexOf("email")];
     const name = row[header.indexOf("name")];
+
+    const certificateCheck = await certificateCollection.findOne({
+      email,
+      projectid: project["_id"],
+    });
+
+    if (certificateCheck) {
+      continue;
+    }
 
     if (!email || !name) {
       return "Failed to infer email and name";
@@ -214,7 +163,6 @@ async function send(project, certificateCollection) {
 
     const emailSubject = project.emailSubject;
     const emailBody = prepareEmailBody(header, row, project.emailBody);
-    const outFile = `./${email}.${extension}`;
 
     const certificate = await certificateCollection.insertOne({
       projectid: project["_id"],
@@ -225,16 +173,6 @@ async function send(project, certificateCollection) {
     });
     const certificateId = certificate.insertedId;
 
-    err = await createCertificate(
-      baseFile,
-      outFile,
-      project.coords,
-      row,
-      header,
-      project.qr,
-      `${VERIFICATION_URL}/${certificateId}`,
-    );
-
     const updateStatus = async (status) => {
       await certificateCollection.updateOne(
         {
@@ -244,26 +182,33 @@ async function send(project, certificateCollection) {
       );
     };
 
-    if (err) {
-      updateStatus("creationFailed");
-    } else {
+    try {
+      const imageBuffer = await createCertificate(
+        project.image,
+        project.coords,
+        row,
+        header,
+        project.qr,
+        `${VERIFICATION_URL}/${certificateId}`,
+      );
+
       sendEmail(
         emailSubject,
         emailBody,
         email,
-        outFile,
+        imageBuffer,
         extension,
         () => {
-          fs.unlink(outFile);
           updateStatus("success");
         },
         () => {
           updateStatus("emailFailed");
         },
       );
+    } catch (e) {
+      updateStatus("creationFailed");
     }
   }
-  await fs.unlink(baseFile);
 }
 
 module.exports = { send };
