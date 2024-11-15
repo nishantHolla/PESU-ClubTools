@@ -7,12 +7,14 @@ const StatusContext = createContext(null);
 export function StatusProvider({ children }) {
   const [message, setMessage] = useState("");
   const [type, setType] = useState("warning");
+  const [projectStatus, setProjectStatus] = useState([]);
 
   const setStatus = (type, message, timeout) => {
     setType(type);
     setMessage(message);
 
     if (timeout) {
+      clearTimeout(timeout);
       setTimeout(() => {
         setMessage("");
       }, timeout);

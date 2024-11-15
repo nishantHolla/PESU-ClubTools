@@ -1,0 +1,58 @@
+
+.project-status-container {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  align-items: end;
+}
+
+.project-status-instruction {
+  align-self: center;
+  font-size: 1.3rem;
+  padding: 20px;
+}
+
+.project-status-send-button {
+  padding: 10px 30px;
+  width: max-content;
+}
+
+.status-visualizer-container {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 20px;
+  display: grid;
+  overflow: scroll;
+  border: 1px solid white;
+  grid-auto-rows: 50px;
+  margin: 10px;
+}
+
+.status-header {
+  background: var(--theme-0-alpha);
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.status-datacell {
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.success-status-cell {
+  color: var(--theme-success-light);
+}
+
+.creattionFailed-status-cell, .emailFailed-status-cell {
+  color: var(--theme-error-light);
+}
+
+.pending-status-cell {
+  color: var(--theme-warning-light);
+}

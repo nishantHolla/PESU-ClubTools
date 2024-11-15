@@ -67,9 +67,9 @@ async function createCertificate(
       const textWidth = measureTextWidth(text, c.size || FONT_SIZE, FONT_PATH);
       if (!textWidth) throw new Error("Failed to get text width");
 
-      const x = (xPercentage / 100) * image.width;
-      const y = (yPercentage / 100) * image.height;
-      context.font = `${c.size || FONT_SIZE}px ${FONT_PATH}`;
+      const x = (xPercentage / 100) * image.width + textWidth / 2;
+      const y = (yPercentage / 100) * image.height + c.size * 3;
+      context.font = `${c.size * 3 || FONT_SIZE}px ${FONT_PATH}`;
       context.fillStyle = c.color || FONT_COLOR;
       context.fillText(text, x - textWidth / 2, y);
     }

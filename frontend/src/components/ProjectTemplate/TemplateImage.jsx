@@ -11,26 +11,6 @@ import { FileUploader } from "react-drag-drop-files";
 
 const FILE_TYPES = ["JPG", "PNG"];
 
-function Coord2({ i, c, currentProject }) {
-  return (
-    <div
-      className="project-coord unselectable"
-      style={{
-        top: `${c.y}%`,
-        left: `${c.x}%`,
-        color: `${c.color}`,
-        fontSize: `${c.size}px`,
-      }}
-    >
-      {
-        currentProject.csv[1][
-          currentProject.csv[0].indexOf(currentProject.coords[i].field)
-        ]
-      }
-    </div>
-  );
-}
-
 function TemplateImage({ projectid, currentProject, setCurrentProject }) {
   const imgParentRef = useRef(null);
   const { projects, setProjects } = useSession();
