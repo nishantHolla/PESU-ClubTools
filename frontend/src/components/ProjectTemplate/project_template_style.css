@@ -49,7 +49,7 @@
 
 .template-image-ref {
   position: relative;
-  width: 80%;
+  width: 600px;
 }
 
 .csv-drop {
@@ -152,15 +152,7 @@
 
 .project-coord {
   position: absolute;
-  width: 40px;
-  height: 40px;
-  color: var(--theme-1000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--theme-300);
-  border-radius: 10px;
-  transform: translate(-50%, -50%)
+  border: 2px solid black;
 }
 
 .project-save-fields {
