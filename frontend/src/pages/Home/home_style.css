@@ -111,6 +111,10 @@
     line-height: 2rem;
   }
 
+  .hero3 a {
+    font-size: 1.3rem;
+  }
+
   .footer {
     border-radius: var(--border-radius);
     background: var(--theme-container-background);
