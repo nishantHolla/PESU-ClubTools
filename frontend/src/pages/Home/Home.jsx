@@ -56,8 +56,15 @@ function Home() {
       {/* Hero for Step 1 */}
       <Hero
         title="Sign Up / Log In"
-        subtitle="New Users: Sign up with Google. Returning Users: Log in with your email and password."
-        image="/images/Clubtools_homepage.png"
+        subtitle={
+          <>
+            New Users: Sign up with Google or create an account.
+            <br />
+            Returning Users: Sign in with Google or Log in with your email and
+            password.
+          </>
+        }
+        image="/images/Signup&Login Annotated.png"
         reverseLayout={false}
       />
 
@@ -65,7 +72,7 @@ function Home() {
       <Hero
         title="Access the Dashboard"
         subtitle="View and manage your past projects and explore certificate templates."
-        image="/images/Clubtools_homepage.png"
+        image="/images/Dashboard.png"
         reverseLayout={true}
       />
 
@@ -73,7 +80,7 @@ function Home() {
       <Hero
         title="Start a New Project"
         subtitle="Select a template, upload a certificate design, and a CSV file with participant details."
-        image="/images/Clubtools_homepage.png"
+        image="/images/AccessNewProject_annotated.png"
         reverseLayout={false}
       />
 
@@ -81,7 +88,7 @@ function Home() {
       <Hero
         title="Customize Certificate Fields"
         subtitle="Add fields like names, registration numbers, and more, then link them to your CSV columns."
-        image="/images/Clubtools_homepage.png"
+        image="/images/CustomizeProjectDetails.png"
         reverseLayout={true}
       />
 
@@ -89,7 +96,7 @@ function Home() {
       <Hero
         title="Save Your Template"
         subtitle="Click Save once your template is set up."
-        image="/images/Clubtools_homepage.png"
+        image="/images/SaveTemplate_annotated.png"
         reverseLayout={false}
       />
 
@@ -97,7 +104,7 @@ function Home() {
       <Hero
         title="Draft Your Email"
         subtitle="Write your email, include variables from your CSV, and save the draft."
-        image="/images/Clubtools_homepage.png"
+        image="/images/MailDrafting.png"
         reverseLayout={true}
       />
 
@@ -105,7 +112,7 @@ function Home() {
       <Hero
         title="Send Certificates"
         subtitle="Go to the Status tab and click Send. Track email delivery status."
-        image="/images/Clubtools_homepage.png"
+        image="/images/MailStatus.png"
         reverseLayout={false}
       />
 
@@ -113,7 +120,7 @@ function Home() {
       <Hero
         title="Manage Projects and Templates"
         subtitle="Rename, delete, or edit templates, and access pre-made templates from the Clubtools Collection."
-        image="/images/Clubtools_homepage.png"
+        image="/images/ManageProject.png"
         reverseLayout={true}
       />
 
@@ -121,7 +128,7 @@ function Home() {
       <Hero
         title="Account Options"
         subtitle="Log out or delete your account from the user profile dropdown."
-        image="/images/Clubtools_homepage.png"
+        image="/images/ManageAccount.png"
         reverseLayout={false}
       />
 
@@ -132,6 +139,14 @@ function Home() {
             Learn more about how Clubtools can help you with certificate
             creation and distribution
           </div>
+          <a
+            href="https://github.com/nishantHolla/PESU_ClubTools"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="github-link"
+          >
+            View on GitHub
+          </a>
         </div>
       </div>
 
