@@ -9,7 +9,6 @@ function QR({ currentProject, setCurrentProject, parent }) {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-
       if (projects.find((p) => p["_id"] === currentProject["_id"]).qr) {
         return;
       }
@@ -53,7 +52,7 @@ function QR({ currentProject, setCurrentProject, parent }) {
           ...prev,
           qr: {
             ...prev.qr,
-            size: newSize,
+            size: (newSize / parentRect.width) * 100,
           },
         }));
       }
@@ -97,8 +96,8 @@ function QR({ currentProject, setCurrentProject, parent }) {
     <div
       className="project-qr"
       style={{
-        width: `${currentProject.qr.size}px`,
-        height: `${currentProject.qr.size}px`,
+        width: `${currentProject.qr.size}%`,
+        aspectRatio: '1/1',
         left: `${currentProject.qr.x}%`,
         top: `${currentProject.qr.y}%`,
         position: "absolute",

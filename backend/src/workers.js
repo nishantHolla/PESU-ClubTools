@@ -82,7 +82,7 @@ async function createCertificate(
         },
       });
       const qrImage = await loadImage(qrCodeDataUrl);
-      const qrSize = qr.size;
+      const qrSize = (qr.size * image.width) / 100;
       context.drawImage(
         qrImage,
         (qr.x * image.width) / 100,

@@ -12,7 +12,7 @@ import Field from "./Field";
 function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
-  const defaultQR = { x: 0, y: 0, size: 100 };
+  const defaultQR = { x: 0, y: 0, size: 20 };
 
   const saveFields = async () => {
     try {
