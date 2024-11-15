@@ -3,6 +3,8 @@ import Button from "../Button/Button";
 import axios from "axios";
 import { BACKEND_URL } from "../../lib/constants";
 import TemplateImage from "./TemplateImage";
+import Icon from "../Icon/Icon";
+import Input from "../Input/Input";
 import CsvData from "./CsvData";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
@@ -12,7 +14,21 @@ import Field from "./Field";
 function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
-  const defaultQR = { x: 0, y: 0, size: 100 };
+  const defaultQR = { x: 0, y: 0, size: 20, color: "#000000" };
+  const [showQR, setShowQR] = useState(false);
+  const [qrExpanded, setQrExpanded] = useState(true);
+
+  useEffect(() => {
+    if (!currentProject) return;
+    setShowQR(currentProject.qr !== null);
+  }, []);
+
+  useEffect(() => {
+    setCurrentProject({
+      ...currentProject,
+      qr: showQR ? defaultQR : null,
+    });
+  }, [showQR]);
 
   const saveFields = async () => {
     try {
@@ -68,24 +84,47 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                       setCurrentProject={setCurrentProject}
                     />
                   ))}
-                  <div className="project-qr-input">
-                    <input
-                      type="checkbox"
-                      checked={currentProject.qr ? true : false}
-                      disabled={
-                        projects.find((p) => p["_id"] === currentProject["_id"])
-                          .qr
-                          ? true
-                          : false
-                      }
-                      onChange={(e) => {
-                        setCurrentProject({
-                          ...currentProject,
-                          qr: e.target.checked ? defaultQR : null,
-                        });
-                      }}
-                    />
-                    <p>Add Verification QR code</p>
+                  <div className="project-qr-container">
+                    <div
+                      className={`project-qr-input ${showQR ? "project-qr-enabled" : "project-qr-disabled"}`}
+                    >
+                      <Icon
+                        type={qrExpanded ? "eva:collapse" : "eva:expand"}
+                        onClick={() => [setQrExpanded(!qrExpanded)]}
+                      />
+                      <div className="project-qr-header">Verification QR</div>
+                      <Icon
+                        type={showQR ? "eva:check" : "eva:close"}
+                        onClick={() => {
+                          if (projects.find((p) => p["_id"] === projectid).qr)
+                            return;
+                          setShowQR(!showQR);
+                        }}
+                      />
+                    </div>
+                    {qrExpanded && currentProject.qr && (
+                      <div className="project-qr-properties">
+                        <p className="project-qr-tag">Color</p>
+                        <Input
+                          type="color"
+                          value={currentProject.qr.color}
+                          disabled={
+                            projects.find(
+                              (p) => p["_id"] === currentProject["_id"],
+                            ).coords.length > 0
+                          }
+                          onChange={(e) => {
+                            setCurrentProject({
+                              ...currentProject,
+                              qr: {
+                                ...currentProject.qr,
+                                color: e.target.value,
+                              },
+                            });
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 {projects.find((f) => f["_id"] === projectid)?.coords.length ===
