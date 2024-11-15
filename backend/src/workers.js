@@ -77,8 +77,8 @@ async function createCertificate(
     if (qr) {
       const qrCodeDataUrl = await QRCode.toDataURL(url, {
         color: {
-          light: "#ffffff55",
-          dark: "#000000",
+          light: "#ffffff00",
+          dark: qr.color || "#000000",
         },
       });
       const qrImage = await loadImage(qrCodeDataUrl);
