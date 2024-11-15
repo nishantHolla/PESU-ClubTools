@@ -1,5 +1,6 @@
 import { inferImage, toBase64 } from "../../lib/util";
 import QR from "./QR";
+import Coord from "./Coord";
 import Icon from "../Icon/Icon";
 import { useStatus } from "../../providers/status/Status";
 import { useRef } from "react";
@@ -10,22 +11,28 @@ import { FileUploader } from "react-drag-drop-files";
 
 const FILE_TYPES = ["JPG", "PNG"];
 
-function Coord({ i, c }) {
+function Coord2({ i, c, currentProject }) {
   return (
     <div
       className="project-coord unselectable"
       style={{
         top: `${c.y}%`,
         left: `${c.x}%`,
+        color: `${c.color}`,
+        fontSize: `${c.size}px`,
       }}
     >
-      {i}
+      {
+        currentProject.csv[1][
+          currentProject.csv[0].indexOf(currentProject.coords[i].field)
+        ]
+      }
     </div>
   );
 }
 
 function TemplateImage({ projectid, currentProject, setCurrentProject }) {
-  const qr_parent = useRef(null);
+  const imgParentRef = useRef(null);
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
 
@@ -64,7 +71,7 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
         },
       );
       const imageB64 = await toBase64(file);
-      console.log(imageB64)
+      console.log(imageB64);
 
       setProjects((old) => {
         return old.map((p) => {
@@ -89,12 +96,12 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
 
   return currentProject.image ? (
     <div className="template-image-container">
-      <div className="template-image-ref" ref={qr_parent}>
+      <div className="template-image-ref" ref={imgParentRef}>
         {currentProject.qr && (
           <QR
             currentProject={currentProject}
             setCurrentProject={setCurrentProject}
-            parent={qr_parent}
+            parent={imgParentRef}
           />
         )}
         <img
@@ -105,7 +112,14 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
           onClick={handleFieldAddition}
         />
         {currentProject.coords.map((c, i) => (
-          <Coord key={i} i={i} c={c} />
+          <Coord
+            key={i}
+            i={i}
+            c={c}
+            currentProject={currentProject}
+            setCurrentProject={setCurrentProject}
+            parent={imgParentRef}
+          />
         ))}
       </div>
     </div>
