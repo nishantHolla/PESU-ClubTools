@@ -283,6 +283,13 @@ function run(port, database) {
       const project = await projectCollection.findOne({
         _id: new ObjectId(req.params.projectid),
       });
+
+      if (!project) {
+        return res
+          .status(404)
+          .json({ message: "Project does not exist", result: {} });
+      }
+
       const err = await send(project, certificateCollection);
 
       if (err) {
@@ -290,6 +297,37 @@ function run(port, database) {
       }
 
       return res.status(200).json({ message: "Project sent", result: {} });
+    } catch (e) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // get status
+  app.get("/api/v1/status/:projectid", async (req, res) => {
+    try {
+      if (!req.params.projectid) {
+        return res.status(400).json({ message: "No project id specified" });
+      }
+
+      const project = await projectCollection.findOne({
+        _id: new ObjectId(req.params.projectid),
+      });
+
+      if (!project) {
+        return res
+          .status(404)
+          .json({ message: "Project does not exist", result: {} });
+      }
+
+      const certificates = await certificateCollection
+        .find({
+          projectid: new ObjectId(req.params.projectid),
+        })
+        .toArray();
+
+      return res
+        .status(200)
+        .json({ message: "Certificate status found", result: certificates });
     } catch (e) {
       return res.status(500).json({ message: "Internal server error" });
     }
