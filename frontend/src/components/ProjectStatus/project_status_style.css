@@ -19,7 +19,7 @@
 
 .status-visualizer-container {
   width: 100%;
-  max-height: 180px;
+  height: 100%;
   border-radius: 20px;
   display: grid;
   overflow: scroll;
@@ -35,6 +35,8 @@
   justify-content: center;
   align-items: center;
   border: 1px solid white;
+  color: var(--theme-1000);
+  font-weight: bold;
 }
 
 .status-datacell {
