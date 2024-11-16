@@ -19,9 +19,9 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
     x: p?.qr?.x || 0,
     y: p?.qr?.y || 0,
     size: p?.qr?.size || 20,
-    color: "#000000",
+    color: p?.qr?.color || "#000000",
   };
-  const [showQR, setShowQR] = useState(false);
+  const [showQR, setShowQR] = useState(p?.qr !== null || false);
   const [qrExpanded, setQrExpanded] = useState(false);
 
   useEffect(() => {
