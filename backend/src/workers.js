@@ -44,6 +44,14 @@ function prepareEmailBody(header, row, template) {
   return body;
 }
 
+function prepareEmailSubject(header, row, template) {
+  let subject = template;
+  for (let i = 0; i < header.length; i++) {
+    subject = subject.replace(`\$${header[i]}`, row[i]);
+  }
+  return subject;
+}
+
 async function createCertificate(
   base64ImageData,
   coords,
@@ -161,7 +169,7 @@ async function send(project, certificateCollection) {
       return "Row length mismatch";
     }
 
-    const emailSubject = project.emailSubject;
+    const emailSubject = prepareEmailSubject(header, row, project.emailSubject);
     const emailBody = prepareEmailBody(header, row, project.emailBody);
 
     const certificate = await certificateCollection.insertOne({
