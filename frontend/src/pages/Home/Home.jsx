@@ -143,7 +143,7 @@ function Home() {
             href="https://github.com/nishantHolla/PESU_ClubTools"
             target="_blank"
             rel="noopener noreferrer"
-            className="github-link"
+            className="github-link link-component"
           >
             View on GitHub
           </a>
