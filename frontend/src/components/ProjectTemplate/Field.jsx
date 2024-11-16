@@ -4,8 +4,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import Icon from "../Icon/Icon";
 import { useSession } from "../../providers/session/Session";
 
-function Field({ i, currentProject, setCurrentProject }) {
-  const [isExpanded, setIsExpanded] = useState(true);
+function Field({ i, projectid, currentProject, setCurrentProject }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { projects } = useSession();
   const [options, setOptions] = useState(
     currentProject.csv[0].map((o) => {
@@ -62,15 +62,17 @@ function Field({ i, currentProject, setCurrentProject }) {
           <Icon type={isExpanded ? "eva:collapse" : "eva:expand"} />
         </div>
         <div className="project-field-number">{i + 1}</div>
-        <div
-          className="project-field-remove"
-          onClick={() => {
-            if (projects.find(p => p['_id'] === projectid).qr) return;
-            handleRemoveField(i);
-          }}
-        >
-          <Icon type="eva:trash" />
-        </div>
+        {projects.find((p) => p["_id"] === projectid)?.coords.length === 0 && (
+          <div
+            className="project-field-remove"
+            onClick={() => {
+              if (projects.find((p) => p["_id"] === projectid).qr) return;
+              handleRemoveField(i);
+            }}
+          >
+            <Icon type="eva:trash" />
+          </div>
+        )}
       </div>
       {isExpanded && (
         <div className="project-field-properties">

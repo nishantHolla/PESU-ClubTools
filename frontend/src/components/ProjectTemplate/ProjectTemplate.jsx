@@ -13,10 +13,16 @@ import Field from "./Field";
 
 function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
   const { projects, setProjects } = useSession();
+  const p = projects.find((f) => f["_id"] === projectid);
   const { setStatus } = useStatus();
-  const defaultQR = { x: 0, y: 0, size: 20, color: "#000000" };
+  const defaultQR = {
+    x: p?.qr?.x || 0,
+    y: p?.qr?.y || 0,
+    size: p?.qr?.size || 20,
+    color: "#000000",
+  };
   const [showQR, setShowQR] = useState(false);
-  const [qrExpanded, setQrExpanded] = useState(true);
+  const [qrExpanded, setQrExpanded] = useState(false);
 
   useEffect(() => {
     if (!currentProject) return;
@@ -80,6 +86,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                     <Field
                       i={i}
                       key={i}
+                      projectid={projectid}
                       currentProject={currentProject}
                       setCurrentProject={setCurrentProject}
                     />
@@ -93,14 +100,16 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                         onClick={() => [setQrExpanded(!qrExpanded)]}
                       />
                       <div className="project-qr-header">Verification QR</div>
-                      <Icon
-                        type={showQR ? "eva:check" : "eva:close"}
-                        onClick={() => {
-                          if (projects.find((p) => p["_id"] === projectid).qr)
-                            return;
-                          setShowQR(!showQR);
-                        }}
-                      />
+                      {!projects.find((p) => p["_id"] === projectid)?.qr && (
+                        <Icon
+                          type={showQR ? "eva:check" : "eva:close"}
+                          onClick={() => {
+                            if (projects.find((p) => p["_id"] === projectid).qr)
+                              return;
+                            setShowQR(!showQR);
+                          }}
+                        />
+                      )}
                     </div>
                     {qrExpanded && currentProject.qr && (
                       <div className="project-qr-properties">

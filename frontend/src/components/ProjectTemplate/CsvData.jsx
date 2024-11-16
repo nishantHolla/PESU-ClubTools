@@ -24,7 +24,15 @@ function CsvData({ projectid, currentProject, setCurrentProject }) {
             "Your CSV file must have a column named 'email'",
             5000,
           );
-        } else {
+        }
+        else if (!result.data[0].includes('name')) {
+          setStatus(
+            "error",
+            "Your CSV file must have a column named 'name'",
+            5000,
+          );
+        }
+        else {
           try {
             await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
               csv: result.data,
