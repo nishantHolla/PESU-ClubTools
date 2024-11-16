@@ -16,8 +16,8 @@ function Field({ i, projectid, currentProject, setCurrentProject }) {
     options.find((f) => f.value === currentProject.coords[i].field) ||
       options[0],
   );
-  const [size, setSize] = useState(40);
-  const [color, setColor] = useState("#000000");
+  const [size, setSize] = useState(currentProject.coords[i].size || 40);
+  const [color, setColor] = useState(currentProject.coords[i].color || "#000000");
 
   useEffect(() => {
     setCurrentProject({
