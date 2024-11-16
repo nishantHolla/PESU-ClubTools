@@ -24,8 +24,8 @@ function ProjectStatus({ projectid, currentProject, setCurrentProject }) {
   };
 
   const formatStatus = (projectStatus) => {
-    const result = projectStatus.map((p) => [p.name, p.email, p.status]);
-    result.unshift(["Name", "Email", "Status"]);
+    const result = projectStatus.map((p) => [p.name, p.email, p["_id"], p.status]);
+    result.unshift(["Name", "Email", "Certificate ID", "Status"]);
     return result;
   };
 
