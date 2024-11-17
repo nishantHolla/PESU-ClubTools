@@ -47,7 +47,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
         o.map((p) => {
           if (p["_id"] !== projectid) return p;
           return { ...p, coords: currentProject.coords, qr: currentProject.qr };
-        }),
+        })
       );
 
       setStatus("success", "Uploaded changes!", 3000);
@@ -93,7 +93,9 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                   ))}
                   <div className="project-qr-container">
                     <div
-                      className={`project-qr-input ${showQR ? "project-qr-enabled" : "project-qr-disabled"}`}
+                      className={`project-qr-input ${
+                        showQR ? "project-qr-enabled" : "project-qr-disabled"
+                      }`}
                     >
                       <Icon
                         type={qrExpanded ? "eva:collapse" : "eva:expand"}
@@ -102,7 +104,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                       <div className="project-qr-header">Verification QR</div>
                       {!projects.find((p) => p["_id"] === projectid)?.qr && (
                         <Icon
-                          type={showQR ? "eva:check" : "eva:close"}
+                          type={showQR ? "eva:toggle-right" : "eva:toggle-left"}
                           onClick={() => {
                             if (projects.find((p) => p["_id"] === projectid).qr)
                               return;
@@ -119,7 +121,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                           value={currentProject.qr.color}
                           disabled={
                             projects.find(
-                              (p) => p["_id"] === currentProject["_id"],
+                              (p) => p["_id"] === currentProject["_id"]
                             ).coords.length > 0
                           }
                           onChange={(e) => {
