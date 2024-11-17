@@ -1,8 +1,8 @@
+import "./dashboard_style.css";
 import axios from "axios";
 import { BACKEND_URL } from "../../lib/constants";
 import ImageFrame from "../../components/ImageFrame/ImageFrame";
 import ProjectFrame from "../../components/ProjectFrame/ProjectFrame";
-import "./dashboard_style.css";
 import { useStatus } from "../../providers/status/Status";
 import { useSession } from "../../providers/session/Session";
 import { useLocation } from "react-router-dom";
