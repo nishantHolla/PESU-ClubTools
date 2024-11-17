@@ -64,7 +64,7 @@ function Home() {
             password.
           </>
         }
-        image="/images/Signup&Login Annotated.png"
+        image="/images/screenshots/signup.png"
         reverseLayout={false}
       />
 
@@ -72,7 +72,7 @@ function Home() {
       <Hero
         title="Access the Dashboard"
         subtitle="View and manage your past projects and explore certificate templates."
-        image="/images/Dashboard.png"
+        image="/images/screenshots/dashboard.png"
         reverseLayout={true}
       />
 
@@ -80,7 +80,7 @@ function Home() {
       <Hero
         title="Start a New Project"
         subtitle="Select a template, upload a certificate design, and a CSV file with participant details."
-        image="/images/AccessNewProject_annotated.png"
+        image="/images/screenshots/newProject.png"
         reverseLayout={false}
       />
 
@@ -88,7 +88,7 @@ function Home() {
       <Hero
         title="Customize Certificate Fields"
         subtitle="Add fields like names, registration numbers, and more, then link them to your CSV columns."
-        image="/images/CustomizeProjectDetails.png"
+        image="/images/screenshots/projectTemplate.png"
         reverseLayout={true}
       />
 
@@ -96,7 +96,7 @@ function Home() {
       <Hero
         title="Save Your Template"
         subtitle="Click Save once your template is set up."
-        image="/images/SaveTemplate_annotated.png"
+        image="/images/screenshots/changesSaved.png"
         reverseLayout={false}
       />
 
@@ -104,7 +104,7 @@ function Home() {
       <Hero
         title="Draft Your Email"
         subtitle="Write your email, include variables from your CSV, and save the draft."
-        image="/images/MailDrafting.png"
+        image="/images/screenshots/projectEmail.png"
         reverseLayout={true}
       />
 
@@ -112,7 +112,7 @@ function Home() {
       <Hero
         title="Send Certificates"
         subtitle="Go to the Status tab and click Send. Track email delivery status."
-        image="/images/MailStatus.png"
+        image="/images/screenshots/projectStatus.png"
         reverseLayout={false}
       />
 
@@ -120,7 +120,7 @@ function Home() {
       <Hero
         title="Manage Projects and Templates"
         subtitle="Rename, delete, or edit templates, and access pre-made templates from the Clubtools Collection."
-        image="/images/ManageProject.png"
+        image="/images/screenshots/projectSettings.png"
         reverseLayout={true}
       />
 
@@ -128,7 +128,7 @@ function Home() {
       <Hero
         title="Account Options"
         subtitle="Log out or delete your account from the user profile dropdown."
-        image="/images/ManageAccount.png"
+        image="/images/screenshots/userSettings.png"
         reverseLayout={false}
       />
 
