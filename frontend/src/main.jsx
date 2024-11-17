@@ -11,7 +11,8 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Project from "./pages/Project/Project"
+import Templates from "./pages/Templates/Templates";
+import Project from "./pages/Project/Project";
 import Verify from "./pages/Verify/Verify";
 import MainLayout from "./layouts/MainLayout";
 import { StatusProvider } from "./providers/status/Status";
@@ -46,7 +47,7 @@ function rout() {
         },
         {
           path: "u/:uid/templates",
-          element: <Dashboard />,
+          element: <Templates />,
         },
         {
           path: "u",
@@ -58,8 +59,8 @@ function rout() {
         },
         {
           path: "verify/:certificateid",
-          element: <Verify />
-        }
+          element: <Verify />,
+        },
       ],
     },
   ]);
