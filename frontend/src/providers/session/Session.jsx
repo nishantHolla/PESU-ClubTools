@@ -168,6 +168,7 @@ export function SessionProvider({ children }) {
         return;
       }
       await user.delete();
+      localStorage.removeItem('projects')
       if (cb) cb();
     } catch (e) {
       if (err) err(e);
