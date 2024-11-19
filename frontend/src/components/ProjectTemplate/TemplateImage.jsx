@@ -11,7 +11,12 @@ import { FileUploader } from "react-drag-drop-files";
 
 const FILE_TYPES = ["JPG", "PNG"];
 
-function TemplateImage({ projectid, currentProject, setCurrentProject }) {
+function TemplateImage({
+  projectid,
+  currentProject,
+  setCurrentProject,
+  visualizerGrid,
+}) {
   const imgParentRef = useRef(null);
   const { projects, setProjects } = useSession();
   const { setStatus } = useStatus();
@@ -91,6 +96,27 @@ function TemplateImage({ projectid, currentProject, setCurrentProject }) {
           width="100%"
           onClick={handleFieldAddition}
         />
+        {visualizerGrid && (
+          <div
+            className="visualizer-grid"
+            style={{
+              border: `2px solid ${visualizerGrid.color}`,
+              gridTemplateColumns: `repeat(${visualizerGrid.count}, 1fr)`,
+              pointerEvents: 'none'
+            }}
+          >
+            {Array.from({ length: Math.pow(visualizerGrid.count, 2) }, (_, index) => (
+              <div
+                key={index}
+                style={{
+                  border: `1px solid ${visualizerGrid.color}`,
+                  pointerEvents: 'none'
+                }}
+              >
+              </div>
+            ))}
+          </div>
+        )}
         {currentProject.coords.map((c, i) => (
           <Coord
             key={i}
