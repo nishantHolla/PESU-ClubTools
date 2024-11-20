@@ -128,7 +128,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
                         type="number"
                         value={visualizerGrid.count}
                         onChange={(e) => {
-                          const value = parseInt(e.target.value);
+                          let value = parseInt(e.target.value);
                           if (value > 50) {
                             value = 50;
                           } else if (value <= 0) {
