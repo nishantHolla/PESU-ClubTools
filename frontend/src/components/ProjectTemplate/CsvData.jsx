@@ -10,7 +10,7 @@ import CsvVisalizer from "./CsvVisualizer";
 const FILE_TYPES = ["CSV"];
 
 function CsvData({ projectid, currentProject, setCurrentProject }) {
-  const { setProjects } = useSession();
+  const { setProjects, user } = useSession();
   const { setStatus } = useStatus();
 
   const handleChange = (file) => {
@@ -36,7 +36,7 @@ function CsvData({ projectid, currentProject, setCurrentProject }) {
           try {
             await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
               csv: result.data,
-            });
+            }, {headers: {'Authorization': `Bearer ${await user.getIdToken()}`}});
 
             setProjects((old) => {
               return old.map((p) => {

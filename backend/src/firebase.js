@@ -1,13 +1,13 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { initializeApp } = require("firebase-admin/app");
+const admin = require("firebase-admin");
 
 var serviceAccount = require(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY_FILE_PATH,
 );
 
-const app = initializeApp({
+const app = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 

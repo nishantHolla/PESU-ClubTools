@@ -47,9 +47,12 @@ export function SessionProvider({ children }) {
   const loginEmail = async (email, password, cb, err) => {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
+      const token = await cred.user.getIdToken();
+
       try {
         const response = await axios.get(
           `${BACKEND_URL}/api/v1/user/${cred.user.email}`,
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         setProjects(response.data.result.projects);
         localStorage.setItem(
@@ -80,10 +83,12 @@ export function SessionProvider({ children }) {
 
     try {
       const cred = await signInWithPopup(auth, provider);
+      const token = await cred.user.getIdToken();
 
       try {
         const response = await axios.get(
           `${BACKEND_URL}/api/v1/user/${cred.user.email}`,
+          { headers: { Authorization: `Bearer ${token}` } },
         );
         setProjects(response.data.result.projects);
         localStorage.setItem(
@@ -97,7 +102,7 @@ export function SessionProvider({ children }) {
             await axios.post(`${BACKEND_URL}/api/v1/user`, {
               email: cred.user.email,
               name: cred.user.displayName,
-            });
+            }, {headers: {'Authorization': `Bearer ${token}`}});
             if (cb) cb(cred.user);
           } catch (e) {
             if (err) err(e);
@@ -113,12 +118,17 @@ export function SessionProvider({ children }) {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
+      const token = await cred.user.getIdToken();
 
       try {
-        await axios.post(`${BACKEND_URL}/api/v1/user`, {
-          email: cred.user.email,
-          name: name,
-        });
+        await axios.post(
+          `${BACKEND_URL}/api/v1/user`,
+          {
+            email: cred.user.email,
+            name: name,
+          },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
         if (cb) cb(cred.user);
       } catch (e) {
         if (err) err(e);
@@ -161,14 +171,17 @@ export function SessionProvider({ children }) {
         }
       }
 
+      const token = await user.getIdToken();
       try {
-        await axios.delete(`${BACKEND_URL}/api/v1/user/${user.email}`);
+        await axios.delete(`${BACKEND_URL}/api/v1/user/${user.email}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } catch (e) {
         if (err) err(e);
         return;
       }
       await user.delete();
-      localStorage.removeItem('projects')
+      localStorage.removeItem("projects");
       if (cb) cb();
     } catch (e) {
       if (err) err(e);

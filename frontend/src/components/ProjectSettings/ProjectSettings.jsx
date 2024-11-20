@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
   const navigate = useNavigate();
   const { setStatus } = useStatus();
-  const { projects, setProjects } = useSession();
+  const { projects, setProjects, user } = useSession();
   const [isValidRename, setIsValidRename] = useState(false);
   const { setModal } = useModal();
   const [rename, setRename] = useState("");
@@ -30,9 +30,13 @@ function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
 
   const handleRename = async () => {
     try {
-      await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
-        name: rename,
-      });
+      await axios.post(
+        `${BACKEND_URL}/api/v1/project/${projectid}`,
+        {
+          name: rename,
+        },
+        { headers: { Authorization: `Bearer ${await user.getIdToken()}` } },
+      );
       setProjects((o) =>
         o.map((p) => {
           if (p["_id"] !== projectid) return p;
@@ -49,7 +53,9 @@ function ProjectSettings({ projectid, currentProject, setCurrentProject }) {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/project/${projectid}`);
+      await axios.delete(`${BACKEND_URL}/api/v1/project/${projectid}`, {
+        headers: { Authorization: `Bearer ${await user.getIdToken()}` },
+      });
       setProjects((o) => o.filter((p) => p["_id"] !== projectid));
       setCurrentProject(null);
       setModal(null);
