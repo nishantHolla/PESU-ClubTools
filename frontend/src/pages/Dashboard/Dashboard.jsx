@@ -33,7 +33,7 @@ function Dashboard() {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/v1/project`, {
         email: user.email,
-      });
+      }, {headers: {'Authorization': `Bearer ${await user.getIdToken()}`}});
       const project = response.data.result;
       setProjects([project, ...projects]);
       navigate(`/u/${user.uid}/p/${project["_id"]}/template`);

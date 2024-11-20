@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import Field from "./Field";
 
 function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
-  const { projects, setProjects } = useSession();
+  const { projects, setProjects, user } = useSession();
   const p = projects.find((f) => f["_id"] === projectid);
   const { setStatus } = useStatus();
   const defaultQR = {
@@ -53,7 +53,7 @@ function ProjectTemplate({ projectid, currentProject, setCurrentProject }) {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         coords: currentProject.coords,
         qr: currentProject.qr,
-      });
+      }, {headers: {'Authorization': `Bearer ${await user.getIdToken()}`}});
 
       setProjects((o) =>
         o.map((p) => {

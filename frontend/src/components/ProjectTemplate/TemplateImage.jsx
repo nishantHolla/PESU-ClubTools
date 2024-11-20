@@ -18,7 +18,7 @@ function TemplateImage({
   visualizerGrid,
 }) {
   const imgParentRef = useRef(null);
-  const { projects, setProjects } = useSession();
+  const { projects, setProjects, user } = useSession();
   const { setStatus } = useStatus();
 
   const handleFieldAddition = (e) => {
@@ -52,6 +52,7 @@ function TemplateImage({
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${await user.getIdToken()}`
           },
         },
       );

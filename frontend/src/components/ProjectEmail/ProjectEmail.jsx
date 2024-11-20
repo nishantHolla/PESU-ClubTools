@@ -9,7 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 
 function ProjectEmail({ projectid, currentProject, setCurrentProject }) {
-  const { projects, setProjects } = useSession();
+  const { projects, setProjects, user } = useSession();
   const { setStatus } = useStatus();
 
   const modules = {
@@ -71,7 +71,7 @@ function ProjectEmail({ projectid, currentProject, setCurrentProject }) {
       await axios.post(`${BACKEND_URL}/api/v1/project/${projectid}`, {
         emailBody: currentProject.emailBody,
         emailSubject: currentProject.emailSubject,
-      });
+      }, {headers: {'Authorization': `Bearer ${await user.getIdToken()}`}});
       setStatus("success", "Uploaded email content!", 3000);
     } catch (e) {
       setStatus("error", "Failed to upload changes");

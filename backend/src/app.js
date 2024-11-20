@@ -3,6 +3,7 @@ const multer = require("multer");
 const cors = require("cors");
 const { ObjectId } = require("mongodb");
 const { send } = require("./workers");
+const { auth } = require("./firebase");
 const sanitizeHtml = require("sanitize-html");
 
 const app = express();
@@ -28,9 +29,13 @@ function run(port, database) {
   /* User routes*/
 
   // get user
-  app.get("/api/v1/user/:email", async (req, res) => {
+  app.get("/api/v1/user/:email", auth, async (req, res) => {
     if (!req.params.email) {
       return res.status(400).json({ message: "User email id not provided" });
+    }
+
+    if (req.params.email.toLowerCase() !== req.user.email.toLowerCase()) {
+      return res.status(400).json({ message: "Unauthorized action" });
     }
 
     try {
@@ -57,9 +62,13 @@ function run(port, database) {
   });
 
   // create new user in database
-  app.post("/api/v1/user", async (req, res) => {
+  app.post("/api/v1/user", auth, async (req, res) => {
     if (!req.body.email) {
       return res.status(400).json({ message: "User email id not provided" });
+    }
+
+    if (req.body.email.toLowerCase() !== req.user.email.toLowerCase()) {
+      return res.status(401).json({ message: "Unauthorized action" });
     }
 
     if (!req.body.name) {
@@ -88,9 +97,13 @@ function run(port, database) {
   });
 
   // delete user in databasae
-  app.delete("/api/v1/user/:email", async (req, res) => {
+  app.delete("/api/v1/user/:email", auth, async (req, res) => {
     if (!req.params.email) {
       return res.status(400).json({ message: "User email id not provided" });
+    }
+
+    if (req.params.email.toLowerCase() !== req.user.email.toLowerCase()) {
+      return res.status(401).json({ message: "Unauthorized action" });
     }
 
     try {
@@ -115,9 +128,13 @@ function run(port, database) {
   /* Projects routes */
 
   // creante new project in database
-  app.post("/api/v1/project", async (req, res) => {
+  app.post("/api/v1/project", auth, async (req, res) => {
     if (!req.body.email) {
       return res.status(400).json({ message: "User email id not provided" });
+    }
+
+    if (req.body.email.toLowerCase() !== req.user.email.toLowerCase()) {
+      return res.status(401).json({ message: "Unauthorized action" });
     }
 
     try {
@@ -151,7 +168,7 @@ function run(port, database) {
   });
 
   // update project
-  app.post("/api/v1/project/:projectid", async (req, res) => {
+  app.post("/api/v1/project/:projectid", auth, async (req, res) => {
     try {
       if (!req.params.projectid) {
         return res.status(400).json({ message: "No project id specified" });
@@ -164,6 +181,18 @@ function run(port, database) {
       const existingProject = await projectCollection.findOne({
         _id: new ObjectId(req.params.projectid),
       });
+
+      const author = await userCollection.findOne({
+        _id: existingProject.author,
+      });
+
+      if (!author) {
+        return res.status(404).json({ message: "Author not found" });
+      }
+
+      if (author.email.toLowerCase() !== req.user.email) {
+        return res.status(401).json({ message: "Unauthorized action" });
+      }
 
       if (!existingProject) {
         return res.status(404).json({ message: "Project not found" });
@@ -204,6 +233,7 @@ function run(port, database) {
   // upload template image for a project
   app.post(
     "/api/v1/template/:projectid",
+    auth,
     upload.single("image"),
     async (req, res) => {
       try {
@@ -216,6 +246,24 @@ function run(port, database) {
 
         if (!projectid) {
           return res.status(400).json({ message: "No project id specified" });
+        }
+
+        const project = await projectCollection.findOne({
+          _id: new ObjectId(projectid),
+        });
+
+        if (!project) {
+          return res.status(404).json({ message: "Project not found" });
+        }
+
+        const author = await userCollection.findOne({ _id: project.author });
+
+        if (!author) {
+          return res.status(404).json({ message: "Project author not found" });
+        }
+
+        if (author.email.toLowerCase() !== req.user.email.toLowerCase()) {
+          return res.status(401).json({ message: "Unauthorized action" });
         }
 
         await projectCollection.updateOne(
@@ -231,10 +279,28 @@ function run(port, database) {
   );
 
   // delete project
-  app.delete("/api/v1/project/:projectid", async (req, res) => {
+  app.delete("/api/v1/project/:projectid", auth, async (req, res) => {
     try {
       if (!req.params.projectid) {
         return res.status(400).json({ message: "No project id specified" });
+      }
+
+      const project = await projectCollection.findOne({
+        _id: new ObjectId(req.params.projectid),
+      });
+
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+
+      const author = await userCollection.findOne({ _id: project.author });
+
+      if (!author) {
+        return res.status(404).json({ message: "Project author not found" });
+      }
+
+      if (author.email.toLowerCase() !== req.user.email.toLowerCase()) {
+        return res.status(401).json({ message: "Unauthorized action" });
       }
 
       await projectCollection.deleteOne({
@@ -274,7 +340,7 @@ function run(port, database) {
   });
 
   // send cetificates
-  app.post("/api/v1/send/:projectid", async (req, res) => {
+  app.post("/api/v1/send/:projectid", auth, async (req, res) => {
     try {
       if (!req.params.projectid) {
         return res.status(400).json({ message: "No project id specified" });
@@ -288,6 +354,16 @@ function run(port, database) {
         return res
           .status(404)
           .json({ message: "Project does not exist", result: {} });
+      }
+
+      const author = await userCollection.findOne({ _id: project.author });
+
+      if (!author) {
+        return res.status(404).json({ message: "Project author not found" })
+      }
+
+      if (author.email.toLowerCase() !== req.user.email.toLowerCase()) {
+        return res.status(401).json({ message: "Unauthorized action" })
       }
 
       const err = await send(project, certificateCollection);
@@ -303,7 +379,7 @@ function run(port, database) {
   });
 
   // get status
-  app.get("/api/v1/status/:projectid", async (req, res) => {
+  app.get("/api/v1/status/:projectid", auth, async (req, res) => {
     try {
       if (!req.params.projectid) {
         return res.status(400).json({ message: "No project id specified" });
@@ -317,6 +393,16 @@ function run(port, database) {
         return res
           .status(404)
           .json({ message: "Project does not exist", result: {} });
+      }
+
+      const author = await userCollection.findOne({ _id: project.author })
+
+      if (!author) {
+        return res.status(404).json({ message: "Project author not found" })
+      }
+
+      if (author.email.toLowerCase() !== req.user.email.toLowerCase()) {
+        return res.status(401).json({ message: "Unauthorized action" })
       }
 
       const certificates = await certificateCollection

@@ -9,13 +9,14 @@ import { useEffect, useState } from "react";
 
 function ProjectStatus({ projectid, currentProject, setCurrentProject }) {
   const { setStatus } = useStatus();
-  const { projects } = useSession();
+  const { projects, user } = useSession();
   const [projectStatus, setProjectStatus] = useState([]);
 
   const updateStatus = async () => {
     try {
       const response = await axios.get(
         `${BACKEND_URL}/api/v1/status/${projectid}`,
+        { headers: { Authorization: `Bearer ${await user.getIdToken()}` } },
       );
       setProjectStatus(response.data.result);
     } catch (e) {
@@ -24,7 +25,12 @@ function ProjectStatus({ projectid, currentProject, setCurrentProject }) {
   };
 
   const formatStatus = (projectStatus) => {
-    const result = projectStatus.map((p) => [p.name, p.email, p["_id"], p.status]);
+    const result = projectStatus.map((p) => [
+      p.name,
+      p.email,
+      p["_id"],
+      p.status,
+    ]);
     result.unshift(["Name", "Email", "Certificate ID", "Status"]);
     return result;
   };
@@ -74,7 +80,11 @@ function ProjectStatus({ projectid, currentProject, setCurrentProject }) {
     }
 
     try {
-      await axios.post(`${BACKEND_URL}/api/v1/send/${projectid}`);
+      await axios.post(
+        `${BACKEND_URL}/api/v1/send/${projectid}`,
+        {},
+        { headers: { Authorization: `Bearer ${await user.getIdToken()}` } },
+      );
       setStatus("success", "Emails queued for sending!", 3000);
       updateStatus();
     } catch (e) {
